@@ -2,7 +2,10 @@ import React from 'react'
 
 function Authentication() {
   return (
-    <div>This is the authentication page</div>
+      <form>
+          <input type="email" name="email" placeholder='Email address..' />
+          <input type="password" name="pwd" id="pwd" />
+    </form>
   )
 }
 

@@ -1,0 +1,205 @@
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.auth {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    &__container {
+        background-color: $bg-color-1;
+        background: url("../../assets/images/bg.png") no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        min-width: 25%;
+        margin-top: 10%;
+        border-radius: 0.3rem;
+        box-shadow: 1px 1px 10px 4px rgba(181, 179, 179, 0.75);
+        -webkit-box-shadow: 1px 1px 10px 4px rgba(181, 179, 179, 0.75);
+        -moz-box-shadow: 1px 1px 10px 4px rgba(181, 179, 179, 0.75);
+    }
+    &__logo{
+        font-family: "CaviarDreams", sans-serif;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    &__title-div {
+        position: relative;
+        margin-inline: 2rem;
+        height: 23rem;
+        width: 10rem;
+    }
+
+    &__welcome {
+        position: absolute;
+        bottom: 50%;
+
+        &-header {
+            font-size: 1.7rem;
+            font-family: "CaviarDreams";
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color:$bg-gray-1;
+        }
+
+        &-message {
+            font-family: "LouisGeorgeCafe", sans-serif;
+            font-weight: 400;
+            color:$bg-gray-1;
+        }
+    }
+
+    &__form-title {
+        font-family: "CaviarDreams", sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        color:$bg-gray-1;
+    }
+
+    &__form-div {
+        background-color: #fff;
+    }
+
+    &__form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem;
+        padding: 1rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        width: 100%;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 0.2rem;
+        outline: none;
+    }
+
+    &__input-div {
+        width: 15rem;
+        margin-block: 1rem;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-bottom: 1px solid $bg-color-1;
+    }
+
+    &__btn-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    &__btn {
+        color: #fff;
+        background-color: $bg-color-1;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.2rem;
+        border: 1px solid $bg-color-1;
+        width: 50%;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 0.7rem;
+
+        &--alternate {
+            color: $bg-color-1;
+            background-color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.2rem;
+            border: 1px solid $bg-color-1;
+            width: 50%;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 0.7rem;
+        }
+    }
+
+    &__bottom {
+        position: absolute;
+        bottom: -5rem;
+        width: 110vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__img-div {
+        height: 25rem;
+        width: 25rem;
+    }
+
+    &__img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &__visible {
+        color: $bg-color-1;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    &__btn-cntr {
+        display: flex;
+        justify-content: end;
+        padding-inline-end: 1.5rem;
+        margin-block: 0.5rem;
+    }
+
+    &__google {
+        width: 15rem;
+        padding: 0.5rem 1.8rem;
+        background-color: #fff;
+        border: 1px solid $bg-color-1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+    &__github {
+        width: 15rem;
+        padding: 0.5rem 1.8rem;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+    &__pwd {
+        text-align: center;
+        margin-block: 1rem;
+        font-family: "LouisGeorgeCafe";
+        font-weight: 700;
+    }
+
+    &__footer {
+        font-size: 0.5rem;
+        color: $bg-color-1;
+        text-align: center;
+        margin-block: 1rem;
+        margin-top: 2rem;
+        font-family: "LouisGeorgeCafe";
+        font-weight: 700;
+    }
+}

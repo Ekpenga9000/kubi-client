@@ -44,7 +44,7 @@
             @include menu-list(#1E90FF, rgba($color: #1E90FF, $alpha: 0.2), none);
         }
         &--team{
-            @include menu-list(#004830, rgba($color: #ACE1af, $alpha: 0.2), none);
+            @include menu-list(#158463, rgba($color: #ACE1af, $alpha: 0.2), none);
         }
         &--create{
             @include menu-list(#fff, $bg-color-2, $bg-color-1);

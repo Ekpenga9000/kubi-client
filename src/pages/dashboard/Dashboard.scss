@@ -1,0 +1,16 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.dashboard{
+    &__container{
+        display: flex;
+        border:1px solid $bg-gray-1;
+        height: 90vh;
+    }
+    &__sidebar{
+        height:100%;
+        border-right: 1px solid $bg-gray-1;
+        width: 20%;
+    }
+}

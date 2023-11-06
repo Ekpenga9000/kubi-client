@@ -1,0 +1,19 @@
+@use "../../style/partials/variables" as *;
+
+.success{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    &__cntr{
+        background-color: #fff;
+        padding: 3rem 5rem;
+        border-radius: 0.625rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__text{
+        font-family: "CaviarDreams";
+    }
+}

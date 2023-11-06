@@ -1,0 +1,27 @@
+[
+    {
+      "name": "Project Nebula Spark",
+      "description": "Revolutionizing cloud-based services",
+      "startDate": "2023-10-27",
+      "endDate": "2024-04-27",
+      "status": "Active",
+      "id":1
+    },
+    {
+      "name": "Project Quantum Ripple",
+      "description": "Unleashing the power of quantum computing",
+      "startDate": "2023-09-15",
+      "endDate": "2024-03-15",
+      "status": "Deferred",
+      "id":2
+    },
+    {
+      "name": "Project Enchanted Cyberspace",
+      "description": "Crafting an immersive virtual experience",
+      "startDate": "2023-11-05",
+      "endDate": "2024-05-05",
+      "status": "Closed",
+      "id":3
+    }
+  ]
+  

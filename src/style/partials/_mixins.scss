@@ -2,7 +2,10 @@
 
 @mixin menu-list($font-color, $hover-color, $bg-color){
     display: flex;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    font-weight: 700;
     gap: 0.5rem;
+    font-size: 0.9rem;
     padding: 0.5rem 0.7rem;
     margin-inline:0.5rem;
     color: $font-color;
@@ -12,5 +15,16 @@
     background-color: $bg-color;
     &:hover{
         background-color: $hover-color;
+    }
+}
+
+@mixin date-mixin($color){
+    padding: 0.5rem 1rem;
+    border: 0.0625rem solid $color;  
+    border-radius: 0.3125rem;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    &:focus{
+        border:1px solid $bg-color-1;
+        outline:1px solid $bg-color-1;
     }
 }

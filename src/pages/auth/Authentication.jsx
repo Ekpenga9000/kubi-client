@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pic1 from "../../assets/images/organisationpic.png";
 import pic2 from "../../assets/images/planning.png";
 import "./Authentication.scss";
@@ -7,10 +7,23 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { VscGithub } from 'react-icons/vsc';
 
-function Authentication() {
+function Authentication({ handleNav }) {
+  
+  const navigate = useNavigate(); 
+
+  handleNav(true);
+
   const [isVisible, setIsVisible] = useState(false);
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const pwd = e.target.pwd.value;
+
+    if (!email.trim() || !pwd.trim()) return;
+    navigate("/dashboard");
+    handleNav(false);
+    e.target.reset();
   }
 
   const handleInVisible = () => {

@@ -3,14 +3,26 @@
 @use "../../style/partials/typography" as *;
 
 .dashboard{
+    position: relative;
+    overflow: hidden;
     &__container{
         display: flex;
         border:1px solid $bg-gray-1;
         height: 90vh;
+        overflow-y:scroll;
     }
     &__sidebar{
         height:100%;
         border-right: 1px solid $bg-gray-1;
-        width: 20%;
+        min-width: 17%;
+        max-width: 19%;
+    }
+    &__modal{
+        transition: 0.4s ease;
+        position: absolute;
+        height: 100%;
+        width: 100vw;
+        top: 0%;
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }

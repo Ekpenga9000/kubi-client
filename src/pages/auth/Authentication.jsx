@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import pic1 from "../../assets/images/organisationpic.png";
 import pic2 from "../../assets/images/planning.png";
@@ -8,10 +8,11 @@ import { FcGoogle } from 'react-icons/fc';
 import { VscGithub } from 'react-icons/vsc';
 
 function Authentication({ handleNav }) {
+  useEffect(()=>{
+    handleNav(true);
+  }, [handleNav])
   
   const navigate = useNavigate(); 
-
-  handleNav(true);
 
   const [isVisible, setIsVisible] = useState(false);
   const handleSubmit = (e) => {
@@ -21,9 +22,11 @@ function Authentication({ handleNav }) {
     const pwd = e.target.pwd.value;
 
     if (!email.trim() || !pwd.trim()) return;
+
+    sessionStorage.setItem("session", "session");
     navigate("/dashboard");
-    handleNav(false);
     e.target.reset();
+    handleNav(false);
   }
 
   const handleInVisible = () => {

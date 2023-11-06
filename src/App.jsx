@@ -8,15 +8,16 @@ import NavBar from './components/nav/NavBar'
 
 function App() {
   const [isActive, setIsActive] = useState(false); 
-  const [isLoginPage, setIsLoginPage] = useState(true); 
+  const [isLoginPage, setIsLoginPage] = useState(false); 
 
   const handleNav = (msg) => {
-    setIsLoginPage(msg);
+      setIsLoginPage(msg); 
   }
 
    const handleModal = (msg) => {
     setIsActive(msg);
 }
+
   return (
     <BrowserRouter>
      {!isLoginPage && <NavBar handleModal={handleModal} /> }

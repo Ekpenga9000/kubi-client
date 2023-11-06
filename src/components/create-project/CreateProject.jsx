@@ -71,12 +71,8 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
     };
       handleCreateProject(proObj);
     handleModal(false);
-    handleSuccess(true);
+    handleSuccess();
     e.target.reset();
-
-    setTimeout(() => {
-      handleSuccess(false);
-    }, 1500);
   };
 
   return (

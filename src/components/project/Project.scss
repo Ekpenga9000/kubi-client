@@ -19,16 +19,30 @@
         display: flex;
         align-items: center;
         margin-top: 1rem;
-        gap:1rem;
+        gap:0.5rem;
     }
     &__link{
         text-decoration: none;
         align-items: center;
-        @include menu-list($bg-color-1,rgba($color: $bg-color-2, $alpha: 0.2),none);
+        @include menu-list(#fff,$bg-color-2,$bg-color-1);
     }
     &__delete{
         align-items: center;
-        @include menu-list(#fff, rgba($color: $text-danger, $alpha: 0.9),$text-danger);
-        border: 0.0625rem solid $text-danger;
+        @include menu-list($text-danger, rgba($color: $text-danger, $alpha: 0.3),rgba($color: $text-danger, $alpha: 0.1));
+        border:0.0625rem solid rgba($color: $text-danger, $alpha: 0.1);
+    }
+    &__status{
+       &--active{
+        @include pill($text-success, rgba($bg-success, 0.2));
+        margin-block: 1rem;
+       }
+       &--deferred{
+        @include pill($text-warning, rgba($bg-warning, 0.2));
+        margin-block: 1rem;
+       }
+       &--closed{
+        @include pill($bg-gray-1, rgba($bg-gray-1, 0.2));
+        margin-block: 1rem;
+       }
     }
 }

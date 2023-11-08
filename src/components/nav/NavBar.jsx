@@ -3,11 +3,19 @@ import { BiSearch } from 'react-icons/bi';
 import { AiOutlineTeam, AiOutlineSetting } from 'react-icons/ai';
 import { BiCabinet } from 'react-icons/bi';
 import { BsFolderPlus } from 'react-icons/bs';
+import { useNavigate } from "react-router-dom";
 import "./NavBar.scss";
 
 const NavBar = ({ handleModal }) => {
 
+    const navigate = useNavigate();
+
+    const handleRedirect = () =>{
+        return navigate("/projects");
+    }
+
     const handleClick = () => {
+        navigate("/projects");
         handleModal(true);
     }
     return (
@@ -21,7 +29,7 @@ const NavBar = ({ handleModal }) => {
                     <input type="search" className="nav__search" />
                 </div>
                 <ul className="nav__menu">
-                    <li className="nav__list--project"><BiCabinet/> Projects</li>
+                    <li className="nav__list--project" onClick={handleRedirect}><BiCabinet/> Projects</li>
                     <li className="nav__list--team"><AiOutlineTeam/> Teams</li>
                     <li className="nav__list--create" onClick={handleClick}><BsFolderPlus/> New Project</li>
                 </ul>

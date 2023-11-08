@@ -1,0 +1,100 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.dashboard{
+    position: relative;
+    overflow: hidden;
+    &__container{
+        display: flex;
+        border:1px solid $bg-gray-1;
+        height: 90vh;
+        overflow-y:scroll;
+    }
+    &__sidebar{
+        height:100%;
+        padding:1rem;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        border-right: 1px solid $bg-gray-1;
+        min-width: 15%;
+        max-width: 17%;
+        background-color: $bg-gray-3;
+    }
+    &__menu-div{
+        padding-inline: 1rem;
+    }
+    &__second-div{
+        padding-inline: 1rem;
+        
+    }
+    &__item{
+        @include menu-list($text-emphasis, rgba($bg-gray-1, 0.2), none);
+        list-style: none;
+        &--secondary{
+            @include menu-list($text-secondary, none,rgba($text-secondary, 0.2));
+            list-style: none; 
+        }
+    }
+    &__info{
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        
+    }
+    &__title{
+        display: flex;
+        align-items: top;
+        color:$bg-gray-1;
+        gap: 0.5rem;
+    }
+    &__modal{
+        transition: 0.4s ease;
+        position: absolute;
+        height: 100%;
+        width: 100vw;
+        top: 0%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    &__sort-cntr{
+        border-bottom: 1px solid $bg-gray-1;
+        background-color: rgba($bg-gray-2, 0.2);
+        padding: 1rem;
+        margin-bottom:1rem;
+        width: 85vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__projects{
+        height: 78vh;
+        overflow-y: scroll;
+    }
+    &__search-cntr{
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+    &__name{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 700;
+    }
+    &__sort{
+        @include menu-list($text-emphasis, none,rgba($bg-gray-2,0.3));
+    }
+    &__search-div{
+        display: flex;
+        align-items: center;
+        border: 1px solid $bg-gray-1;
+        padding-inline:1rem;
+        gap: 0.3rem;
+        border-radius: 5px;
+    }
+    &__search{
+        font-family: "LouisGeorgeCafe";
+        padding-block: 0.5rem;
+        outline: none;
+        border: none;
+    }
+}

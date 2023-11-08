@@ -24,7 +24,7 @@ function Authentication({ handleNav }) {
     if (!email.trim() || !pwd.trim()) return;
 
     sessionStorage.setItem("session", "session");
-    navigate("/dashboard");
+    navigate("/projects");
     e.target.reset();
     handleNav(false);
   }

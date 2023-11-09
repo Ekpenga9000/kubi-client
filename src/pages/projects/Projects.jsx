@@ -25,7 +25,6 @@ const Projects = ({ isActive, handleModal }) => {
         setTimeout(() => {
             setIsSuccessful(false);
         }, 1000);
-
     }
 
     const handleAllProjects = () => {
@@ -72,11 +71,11 @@ const Projects = ({ isActive, handleModal }) => {
             const result = newArr.filter((project) => project.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()));
             setSortedProjects(result);
         }
+    }
 
-        // if(e.target.value.trim() === "" && projectStatus !== ""){
-        //     const newArr = data.filter((project)=> project.status === projectStatus);  
-        //     setSortedProjects(newArr);
-        // }
+    const handleRecentSort = () =>{
+        const newArr = sortedprojects.sort((a,b)=> new Date(a.startDate) - new Date(b.startDate));
+        setSortedProjects(newArr);
     }
 
     return (
@@ -101,7 +100,14 @@ const Projects = ({ isActive, handleModal }) => {
                     <div className="dashboard__sort-cntr">
                         <h3 className="dashboard__name">{listName}</h3>
                         <div className="dashboard__search-cntr">
-                            <h3 className="dashboard__sort">Sort <FaSort /></h3>
+                            <select name="sort" id="sort" className="dashboard__sort" >
+                                <option value="none">Sort <FaSort /> </option>
+                                <option value="none" onSelect={handleRecentSort}>Most Recent</option>
+                                <option value="none">Least Recent</option>
+                                <option value="none"> A-Z </option>
+                                <option value="none"> Z-A </option>
+                            </select>
+                            {/* <h3 >Sort <FaSort /></h3> */}
                             <div className="dashboard__search-div">
                                 <BiSearch />
                                 <input type="search" name="search" id="search" onChange={handleSearch} placeholder="Search Project name.." className="dashboard__search" />
@@ -109,7 +115,8 @@ const Projects = ({ isActive, handleModal }) => {
                         </div>
                     </div>
                     <div className="dashboard__projects">
-                        <ProjectList projectList={sortedprojects} />
+                        {sortedprojects.length > 0 ? ( <ProjectList projectList={sortedprojects} />) : (<>Project not found</>)}
+                       
                     </div>
 
                 </div>

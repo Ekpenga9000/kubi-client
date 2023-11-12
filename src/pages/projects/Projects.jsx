@@ -5,7 +5,6 @@ import "./Projects.scss";
 import { useState } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
-import { FaSort } from "react-icons/fa";
 import data from "../../assets/data/data.json";
 import ProjectList from "../../components/project_list/ProjectList";
 
@@ -74,7 +73,7 @@ const Projects = ({ isActive, handleModal }) => {
     }
 
     const handleRecentSort = () =>{
-        const newArr = sortedprojects.sort((a,b)=> new Date(a.startDate) - new Date(b.startDate));
+        const newArr = sortedprojects.sort((a,b)=> (new Date(a.startDate) - new Date(b.startDate)));
         setSortedProjects(newArr);
     }
 
@@ -101,8 +100,8 @@ const Projects = ({ isActive, handleModal }) => {
                         <h3 className="dashboard__name">{listName}</h3>
                         <div className="dashboard__search-cntr">
                             <select name="sort" id="sort" className="dashboard__sort" >
-                                <option value="none">Sort <FaSort /> </option>
-                                <option value="none" onSelect={handleRecentSort}>Most Recent</option>
+                                <option value="none">Sort </option>
+                                <option value="none" onClick={handleRecentSort}>Most Recent</option>
                                 <option value="none">Least Recent</option>
                                 <option value="none"> A-Z </option>
                                 <option value="none"> Z-A </option>

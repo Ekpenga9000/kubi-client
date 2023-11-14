@@ -1,4 +1,4 @@
-import sample from "../../assets/images/sample.jpg";
+import sample from "../../assets/images/sample.png";
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineTeam, AiOutlineSetting } from 'react-icons/ai';
 import { BiCabinet } from 'react-icons/bi';

@@ -1,5 +1,6 @@
 @use "../../style/partials/variables" as *;
 @use "../../style/partials/typography" as *;
+@use "../../style/partials/mixins" as *;
 
 .auth {
     position: relative;
@@ -201,5 +202,13 @@
         margin-top: 2rem;
         font-family: "LouisGeorgeCafe";
         font-weight: 700;
+    }
+    &__err{
+        color: $text-danger;
+        font-family: "CaviarDreams", sans-serif;
+        font-weight: 700;
+        font-size: 0.75rem;
+        margin-top: -0.5rem;
+        margin-bottom: 1rem;
     }
 }

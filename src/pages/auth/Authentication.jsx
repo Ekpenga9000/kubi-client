@@ -7,7 +7,9 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { VscGithub } from 'react-icons/vsc';
 
-function Authentication({ handleNav }) {
+function Authentication({ handleNav }) { 
+  const [isEmail, setIsEmail] = useState(true);
+  const [isPassword, setIsPassword] = useState(true);
   useEffect(()=>{
     handleNav(true);
   }, [handleNav])
@@ -21,14 +23,24 @@ function Authentication({ handleNav }) {
     const email = e.target.email.value;
     const pwd = e.target.pwd.value;
 
-    if (!email.trim() || !pwd.trim()) return;
-
+    if (!email.trim()) {
+      setIsEmail(false);
+      return;
+    }
+    if(!pwd.trim()){
+      setIsPassword(false);
+      return;
+    }
     sessionStorage.setItem("session", "session");
     navigate("/projects");
     e.target.reset();
     handleNav(false);
   }
 
+  const handleSignup = (e) =>{
+    e.preventDefault();
+    alert("Sign Up is coming soon!!");
+  }
   const handleInVisible = () => {
     setIsVisible(false);
   }
@@ -54,14 +66,16 @@ function Authentication({ handleNav }) {
               <div className="auth__input-div">
                 <input type="email" name="email" placeholder='Email address..' className='auth__input' />
               </div>
+             {!isEmail && <p className="auth__err">*** Email is required ***</p>}
               <div className="auth__input-div">
                 <input type={isVisible ? "text" : "password"} name="pwd" id="pwd" className='auth__input' placeholder="Password.." />
                 {!isVisible && <AiFillEyeInvisible className="auth__visible" onClick={handleVisible} />}
                 {isVisible && <AiFillEye className="auth__visible" onClick={handleInVisible} />}
               </div>
+             {!isPassword && <p className="auth__err">*** Password is required ***</p> }
               <div className="auth__btn-div">
                 <button className='auth__btn'>Login</button>
-                <button className='auth__btn--alternate'>Sign up</button>
+                <button className='auth__btn--alternate'onClick={handleSignup}>Sign up</button>
               </div>
             </div>
           </form>

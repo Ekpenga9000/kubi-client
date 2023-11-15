@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import pic1 from "../../assets/images/organisationpic.png";
 import pic2 from "../../assets/images/planning.png";
 import "./Authentication.scss";
@@ -8,7 +9,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { VscGithub } from 'react-icons/vsc';
 
 function Authentication({ handleNav }) { 
-  const [isEmail, setIsEmail] = useState(true);
+  const [isEmail, setIsEmail] = useState(true); 
   const [isPassword, setIsPassword] = useState(true);
   useEffect(()=>{
     handleNav(true);
@@ -17,21 +18,26 @@ function Authentication({ handleNav }) {
   const navigate = useNavigate(); 
 
   const [isVisible, setIsVisible] = useState(false);
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
-    const pwd = e.target.pwd.value;
+    const password = e.target.pwd.value;
 
     if (!email.trim()) {
       setIsEmail(false);
       return;
     }
-    if(!pwd.trim()){
+    if(!password.trim()){
       setIsPassword(false);
       return;
     }
-    sessionStorage.setItem("session", "session");
+
+    const {data} = await axios.post("http://localhost:8080/login",{email,password});
+    const {id, token} = data; 
+
+    sessionStorage.setItem("id",id);
+    sessionStorage.setItem("token",token);
     navigate("/projects");
     e.target.reset();
     handleNav(false);

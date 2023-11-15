@@ -5,11 +5,13 @@ import { BiCabinet } from 'react-icons/bi';
 import { BsFolderPlus } from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
 import "./NavBar.scss";
+import { useState } from "react";
 
 const NavBar = ({ handleModal }) => {
-
+    const [isDropdown, setIsDropdown] = useState(false);
     const navigate = useNavigate();
-
+    const token = sessionStorage.getItem("token");
+    const id = sessionStorage.getItem("id");
     const handleRedirect = () =>{
         return navigate("/projects");
     }
@@ -17,6 +19,10 @@ const NavBar = ({ handleModal }) => {
     const handleClick = () => {
         navigate("/projects");
         handleModal(true);
+    }
+
+    const handleDropdown = () =>{
+        setIsDropdown(!isDropdown);
     }
     return (
         <nav className="nav">
@@ -38,10 +44,25 @@ const NavBar = ({ handleModal }) => {
                 <div className="nav__list--setting">
                   <AiOutlineSetting/>  Settings
                 </div>
-                <div className="nav__img-div">
-                    <img src={sample} alt="Woman in a red blouse smiling at the camera." className="nav__img" />
+                <div className="nav__img-div" onClick={handleDropdown}>
+                    <img src={sample} alt="User profile pic" className="nav__img" />
                 </div>
             </div>
+          {isDropdown &&  <div className="nav__account">
+                <div className="nav__dropdown">
+                    <div className="nav__img-div">
+                        <img src={sample} alt="User profile pic" className="nav__img"/>
+                    </div>
+                    <ul className="nav__dropdown-menu">
+                        <li className="nav__dropdown-item">John Doe</li>
+                        <li className="nav__dropdown-item">john.doe@email.com</li>
+                    </ul>
+                </div>
+                <ul className="nav__section">
+                    <li className="nav__section-item">Personal Settings</li>
+                    <li className="nav__section-item">Log out</li>
+                </ul>
+            </div>}
         </nav>
     )
 }

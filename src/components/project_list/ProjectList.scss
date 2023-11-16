@@ -3,6 +3,7 @@
 @use "../../style/partials/typography" as *;
 
 .projectList{
+    font-size: 0.9rem;
     &__title-div{
         display: flex;
         justify-content: space-between;
@@ -13,5 +14,15 @@
     &__title{
         color: $bg-gray-1;
         font-family: "LouisGeorgeCafe", sans-serif;
+    }
+    &__cell{
+        width: 16.7%;
+        // text-align: center;
+        &:first-child{
+           width: 20%;
+        }
+        &:nth-child(2){
+            width: 12%;
+        }
     }
 }

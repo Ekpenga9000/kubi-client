@@ -1,17 +1,42 @@
 import sample from "../../assets/images/sample.png";
+import axios from "axios";
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineTeam, AiOutlineSetting } from 'react-icons/ai';
 import { BiCabinet } from 'react-icons/bi';
 import { BsFolderPlus } from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
 import "./NavBar.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NavBar = ({ handleModal }) => {
     const [isDropdown, setIsDropdown] = useState(false);
+    const [userInfo, setUserInfo] = useState({}); 
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const id = sessionStorage.getItem("id");
+    const url = "http://localhost:8080"
+    useEffect(()=>{
+        const fetchUser = async () =>{
+            if(!id || !token){
+                console.log("Please login");
+            }
+
+            try{
+                const {data} = await axios.get(`http://localhost:8080/users/${id}`, {
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }); 
+
+                setUserInfo(data.user);
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchUser();
+    },[id, token])
+
     const handleRedirect = () =>{
         return navigate("/projects");
     }
@@ -24,6 +49,7 @@ const NavBar = ({ handleModal }) => {
     const handleDropdown = () =>{
         setIsDropdown(!isDropdown);
     }
+
     return (
         <nav className="nav">
             <div className="nav__cntr-1">
@@ -45,17 +71,17 @@ const NavBar = ({ handleModal }) => {
                   <AiOutlineSetting/>  Settings
                 </div>
                 <div className="nav__img-div" onClick={handleDropdown}>
-                    <img src={sample} alt="User profile pic" className="nav__img" />
+                    <img src={`${url}/${userInfo.profile_pic}` || sample} alt={`${userInfo.firstname} ${userInfo.lastname}` || "Sample user profile pic"} className="nav__img" />
                 </div>
             </div>
           {isDropdown &&  <div className="nav__account">
                 <div className="nav__dropdown">
                     <div className="nav__img-div">
-                        <img src={sample} alt="User profile pic" className="nav__img"/>
+                        <img src={`${url}/${userInfo.profile_pic}` || sample} alt={`${userInfo.firstname} ${userInfo.lastname}` || "Sample user profile pic"} className="nav__img"/>
                     </div>
                     <ul className="nav__dropdown-menu">
-                        <li className="nav__dropdown-item">John Doe</li>
-                        <li className="nav__dropdown-item">john.doe@email.com</li>
+                        <li className="nav__dropdown-item">{`${userInfo.firstname} ${userInfo.lastname}` || "John Doe"}</li>
+                        <li className="nav__dropdown-item">{`${userInfo.email}` || "john.doe@email.com"}</li>
                     </ul>
                 </div>
                 <ul className="nav__section">

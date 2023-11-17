@@ -91,7 +91,6 @@ const Projects = ({ isActive, handleModal }) => {
                         </ul>
                     </div>
                     <div className="dashboard__second-div">
-
                         <h3 className="dashboard__title"><BsInfoCircle className="dashboard__info" />Click on a project to create a Sprint.</h3>
                     </div>
                 </div>
@@ -106,7 +105,6 @@ const Projects = ({ isActive, handleModal }) => {
                                 <option value="none"> A-Z </option>
                                 <option value="none"> Z-A </option>
                             </select>
-                            {/* <h3 >Sort <FaSort /></h3> */}
                             <div className="dashboard__search-div">
                                 <BiSearch />
                                 <input type="search" name="search" id="search" onChange={handleSearch} placeholder="Search Project name.." className="dashboard__search" />

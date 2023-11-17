@@ -4,12 +4,15 @@
 
 .projectList{
     font-size: 0.9rem;
+    position:relative;
     &__title-div{
         display: flex;
         justify-content: space-between;
         padding-inline: 1rem;
         background-color: $bg-gray-3;
         padding-block: 1rem;
+        position: sticky;
+        top: 0;
     }
     &__title{
         color: $bg-gray-1;
@@ -17,12 +20,11 @@
     }
     &__cell{
         width: 16.7%;
-        // text-align: center;
         &:first-child{
-           width: 20%;
+           width: 22%;
         }
         &:nth-child(2){
-            width: 12%;
+            width: 10%;
         }
     }
 }

@@ -1,5 +1,7 @@
 import "./UserDetails.scss";
 import { useParams } from "react-router-dom";
+import { IoKeyOutline } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
 import sample from "../../assets/images/sample.png"; 
 
 const UserDetails = () =>{
@@ -17,10 +19,8 @@ const UserDetails = () =>{
                     </ul>
                 </div>
                 <ul className="userDetails__menu">
-                    <li className="userDetails__item">Point 1</li>
-                    <li className="userDetails__item">Point 2</li>
-                    <li className="userDetails__item">Point 3</li>
-                    <li className="userDetails__item">Point 4</li>
+                    <li className="userDetails__item"><FaRegUserCircle/> Profile</li>
+                    <li className="userDetails__item"><IoKeyOutline/> Change Password</li>
                 </ul>
            </div>
            <div className="userDetails__dashboard">

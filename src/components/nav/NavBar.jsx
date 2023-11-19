@@ -89,8 +89,8 @@ const NavBar = ({ handleModal }) => {
                         <img src={`${url}/${userInfo.profile_pic}` || sample} alt={`${userInfo.firstname} ${userInfo.lastname}` || "Sample user profile pic"} className="nav__img"/>
                     </div>
                     <ul className="nav__dropdown-menu">
-                        <li className="nav__dropdown-item">{`${userInfo.firstname} ${userInfo.lastname}` || "John Doe"}</li>
-                        <li className="nav__dropdown-item">{`${userInfo.email}` || "john.doe@email.com"}</li>
+                        <li className="nav__dropdown-item" onClick={handlePersonalSettingsNav}>{`${userInfo.firstname} ${userInfo.lastname}` || "John Doe"}</li>
+                        <li className="nav__dropdown-item" onClick={handlePersonalSettingsNav}>{`${userInfo.email}` || "john.doe@email.com"}</li>
                     </ul>
                 </div>
                 <ul className="nav__section">

@@ -1,0 +1,55 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/typography" as *;
+@use "../../style/partials/variables" as *;
+
+.userDetails{
+    display: flex;
+    &__sidebar{
+        font-family:"LouisGeorgeCafe", sans-serif;
+        font-weight: 700;
+        height: 100vh;
+        background-color: $bg-gray-3;
+        padding: 1rem;
+    }
+    &__person{
+        margin-bottom: 1rem;
+    }
+    &__item{
+        list-style-type:none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: ease;
+        &:hover{
+          background-color: $bg-gray-2;
+          border-radius: 5px;
+        }
+    }
+    &__persona{
+        display: flex;
+        gap: 0.5rem;
+        border-bottom:1px solid $bg-gray-1;
+        padding-block-end: 1rem;
+        margin-block-end: 1rem;
+    }
+    &__img-div{
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+    }
+    &__img{
+        height: inherit;
+        width: inherit;
+        border-radius: inherit;
+        object-fit: cover;
+    }
+    &__user{
+        list-style-type:none;
+        font-size: 0.9rem;
+    }
+    &__email{
+        list-style-type:none;
+        font-size: 0.8rem;
+        color: $bg-gray-1;
+    }
+     
+}

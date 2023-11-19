@@ -6,6 +6,7 @@ import Authentication from './pages/auth/Authentication'
 import Projects from './pages/projects/Projects'
 import NavBar from './components/nav/NavBar'
 import ProjectDetails from './pages/project-details/ProjectDetails';
+import UserDetails from './pages/user-details/UserDetails';
 
 function App() {
   const [isActive, setIsActive] = useState(false); 
@@ -26,6 +27,7 @@ function App() {
         <Route path="login" element={<Authentication handleNav={ handleNav } /> } />
         <Route path="projects" element={<Projects isActive={isActive} setIsActive={setIsActive} handleModal={handleModal} handleNav={ handleNav } />} />
         <Route path="/projects/:projectId" element={<ProjectDetails/>} />
+        <Route path="/users/:id" element={<UserDetails/>} />
       </Routes>
     </BrowserRouter>
   )

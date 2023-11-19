@@ -50,10 +50,12 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
     const startDate = e.target.startdate.value;
     const endDate = e.target.enddate.value;
     const status = e.target.status.value;
+    const type = e.target.type.value;
 
     if (
       !name.trim() ||
       !description.trim() ||
+      !type.trim() ||
       !startDate ||
       !endDate ||
       !status
@@ -64,6 +66,7 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
 
     const proObj = {
       name,
+      type, 
       description,
       startDate,
       endDate,
@@ -91,6 +94,19 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
             id="name"
             className="createProj__input"
             placeholder="Name of your project..."
+          />
+        </div>
+
+        <div className="createProj__cntr">
+          <label htmlFor="name" className="createProj__label">
+            Type of Project
+          </label>
+          <input
+            type="text"
+            name="type"
+            id="type"
+            className="createProj__input"
+            placeholder="Ex. Software application development project..."
           />
         </div>
 

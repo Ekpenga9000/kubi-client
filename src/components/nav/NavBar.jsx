@@ -18,7 +18,7 @@ const NavBar = ({ handleModal }) => {
     useEffect(()=>{
         const fetchUser = async () =>{
             if(!id || !token){
-                console.log("Please login");
+                return navigate("/login");
             }
 
             try{
@@ -41,6 +41,10 @@ const NavBar = ({ handleModal }) => {
         return navigate("/projects");
     }
 
+    const handlePersonalSettingsNav = () =>{
+        return navigate(`/users/${id}`);
+    }
+
     const handleClick = () => {
         navigate("/projects");
         handleModal(true);
@@ -48,6 +52,11 @@ const NavBar = ({ handleModal }) => {
 
     const handleDropdown = () =>{
         setIsDropdown(!isDropdown);
+    }
+
+    const handleLogout = () =>{
+        sessionStorage.clear();
+        return navigate("/login");
     }
 
     return (
@@ -85,8 +94,8 @@ const NavBar = ({ handleModal }) => {
                     </ul>
                 </div>
                 <ul className="nav__section">
-                    <li className="nav__section-item">Personal Settings</li>
-                    <li className="nav__section-item">Log out</li>
+                    <li className="nav__section-item" onClick={handlePersonalSettingsNav}>Personal Settings</li>
+                    <li className="nav__section-item" onClick={handleLogout}>Log out</li>
                 </ul>
             </div>}
         </nav>

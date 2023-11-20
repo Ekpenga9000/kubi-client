@@ -2,54 +2,73 @@
 @use "../../style/partials/typography" as *;
 @use "../../style/partials/variables" as *;
 
-.userDetails{
+.userDetails {
     display: flex;
-    &__sidebar{
-        font-family:"LouisGeorgeCafe", sans-serif;
+
+    &__sidebar {
+        font-family: "LouisGeorgeCafe", sans-serif;
         font-weight: 700;
         height: 90vh;
         background-color: $bg-gray-3;
         padding: 1rem;
     }
-    &__person{
+
+    &__person {
         margin-bottom: 1rem;
     }
-    &__item{
-        list-style-type:none;
+
+    &__item {
+        list-style-type: none;
         padding: 0.5rem 1rem;
         cursor: pointer;
         transition: ease;
-        &:hover{
-          background-color: $bg-gray-2;
-          border-radius: 5px;
+
+        &:hover {
+            background-color: $bg-gray-2;
+            border-radius: 5px;
+        }
+
+        &--selected {
+            background-color: rgba($text-secondary, 0.2);
+            list-style-type: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: ease;
+            border-radius: 5px;
+            color: $text-secondary;
         }
     }
-    &__persona{
+
+    &__persona {
         display: flex;
         gap: 0.5rem;
-        border-bottom:1px solid $bg-gray-1;
+        border-bottom: 1px solid $bg-gray-1;
         padding-block-end: 1rem;
         margin-block-end: 1rem;
     }
-    &__img-div{
+
+    &__img-div {
         height: 2rem;
         width: 2rem;
         border-radius: 50%;
     }
-    &__img{
+
+    &__img {
         height: inherit;
         width: inherit;
         border-radius: inherit;
         object-fit: cover;
     }
-    &__user{
-        list-style-type:none;
+
+    &__user {
+        list-style-type: none;
         font-size: 0.9rem;
     }
-    &__email{
-        list-style-type:none;
+
+    &__email {
+        list-style-type: none;
         font-size: 0.8rem;
         color: $bg-gray-1;
     }
-     
+
 }

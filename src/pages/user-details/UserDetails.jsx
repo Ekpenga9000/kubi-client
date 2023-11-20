@@ -3,8 +3,23 @@ import { useParams } from "react-router-dom";
 import { IoKeyOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import sample from "../../assets/images/sample.png"; 
+import { useState } from "react";
+import UserDetailsForm from "../../components/userDetails-form/UserDetailsForm";
 
 const UserDetails = () =>{
+    const [isProfile, setIsProfile] = useState(true);
+    const [isPwdChange, setPwdChange] = useState(false);
+
+    const handleProfile = () =>{
+        setIsProfile(true);
+        setPwdChange(false);
+    }
+
+    const handlePassword = () =>{
+        setIsProfile(false);
+        setPwdChange(true);
+    }
+
     const {id} = useParams();
     return(
         <section className="userDetails">
@@ -19,12 +34,12 @@ const UserDetails = () =>{
                     </ul>
                 </div>
                 <ul className="userDetails__menu">
-                    <li className="userDetails__item"><FaRegUserCircle/> Profile</li>
-                    <li className="userDetails__item"><IoKeyOutline/> Change Password</li>
+                    <li className={`userDetails__item${isProfile ? "--selected" : ""}`} onClick={handleProfile}><FaRegUserCircle/> Profile</li>
+                    <li className={`userDetails__item${isPwdChange ? "--selected" : ""}`} onClick={handlePassword}><IoKeyOutline/> Change Password</li>
                 </ul>
            </div>
            <div className="userDetails__dashboard">
-            user details {id}
+            <UserDetailsForm/>
            </div>
         </section>
     )

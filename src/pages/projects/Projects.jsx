@@ -84,10 +84,10 @@ const Projects = ({ isActive, handleModal }) => {
                 <div className="dashboard__sidebar">
                     <div className="dashboard__menu-div">
                         <ul className="dashboard__menu">
-                            <li className="dashboard__item--secondary" onClick={handleAllProjects}>All</li>
-                            <li className="dashboard__item" onClick={handleActiveProject}>Active</li>
-                            <li className="dashboard__item" onClick={handleDeferredProject}>Deferred</li>
-                            <li className="dashboard__item" onClick={handleClosedProject}>Closed</li>
+                            <li className={`dashboard__item${ listName === "All Projects" ? "--secondary" : ""}`} onClick={handleAllProjects}>All</li>
+                            <li className={`dashboard__item${ listName === "Active Projects" ? "--secondary" : ""}`}onClick={handleActiveProject}>Active</li>
+                            <li className={`dashboard__item${ listName === "Deferred Projects" ? "--secondary" : ""}`} onClick={handleDeferredProject}>Deferred</li>
+                            <li className={`dashboard__item${ listName === "Closed Projects" ? "--secondary" : ""}`} onClick={handleClosedProject}>Closed</li>
                         </ul>
                     </div>
                     <div className="dashboard__second-div">

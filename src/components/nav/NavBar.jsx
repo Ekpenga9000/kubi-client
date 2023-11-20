@@ -42,6 +42,7 @@ const NavBar = ({ handleModal }) => {
     }
 
     const handlePersonalSettingsNav = () =>{
+        setIsDropdown(false);
         return navigate(`/users/${id}`);
     }
 

@@ -16,6 +16,9 @@ function Authentication({ handleNav }) {
   }, [handleNav])
   
   const navigate = useNavigate(); 
+  const url = import.meta.env.VITE_SERVER_URL;
+
+  console.log("url", url)
 
   const [isVisible, setIsVisible] = useState(false);
   const handleSubmit = async(e) => {
@@ -33,7 +36,7 @@ function Authentication({ handleNav }) {
       return;
     }
 
-    const {data} = await axios.post("http://localhost:8080/login",{email,password});
+    const {data} = await axios.post(`${url}/login`,{email,password});
     const {id, token} = data; 
 
     sessionStorage.setItem("id",id);

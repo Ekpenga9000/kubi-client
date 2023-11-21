@@ -14,7 +14,7 @@ const NavBar = ({ handleModal }) => {
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const id = sessionStorage.getItem("id");
-    const url = "http://localhost:8080"
+    const url = import.meta.env.VITE_SERVER_URL
     useEffect(()=>{
         const fetchUser = async () =>{
             if(!id || !token){
@@ -22,7 +22,7 @@ const NavBar = ({ handleModal }) => {
             }
 
             try{
-                const {data} = await axios.get(`http://localhost:8080/users/${id}`, {
+                const {data} = await axios.get(`${url}}/users/${id}`, {
                     headers:{
                         Authorization: `Bearer ${token}`
                     }
@@ -58,6 +58,9 @@ const NavBar = ({ handleModal }) => {
     const handleLogout = () =>{
         sessionStorage.clear();
         return navigate("/login");
+    }
+    if(userInfo.profile_pic){
+        console.log("the Img", `${url}/${userInfo.profile_pic}`);
     }
 
     return (

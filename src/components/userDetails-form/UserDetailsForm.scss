@@ -5,7 +5,7 @@
 .userDetailsForm {
     font-family: "LouisGeorgeCafe", sans-serif;
     font-weight: 700;
-    border: 1px solid $bg-gray-1;
+    // border: 1px solid $bg-gray-1;
     border-radius: 5px;
     padding: 1rem 1rem;
 
@@ -80,5 +80,15 @@
         border-radius: 50%;
         background-color: rgba($color:$text-danger, $alpha: 0.2);
         color: $text-danger;
+    }
+    &__err{
+        color: $text-danger;
+        margin-block: 1rem;
+        font-weight: 400;
+    }
+    &__success{
+        color: $text-success;
+        margin-block: 1rem;
+        font-weight: 400;
     }
 }

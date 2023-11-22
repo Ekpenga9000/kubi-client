@@ -2,27 +2,26 @@ import { useNavigate } from "react-router-dom";
 import "./UserDetailsForm.scss";
 import { useEffect, useState } from "react";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { FaCircleExclamation } from "react-icons/fa6";
+import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 
 const UserDetailsForm = () => {
     const [formDetails, setFormDetails] = useState(null);
     const [isErr, setIsErr] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [emailAddy, setEmailAddy] = useState("");
     const [profilePic, setProfilePic] = useState("");
     const [editImg, setEditImg] = useState(false); 
+    const [isUpdated, setIsUpdated] = useState(false);
 
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token"); 
     const id = sessionStorage.getItem("id");
     const url = import.meta.env.VITE_SERVER_URL; 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    }
-
-    
     useEffect(()=>{
         const fetchUser = async () =>{
             if(!id || !token){
@@ -57,13 +56,19 @@ const UserDetailsForm = () => {
         setLastName(lastname);
         setProfilePic(profile_pic); 
         setEmailAddy(email);
-
+        setErrMsg("");
+        setIsErr(false);
     }
-
+    
     if(!formDetails){
         return <>Loading...</>
     }
-
+    
+    const validateEmail = (email) => {
+        const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        return regex.test(email);
+    }
+    
     const handleChange = e =>{
         if(e.target.name === "firstname"){
             setFirstName(e.target.value); 
@@ -73,9 +78,69 @@ const UserDetailsForm = () => {
             setEmailAddy(e.target.value);
         }
     }
-
+    
     const handleEditPhoto = () =>{
         setEditImg(!editImg);
+    }
+
+    const displaySuccess = () =>{
+        setIsErr(false);
+        setIsUpdated(true); 
+
+        setTimeout(()=>{
+            setIsUpdated(false); 
+            navigate(0);
+        }, 3000)
+    }
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+
+        if(!firstName.trim() || !lastName.trim() || !emailAddy.trim() || !profilePic.trim()){
+            setIsErr(true);
+            setErrMsg("Please fill all fields.")
+        }
+
+        const isEmail = validateEmail(emailAddy.trim()); 
+
+        if(!isEmail){
+            setIsErr(true);
+            setErrMsg("Invalid email address.")
+        }
+
+        try{
+            await axios.put(`${url}/users/`, {
+                firstname: firstName,
+            lastname: lastName,
+            email : emailAddy,
+            profile_pic : profilePic
+            }, {
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+
+            const {data} = await axios.get(`${url}/users/${id}`, {
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                const {user} = data;
+                const {firstname, lastname, profile_pic, email} = user; 
+                setFormDetails(user);
+                setFirstName(firstname);
+                setLastName(lastname);
+                setProfilePic(profile_pic);
+                setEmailAddy(email);
+
+                displaySuccess();
+        }catch(err){
+            console.log(err);
+            setIsErr(true); 
+            setErrMsg("Unable to carry out your request.")
+        }
+
     }
 
     return (
@@ -107,7 +172,7 @@ const UserDetailsForm = () => {
 
             <div>
                 <label htmlFor="email" className="userDetailsForm__label">Email address</label>
-                <input type="email" name="email" className="userDetailsForm__input--email" value={emailAddy} 
+                <input type="text" name="email" className="userDetailsForm__input--email" value={emailAddy} 
                 onChange={handleChange}
                 />
             </div>
@@ -117,7 +182,9 @@ const UserDetailsForm = () => {
                 <button className="userDetailsForm__btn--save">Save Changes</button>
             </div>
 
-            {isErr && <p>Oops, something went wrong with your request. Please refresh page.</p>}
+            {isErr && <p className="userDetailsForm__err"><FaCircleExclamation />      {errMsg}</p>}
+
+            {isUpdated && <p className="userDetailsForm__success">Details updated successfully <FaCheckCircle /></p>}
         </form>
     )
 }

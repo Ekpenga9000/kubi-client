@@ -71,9 +71,10 @@
         color: $bg-gray-1;
     }
     &__dashboard{
+        padding: 1rem;
         display: flex;
         justify-content: center;
-        align-items: center;
+        // align-items: center;
         width: 100%;
     }
 }

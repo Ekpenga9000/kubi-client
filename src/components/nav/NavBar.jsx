@@ -10,11 +10,12 @@ import { useEffect, useState } from "react";
 
 const NavBar = ({ handleModal }) => {
     const [isDropdown, setIsDropdown] = useState(false);
-    const [userInfo, setUserInfo] = useState({}); 
+    const [userInfo, setUserInfo] = useState(null); 
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
     const id = sessionStorage.getItem("id");
-    const url = import.meta.env.VITE_SERVER_URL
+    const url = import.meta.env.VITE_SERVER_URL;
+
     useEffect(()=>{
         const fetchUser = async () =>{
             if(!id || !token){
@@ -22,12 +23,12 @@ const NavBar = ({ handleModal }) => {
             }
 
             try{
-                const {data} = await axios.get(`${url}}/users/${id}`, {
+                const response = await axios.get(`${url}/users/${id}`, {
                     headers:{
                         Authorization: `Bearer ${token}`
                     }
                 }); 
-
+                const {data} = response;
                 setUserInfo(data.user);
             }catch(err){
                 console.log(err);
@@ -35,7 +36,7 @@ const NavBar = ({ handleModal }) => {
         }
 
         fetchUser();
-    },[id, token])
+    },[url, navigate, id, token])
 
     const handleRedirect = () =>{
         return navigate("/projects");
@@ -59,8 +60,8 @@ const NavBar = ({ handleModal }) => {
         sessionStorage.clear();
         return navigate("/login");
     }
-    if(userInfo.profile_pic){
-        console.log("the Img", `${url}/${userInfo.profile_pic}`);
+    if(!userInfo){
+       return <>Loading ...</>
     }
 
     return (

@@ -70,5 +70,10 @@
         font-size: 0.8rem;
         color: $bg-gray-1;
     }
-
+    &__dashboard{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
 }

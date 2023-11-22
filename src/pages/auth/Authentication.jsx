@@ -18,7 +18,7 @@ function Authentication({ handleNav }) {
   const navigate = useNavigate(); 
   const url = import.meta.env.VITE_SERVER_URL;
 
-  console.log("url", url)
+  console.log("url", url);
 
   const [isVisible, setIsVisible] = useState(false);
   const handleSubmit = async(e) => {

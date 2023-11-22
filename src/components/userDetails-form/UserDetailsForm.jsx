@@ -1,36 +1,123 @@
+import { useNavigate } from "react-router-dom";
 import "./UserDetailsForm.scss";
+import { useEffect, useState } from "react";
+import { MdOutlineModeEdit } from "react-icons/md";
+import axios from "axios";
 
 const UserDetailsForm = () => {
+    const [formDetails, setFormDetails] = useState(null);
+    const [isErr, setIsErr] = useState(false);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [emailAddy, setEmailAddy] = useState("");
+    const [profilePic, setProfilePic] = useState("");
+    const [editImg, setEditImg] = useState(false); 
 
-    const handleSubmit = () => {
-        console.log("Hello!");
+    const navigate = useNavigate();
+    const token = sessionStorage.getItem("token"); 
+    const id = sessionStorage.getItem("id");
+    const url = import.meta.env.VITE_SERVER_URL; 
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
 
-    const handleCancel = () => {
-        //This would call the user details. 
+    
+    useEffect(()=>{
+        const fetchUser = async () =>{
+            if(!id || !token){
+                return navigate("/login");
+            }
+            try{
+                const {data} = await axios.get(`${url}/users/${id}`, {
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                const {user} = data;
+                const {firstname, lastname, profile_pic, email} = user; 
+                setFormDetails(user);
+                setFirstName(firstname);
+                setLastName(lastname);
+                setProfilePic(profile_pic);
+                setEmailAddy(email);
+            }catch{
+                setIsErr(true);
+            }
+        }
+        
+        fetchUser();
+    },[url, navigate, id, token])
+    
+    const handleFormReset = (e) => {
+        e.preventDefault();
+        const {firstname, lastname, profile_pic, email} = formDetails;
+        setFirstName(firstname);
+        setLastName(lastname);
+        setProfilePic(profile_pic); 
+        setEmailAddy(email);
+
     }
+
+    if(!formDetails){
+        return <>Loading...</>
+    }
+
+    const handleChange = e =>{
+        if(e.target.name === "firstname"){
+            setFirstName(e.target.value); 
+        }else if(e.target.name === "lastname"){
+            setLastName(e.target.value);
+        }else if(e.target.name === "email"){
+            setEmailAddy(e.target.value);
+        }
+    }
+
+    const handleEditPhoto = () =>{
+        setEditImg(!editImg);
+    }
+
     return (
         <form onSubmit={handleSubmit} className="userDetailsForm">
+           {!editImg && <p className="userDetailsForm__edit" onClick={handleEditPhoto}>Edit Profile picture <MdOutlineModeEdit /></p>}
+           { editImg && <div className="userDetailsForm__edit-div">
+                <div className="userDetailsForm__close-div">
+                <span onClick={handleEditPhoto} className="userDetailsForm__close"> X </span>
+                </div>
+                <div className="userDetailsForm__img-div">
+                <img src={`${url}/${profilePic}`} alt={`${firstName} ${lastName}`} className="userDetailsForm__img" />
+                </div>
+                <input type="file" className="userDetailsForm__file"/>
+            </div> 
+            }
             <div className="userDetailsForm__form-div">
                 <div className="userDetailsForm__div">
                     <label htmlFor="firstname" className="userDetailsForm__label">First name</label>
-                    <input type="text" name="firstname" id="firstname" className="userDetailsForm__input" />
+                    <input type="text" name="firstname" id="firstname" className="userDetailsForm__input" value={firstName}
+                    onChange={handleChange}/>
                 </div>
                 <div className="userDetailsForm__div">
                     <label htmlFor="lastname" className="userDetailsForm__label">Last name</label>
-                    <input type="text" name="lastname" id="lastname" className="userDetailsForm__input" />
+                    <input type="text" name="lastname" id="lastname" className="userDetailsForm__input" value={lastName} 
+                    onChange={handleChange}
+                    />
                 </div>
             </div>
 
             <div>
                 <label htmlFor="email" className="userDetailsForm__label">Email address</label>
-                <input type="email" name="email" className="userDetailsForm__input--email" />
+                <input type="email" name="email" className="userDetailsForm__input--email" value={emailAddy} 
+                onChange={handleChange}
+                />
             </div>
 
             <div className="userDetailsForm__btn-div">
-                <button onClick={handleCancel} className="userDetailsForm__btn--cancel">Cancel</button>
+                <button onClick={handleFormReset} className="userDetailsForm__btn--cancel">Reset</button>
                 <button className="userDetailsForm__btn--save">Save Changes</button>
             </div>
+
+            {isErr && <p>Oops, something went wrong with your request. Please refresh page.</p>}
         </form>
     )
 }

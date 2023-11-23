@@ -10,7 +10,7 @@ import data from "../../assets/data/data.json";
 const ProjectDetails = () =>{
     const {projectId} = useParams();
     const project = data.find((project)=> project.id === projectId);
- 
+    // useEffect to get the project by Id. 
     return (
         <section className="p-details">
             <div className="p-details__sidebar">

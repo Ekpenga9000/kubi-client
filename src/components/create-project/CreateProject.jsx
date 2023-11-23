@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./CreateProject.scss";
 import { GoIssueClosed } from "react-icons/go";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
+function CreateProject({ handleModal, handleSuccess }) {
   const [startDateErr, setStartDateErr] = useState(false);
   const [endDateErr, setEndDateErr] = useState(false);
   const [formErr, setFormErr] = useState(false);
+  const url = import.meta.env.VITE_SERVER_URL;
+  const token = sessionStorage.getItem("token"); 
+  const navigate = useNavigate();
+
+  if(!token){
+    return navigate("/login");
+  }
 
   const getMinStartDate = () => {
     const currentDate = new Date(Date.now());
@@ -43,12 +52,12 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
     handleModal(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
-    const startDate = e.target.startdate.value;
-    const endDate = e.target.enddate.value;
+    const start_date = e.target.startdate.value;
+    const end_date = e.target.enddate.value;
     const status = e.target.status.value;
     const type = e.target.type.value;
 
@@ -56,8 +65,8 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
       !name.trim() ||
       !description.trim() ||
       !type.trim() ||
-      !startDate ||
-      !endDate ||
+      !start_date ||
+      !end_date ||
       !status
     ) {
       setFormErr(true);
@@ -68,14 +77,24 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
       name,
       type, 
       description,
-      startDate,
-      endDate,
+      start_date,
+      end_date,
       status,
     };
-      handleCreateProject(proObj);
-    handleModal(false);
-    handleSuccess();
-    e.target.reset();
+
+    try{ 
+      await axios.post(`${url}/projects`, proObj, {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      handleModal(false);
+      handleSuccess();
+      e.target.reset();
+    }catch(err){
+      console.log(err);
+    }
   };
 
   return (
@@ -157,8 +176,8 @@ function CreateProject({ handleModal, handleSuccess, handleCreateProject }) {
               Status
             </label>
             <select name="status" id="status" className="createProj__date">
-              <option value="Active">Active</option>
-              <option value="Deferred">Deferred</option>
+              <option value="active">Active</option>
+              <option value="deferred">Deferred</option>
             </select>
           </div>
         </div>

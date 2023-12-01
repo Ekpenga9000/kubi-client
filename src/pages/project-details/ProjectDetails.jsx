@@ -7,6 +7,7 @@ import { GrChatOption, GrCubes } from "react-icons/gr";
 import { TbCalendarBolt,TbCalendarShare } from "react-icons/tb";
 import data from "../../assets/data/data.json";
 import DashboardTop from "../../components/project-details-dashboard-top/DashboardTop";
+import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
 
 const ProjectDetails = () =>{
     const {projectId} = useParams();
@@ -35,7 +36,7 @@ const ProjectDetails = () =>{
                     <DashboardTop/>
                 </div>
                 <div className="p-details__half">
-
+                    <DashboardBottom/>
                 </div>
             </div>
         </section>

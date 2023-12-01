@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Projects = ({ isActive, handleModal }) => {
 
     const data = [];
-    const [projects, setProjects] = useState(data.length);
+    const [projectsLength, setProjectsLength] = useState(data.length);
     const [sortedprojects, setSortedProjects] = useState(data);
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [listName, setListName] = useState("All Projects");
@@ -36,8 +36,8 @@ const Projects = ({ isActive, handleModal }) => {
                 }
             })
             const {projects} = data; 
-            console.log("The projects ", projects);
-            setProjects(projects.length); 
+    
+            setProjectsLength(projects.length); 
             setSortedProjects(projects);
 
         }catch(err){
@@ -67,7 +67,7 @@ const Projects = ({ isActive, handleModal }) => {
             })
             const {projects} = data; 
             setSortedProjects(projects);
-            setProjects(projects.length); 
+            setProjectsLength(projects.length); 
             setListName("All Projects");
             setProjectStatus("");
         }catch(err){
@@ -146,8 +146,8 @@ const Projects = ({ isActive, handleModal }) => {
 
     return (
         <section className="dashboard">
-            {!projects > 0 && <NoProjects handleModal={handleModal} />}
-            {projects > 0 && <section className="dashboard__container">
+            {!projectsLength > 0 && <NoProjects handleModal={handleModal} />}
+            {projectsLength > 0 && <section className="dashboard__container">
                 <div className="dashboard__sidebar">
                     <div className="dashboard__menu-div">
                         <ul className="dashboard__menu">

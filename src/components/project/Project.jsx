@@ -2,8 +2,8 @@ import "./Project.scss";
 import { Link } from 'react-router-dom';
 import { AiFillFolderOpen, AiFillFolder } from 'react-icons/ai';
 import { LuFolderEdit } from "react-icons/lu";
-import { MdOutlineDeleteOutline, MdOutlineMoreHoriz } from 'react-icons/md';
-import { TbTrashOff } from "react-icons/tb";
+import { MdOutlineMoreHoriz } from 'react-icons/md';
+import { TbTrashOff,TbTrash } from "react-icons/tb";
 
 
 
@@ -37,10 +37,10 @@ function Project({ project }) {
                     <p className={`project__status--${status.toLowerCase()}`}> {status === "active" ? <AiFillFolderOpen /> : <AiFillFolder />} {capitalize(status)}</p>
                 </div>
                {(permission === "admin") && <div className='project__btn-div'>
-                   <Link to={`/projects/${id}`} className='project__link'>
+                   <Link to={`/projects/edit/${id}`} className='project__link'>
                         <LuFolderEdit />
                     </Link>
-                    <MdOutlineDeleteOutline className='project__delete' />
+                    <TbTrash className='project__delete' />
                 </div>}
                 {(permission !== "admin") && <div className='project__btn-div'>
                    <Link to={`/projects/${id}`} className='project__link'>

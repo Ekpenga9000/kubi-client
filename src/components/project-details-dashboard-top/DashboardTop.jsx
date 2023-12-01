@@ -46,7 +46,7 @@ const DashboardTop = () => {
         <div className="dashboard-top">
             <div className="dashboard-top__sprint">
                 <div className="dashboard-top__sprint--active">
-                    <Link className="dashboard-top__btn--link"><CiViewBoard /> See Active Sprints</Link>
+                    <Link className="dashboard-top__btn--link"><CiViewBoard /> View All Sprints</Link>
                     <button className="dashboard-top__btn--start"> <FaRegCirclePlay /> Start Sprint
                     </button>
                 </div>

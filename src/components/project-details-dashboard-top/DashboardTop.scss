@@ -108,6 +108,7 @@
         width: 20%;
         height: 45vh; 
         overflow-y: hidden;
+        border-bottom:1px solid $bg-gray-1;
     }
     &__text-div{
         height: 90%;
@@ -135,26 +136,20 @@
         align-items: center;
     }
     &__btn{
-        display: flex;
-        gap: .2rem;
-        padding: .2rem .4rem;
-        align-items: center;
-        cursor: pointer;
-        border-radius: .2rem;
         &--cancel{
-            @extend .dashboard-top__btn;
+            @include dashboard-btn;
             border:1px solid $text-danger;
             color: $text-danger;
             background-color: #fff;
         }
         &--save{
-            @extend .dashboard-top__btn;
+            @include dashboard-btn;
             border:1px solid $text-secondary;
             color: #fff;
             background-color:$text-secondary;
         }
         &--start{
-            @extend .dashboard-top__btn;
+            @include dashboard-btn;
             border:1px solid $bg-success;
             color: $text-success;
             background-color:$bg-success;
@@ -162,7 +157,7 @@
             font-weight: 700;
         }
         &--link{
-            @extend .dashboard-top__btn;
+            @include dashboard-btn;
             border:none;
             color: $text-secondary;
             background-color:none;

@@ -1,0 +1,22 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.dashboard-bottom{
+    &__container{
+        padding-inline: 0.5rem;
+    }
+    &__title{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        margin-bottom: 1rem;
+    }
+    &__btn{
+        &--create{
+            @include dashboard-btn;
+            border: 1px solid $bg-color-1;
+            background-color: $bg-color-1;
+            color: #fff;
+            font-family: "LouisGeorgeCafe", sans-serif;
+        }
+    }
+}

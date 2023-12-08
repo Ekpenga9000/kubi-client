@@ -34,9 +34,9 @@ const Projects = ({ isActive, handleModal }) => {
                     }
                 })
                 const {projects} = data; 
-                
+                console.log("the project", projects)
                 setProjectsLength(projects.length); 
-                setSortedProjects(projects.reverse());
+                setSortedProjects(projects);
                 
             }catch(err){
                 console.log(err); 
@@ -64,8 +64,7 @@ const Projects = ({ isActive, handleModal }) => {
                 }
             })
             const { projects } = data; 
-            console.log("the project", projects)
-            setSortedProjects(projects.reverse());
+            setSortedProjects(projects);
             setProjectsLength(projects.length); 
             setListName("All Projects");
             setProjectStatus("");

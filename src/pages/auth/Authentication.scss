@@ -13,6 +13,7 @@
     align-items: start;
 
     &__container {
+        height: 26.125rem;
         background-color: $bg-color-1;
         background: url("../../assets/images/bg.png") no-repeat;
         background-position: center;
@@ -70,6 +71,7 @@
 
     &__form-div {
         background-color: #fff;
+        height: 100%;
     }
 
     &__form {

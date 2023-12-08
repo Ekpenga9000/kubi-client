@@ -25,6 +25,7 @@ function App() {
       {!isLoginPage && <NavBar handleModal={handleModal}/> }
       <Routes>
         <Route path="login" element={<Authentication handleNav={ handleNav } /> } />
+        <Route path="signup" element={<Authentication handleNav={ handleNav } /> } />
         <Route path="projects" element={<Projects isActive={isActive} setIsActive={setIsActive} handleModal={handleModal} handleNav={ handleNav } />} />
         <Route path="/projects/:projectId" element={<ProjectDetails/>} />
         <Route path="/users/:id" element={<UserDetails/>} />

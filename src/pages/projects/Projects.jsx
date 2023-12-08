@@ -34,7 +34,6 @@ const Projects = ({ isActive, handleModal }) => {
                     }
                 })
                 const {projects} = data; 
-                console.log("the project", projects)
                 setProjectsLength(projects.length); 
                 setSortedProjects(projects);
                 

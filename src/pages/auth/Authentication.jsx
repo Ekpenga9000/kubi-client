@@ -82,7 +82,7 @@ function Authentication({ handleNav }) {
              {!isPassword && <p className="auth__err">*** Password is required ***</p> }
               <div className="auth__btn-div">
                 <button className='auth__btn'>Login</button>
-                <button className='auth__btn--alternate'onClick={handleSignup}>Sign up</button>
+                <button className='auth__btn--alternate' onClick={handleSignup}>Sign up</button>
               </div>
             </div>
           </form>

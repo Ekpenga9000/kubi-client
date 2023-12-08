@@ -6,12 +6,10 @@ import "./Projects.scss";
 import { useEffect, useState } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
-// import data from "../../assets/data/data.json";
 import ProjectList from "../../components/project_list/ProjectList";
 import { useNavigate } from "react-router-dom";
 
 const Projects = ({ isActive, handleModal }) => {
-
     const data = [];
     const [projectsLength, setProjectsLength] = useState(data.length);
     const [sortedprojects, setSortedProjects] = useState(data);
@@ -25,36 +23,36 @@ const Projects = ({ isActive, handleModal }) => {
     const navigate = useNavigate(); 
 
     useEffect(()=>{
-     const fetchProjects = async()=>{
-        if(!token){
-            return navigate("/login");
+        const fetchProjects = async()=>{
+            if(!token){
+                return navigate("/login");
+            }
+            try{
+                const {data} = await axios.get(`${url}/projects`,{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                const {projects} = data; 
+                
+                setProjectsLength(projects.length); 
+                setSortedProjects(projects.reverse());
+                
+            }catch(err){
+                console.log(err); 
+                setIsErr(true);
+                setErrMsg("Internal Server Error."); 
+            }
         }
-        try{
-            const {data} = await axios.get(`${url}/projects`,{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            const {projects} = data; 
-    
-            setProjectsLength(projects.length); 
-            setSortedProjects(projects);
-
-        }catch(err){
-            console.log(err); 
-            setIsErr(true);
-            setErrMsg("Internal Server Error."); 
-        }
-     }
-     fetchProjects()
+        fetchProjects()
     }, [url, token, navigate])
-
+    
     const handleSuccess = () => {
         handleModal(false);
         setIsSuccessful(true);
         setTimeout(() => {
             setIsSuccessful(false);
-            navigate("/projects")
+            navigate("/projects");
         }, 1000);
     }
 
@@ -65,8 +63,9 @@ const Projects = ({ isActive, handleModal }) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            const {projects} = data; 
-            setSortedProjects(projects);
+            const { projects } = data; 
+            console.log("the project", projects)
+            setSortedProjects(projects.reverse());
             setProjectsLength(projects.length); 
             setListName("All Projects");
             setProjectStatus("");
@@ -186,7 +185,7 @@ const Projects = ({ isActive, handleModal }) => {
                 </div>
             </section>}
             {isActive && <div className="dashboard__modal">
-                <CreateProject handleModal={handleModal} handleSuccess={handleSuccess}/>
+                <CreateProject handleModal={handleModal} handleSuccess={handleSuccess} handleAllProjects={ handleAllProjects } />
             </div>}
 
             {isSuccessful && <div className="dashboard__modal">

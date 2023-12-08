@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.scss'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.scss';
 import Authentication from './pages/auth/Authentication'
 import Projects from './pages/projects/Projects'
 import NavBar from './components/nav/NavBar'
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <BrowserRouter>
-     {!isLoginPage && <NavBar handleModal={handleModal} /> }
+      {!isLoginPage && <NavBar handleModal={handleModal}/> }
       <Routes>
         <Route path="login" element={<Authentication handleNav={ handleNav } /> } />
         <Route path="projects" element={<Projects isActive={isActive} setIsActive={setIsActive} handleModal={handleModal} handleNav={ handleNav } />} />

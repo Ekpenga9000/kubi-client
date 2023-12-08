@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function CreateProject({ handleModal, handleSuccess }) {
+function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   const [startDateErr, setStartDateErr] = useState(false);
   const [endDateErr, setEndDateErr] = useState(false);
   const [formErr, setFormErr] = useState(false);
@@ -88,9 +88,9 @@ function CreateProject({ handleModal, handleSuccess }) {
           Authorization: `Bearer ${token}`
         }
       });
-      
       handleModal(false);
       handleSuccess();
+      handleAllProjects();
       e.target.reset();
     }catch(err){
       console.log(err);

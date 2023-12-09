@@ -7,6 +7,7 @@ import Projects from './pages/projects/Projects'
 import NavBar from './components/nav/NavBar'
 import ProjectDetails from './pages/project-details/ProjectDetails';
 import UserDetails from './pages/user-details/UserDetails';
+import EmailMsg from './pages/emailMsg/EmailMsg';
 
 function App() {
   const [isActive, setIsActive] = useState(false); 
@@ -28,7 +29,8 @@ function App() {
         <Route path="signup" element={<Authentication handleNav={ handleNav } /> } />
         <Route path="projects" element={<Projects isActive={isActive} setIsActive={setIsActive} handleModal={handleModal} handleNav={ handleNav } />} />
         <Route path="/projects/:projectId" element={<ProjectDetails/>} />
-        <Route path="/users/:id" element={<UserDetails/>} />
+        <Route path="/users/:id" element={<UserDetails />} />
+        <Route path="email-info" element={<EmailMsg/> } />
       </Routes>
     </BrowserRouter>
   )

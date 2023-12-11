@@ -4,15 +4,37 @@ import { BsInfoCircle } from "react-icons/bs";
 import { BiCube } from "react-icons/bi";
 import { CgInsights } from "react-icons/cg";
 import { GrChatOption, GrCubes } from "react-icons/gr";
-import { TbCalendarBolt,TbCalendarShare } from "react-icons/tb";
+import { TbCalendarBolt, TbCalendarShare } from "react-icons/tb";
+import axios from "axios";
 import data from "../../assets/data/data.json";
 import DashboardTop from "../../components/project-details-dashboard-top/DashboardTop";
 import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
+import { useEffect } from "react";
 
 const ProjectDetails = () =>{
     const {projectId} = useParams();
-    const project = data.find((project)=> project.id === projectId);
+    const project = data.find((project) => project.id === projectId);
+    const token = sessionStorage.getItem("token");
+    const url = import.meta.env.VITE_SERVER_URL; 
+
     // useEffect to get the project by Id. 
+    useEffect(() => {
+        const fetchProjectById = async () => {
+            try {
+                const { data } = await axios.get(`${url}/projects/${projectId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                
+                console.log(data);
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        fetchProjectById(); 
+    }, [projectId], token)
     return (
         <section className="p-details">
             <div className="p-details__sidebar">

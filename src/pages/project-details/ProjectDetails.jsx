@@ -6,14 +6,13 @@ import { CgInsights } from "react-icons/cg";
 import { GrChatOption, GrCubes } from "react-icons/gr";
 import { TbCalendarBolt, TbCalendarShare } from "react-icons/tb";
 import axios from "axios";
-import data from "../../assets/data/data.json";
 import DashboardTop from "../../components/project-details-dashboard-top/DashboardTop";
 import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const ProjectDetails = () =>{
+const ProjectDetails = () => {
+    const [projectData, setProjectData] = useState(null);
     const {projectId} = useParams();
-    const project = data.find((project) => project.id === projectId);
     const token = sessionStorage.getItem("token");
     const url = import.meta.env.VITE_SERVER_URL; 
 
@@ -26,19 +25,26 @@ const ProjectDetails = () =>{
                         Authorization: `Bearer ${token}`
                     }
                 })
-                
                 console.log(data);
+                setProjectData(data)
             }
             catch (err) {
                 console.log(err)
             }
         }
         fetchProjectById(); 
-    }, [projectId], token)
+    }, [projectId, token])
+
+    if (!projectData) {
+        return <>Loading</>;
+    }
+
+    const { name, description } = projectData; 
+
     return (
         <section className="p-details">
             <div className="p-details__sidebar">
-                <h4 className="p-details__name"><BsInfoCircle/>{project.name}</h4>
+                <h4 className="p-details__name"><BsInfoCircle/>{name}</h4>
                 <div className="p-details__cntr">
                     <ul className="p-details__menu">
                         <li className="p-details__item--active"><TbCalendarBolt/>Active Sprint</li>
@@ -55,7 +61,7 @@ const ProjectDetails = () =>{
             </div>
             <div className="p-details__dashboard">
                 <div className="p-details__half">
-                    <DashboardTop/>
+                    <DashboardTop description={ description } />
                 </div>
                 <div className="p-details__half">
                     <DashboardBottom/>

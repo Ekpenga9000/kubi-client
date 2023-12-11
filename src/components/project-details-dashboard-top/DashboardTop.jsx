@@ -11,16 +11,10 @@ import { CiViewBoard } from "react-icons/ci";
 
 
 
-const DashboardTop = () => {
-    const data = ` Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi enim corporis doloremque porro ullam animi, repudiandae quae vitae ea? Eius magni at ut quis ducimus alias consequuntur maxime quas corrupti.
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi enim corporis doloremque porro ullam animi, repudiandae quae vitae ea? Eius magni at ut quis ducimus alias consequuntur maxime quas corrupti.
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi enim corporis doloremque porro ullam animi, repudiandae quae vitae ea? Eius magni at ut quis ducimus alias consequuntur maxime quas corrupti.
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi enim corporis doloremque porro ullam animi, repudiandae quae vitae ea? Eius magni at ut quis ducimus alias consequuntur maxime quas corrupti.
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi enim corporis doloremque porro ullam animi, repudiandae quae vitae ea? Eius magni at ut quis ducimus alias consequuntur maxime quas corrupti.
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi enim corporis doloremque porro ullam animi, repudiandae quae vitae ea? Eius magni at ut quis ducimus alias consequuntur maxime quas corrupti.`
+const DashboardTop = ({ description }) => {
     const [isClicked, setClicked] = useState(false);
-    const [descValue, setDescValue] = useState(data);
-    const [formDescValue, setFormDescValue] = useState(data);
+    const [descValue, setDescValue] = useState(description);
+    const [formDescValue, setFormDescValue] = useState(description);
 
     const handleClick = () => {
         setClicked(!isClicked);

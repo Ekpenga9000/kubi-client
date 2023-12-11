@@ -8,13 +8,14 @@ import NavBar from './components/nav/NavBar'
 import ProjectDetails from './pages/project-details/ProjectDetails';
 import UserDetails from './pages/user-details/UserDetails';
 import EmailMsg from './pages/emailMsg/EmailMsg';
+import Registration from './components/registration/Registration';
 
 function App() {
   const [isActive, setIsActive] = useState(false); 
   const [isLoginPage, setIsLoginPage] = useState(false); 
 
-  const handleNav = (msg) => {
-      setIsLoginPage(msg); 
+  const handleNav = (bool) => {
+      setIsLoginPage(bool); 
   }
 
    const handleModal = (msg) => {
@@ -26,6 +27,7 @@ function App() {
       {!isLoginPage && <NavBar handleModal={handleModal}/> }
       <Routes>
         <Route path="login" element={<Authentication handleNav={ handleNav } /> } />
+        <Route path="register/:urlToken" element={<Registration handleNav={ handleNav } /> } />
         <Route path="signup" element={<Authentication handleNav={ handleNav } /> } />
         <Route path="projects" element={<Projects isActive={isActive} setIsActive={setIsActive} handleModal={handleModal} handleNav={ handleNav } />} />
         <Route path="/projects/:projectId" element={<ProjectDetails/>} />

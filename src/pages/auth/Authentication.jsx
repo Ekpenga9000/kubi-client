@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 import pic1 from "../../assets/images/organisationpic.png";
 import pic2 from "../../assets/images/planning.png";
 import "./Authentication.scss";
 import { FcGoogle } from 'react-icons/fc';
 import { VscGithub } from 'react-icons/vsc';
 import Login from "../../components/login/Login";
-import Registration from "../../components/registration/Registration";
+import Signup from "../../components/signup/Signup";
 
 function Authentication({ handleNav }) { 
 
   const [isLogin, setIsLogin] = useState(true);
-
+ 
   useEffect(()=>{
     handleNav(true);
   }, [handleNav])
@@ -38,7 +37,7 @@ function Authentication({ handleNav }) {
           </div>
         </div>
         <div className="auth__form-div">
-          {!isLogin && <Registration  handleSignup={handleSignup} />}
+          {!isLogin && <Signup  handleSignup={handleSignup} />}
           {isLogin && <Login handleSignup={handleSignup} handleNav ={handleNav} />}
           <div className="auth__btn-cntr">
             <button className="auth__google"><FcGoogle />Continue with Google</button>

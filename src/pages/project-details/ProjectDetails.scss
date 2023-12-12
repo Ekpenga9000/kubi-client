@@ -5,8 +5,27 @@
 
 .p-details{
     display: flex;
+    position: relative;
     border: 1px solid $bg-gray-2;
     height: 100vh;
+    &__slidebar{
+        position: absolute;
+        background-color: #fff;
+        width: 40vw;
+        height: 90vh;
+        z-index: 30;
+        transition: 0.4s ease;
+        &--slideIn{
+            @extend .p-details__slidebar;
+            left: -100%;
+            animation: slideIn 0.5s forwards;
+        }
+        &--slideOut{
+            @extend .p-details__slidebar;
+            left:0%;
+            animation: slideOut 0.5s forwards;
+        }
+    }
     &__sidebar{
         height: 100%;
         border-inline-end: 1px solid $bg-gray-2;
@@ -15,12 +34,46 @@
         min-width:15%;
         max-width:17%;
     }
+    &__name-div{
+        position: relative;
+    }
     &__name{
         display: flex;
+        align-items:center;
         gap: 0.5rem;
         margin-bottom:2rem;
-        font-family: "CaviarDreams";
+        font-family: "CaviarDreams", sans-serif;
         font-weight: 700;
+        font-size: 0.9rem;
+    }
+    &__icon{
+        cursor: pointer;
+    }
+    &__status{
+        height: 0.4rem;
+        width: 0.4rem;
+        border-radius: 50%;
+        cursor: pointer;
+        &--active{
+            @extend .p-details__status;
+            background-color: $text-success;
+        }
+        &--deferred{
+            @extend .p-details__status;
+            background-color: $bg-warning;
+        }
+        &--closed{
+            @extend .p-details__status;
+            background-color: $bg-gray-1;
+        }
+    }
+    &__more-info{
+        position: absolute;
+        font-size: 0.7rem;
+        top: 1.2rem;
+        transition: 0.4s ease-in-out;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-style: italic;
     }
     &__cntr{
         display: flex;
@@ -42,5 +95,34 @@
     &__half{
         height: 45vh;
         width: 84.9vw;
+    }
+    &__update{
+        position: absolute;
+        top: 1.5rem;
+        right: 0rem;
+        background-color: #fff;
+        &-menu{
+            font-size: 0.9rem;
+            font-family: "LouisGeorgeCafe", sans-serif;
+            list-style-type: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: 0.4s ease;
+            &:hover{
+                background-color:#d4d2d2;
+            }
+        }
+    }
+}
+
+@keyframes slideIn {
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes slideOut {
+    to {
+        left: -100%;
     }
 }

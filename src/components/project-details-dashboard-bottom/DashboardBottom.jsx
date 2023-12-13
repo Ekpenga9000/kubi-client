@@ -5,6 +5,7 @@ import { MdOutlineNotes, MdOutlinePlaylistAdd } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiTaskX } from "react-icons/bi";
 import { useState } from "react";
+import IssueList from "../issue-list/IssueList";
 
 const DashboardBottom = () => {
   const [addIssue, setAddIssue] = useState(false);
@@ -19,9 +20,11 @@ const DashboardBottom = () => {
 
     const issue = e.target.issue.value;
     const type = e.target.type.value;
+    const priority = e.target.priority.value;
     handleAddIssue();
     alert(issue);
     alert(type);
+    alert(priority);
   };
 
   return (
@@ -42,7 +45,9 @@ const DashboardBottom = () => {
               </div>
             )}
             {issueLength > 0 && (
-              <div className="dashboard-bottom__issues-list"></div>
+              <div className="dashboard-bottom__issues-list">
+                <IssueList />
+              </div>
             )}
           </div>
           {!addIssue && (
@@ -73,6 +78,11 @@ const DashboardBottom = () => {
                     <option value="Task">Task</option>
                     <option value="Bug">Bug</option>
                     <option value="Epic">Epic</option>
+                                  </select>
+                                  <select name="priority" className="dashboard-bottom__select">
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                    <option value="High">High</option>
                   </select>
                 </div>
                 <button className="dashboard-bottom__btn">

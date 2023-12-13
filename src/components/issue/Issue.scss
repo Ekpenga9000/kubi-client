@@ -1,0 +1,68 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.issue{
+    background-color: #fff;
+    margin-block: 0.5rem;
+    padding: 0.5rem;
+    border: 0.0625rem solid $bg-gray-1;
+    border-radius: 0.625rem;
+    &__topic-div{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.4rem;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 600;
+    }
+    &__ul{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    &__ticket{
+        list-style-type: none;
+        font-size: 0.8rem;
+        color: $bg-gray-1;
+    }
+    &__span{
+        height: 0.5rem;
+        width: 0.5rem;
+        border-radius: 50%;
+        &--epic{
+            @extend .issue__span;
+            background-color: $issue-epic;
+        }
+        &--bug{
+            @extend .issue__span;
+            background-color: $issue-bug;
+        }
+        &--task{
+            @extend .issue__span;
+            background-color: $issue-task;
+        }
+    }
+    &__menu{
+        margin-block: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+    &__summary{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 600;
+    }
+    &__item{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        color: $bg-gray-1;
+    }
+    &__icon{
+        cursor: pointer;
+    }
+}

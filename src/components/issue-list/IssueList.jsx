@@ -81,7 +81,8 @@ function IssueList() {
               data.map((issue) => {
                   const { id, ticketNumber, summary, type, priority } = issue
                   return <Issue key={id} ticketNumber={ticketNumber}
-                  summary={summary} type={type} priority={priority}
+                      summary={summary} type={type} priority={priority}
+                      
                   />
               })
           }

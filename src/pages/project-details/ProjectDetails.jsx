@@ -15,6 +15,7 @@ const ProjectDetails = () => {
   const [projectData, setProjectData] = useState(null);
   const [moreInfo, setMoreInfo] = useState(false);
   const [slideIn, setSlideIn] = useState(false);
+  const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
@@ -51,19 +52,20 @@ const ProjectDetails = () => {
   };
 
   const fetchProjectDetails = () => {
-      setSlideIn(!slideIn);
-      setOption(false);
-    };
-    
-    const toggleOption = () => {
-        setOption(!option)
-    }
+    setSlideIn(!slideIn);
+    setOption(false);
+    setActivateSlide(true);
+  };
+
+  const toggleOption = () => {
+    setOption(!option);
+  };
 
   const { name, description, status } = projectData;
 
   return (
     <section className="p-details">
-      {slideIn && (
+      {activateSlide && (
         <div
           className={`p-details__slidebar${
             slideIn ? "--slideIn" : "--slideOut"
@@ -83,22 +85,37 @@ const ProjectDetails = () => {
             />
             {name}
             {status === "active" && (
-              <span className="p-details__status--active" onClick={toggleOption}></span>
+              <span
+                className="p-details__status--active"
+                onClick={toggleOption}
+              ></span>
             )}
             {status === "deferred" && (
-              <span className="p-details__status--deferred" onClick={toggleOption}></span>
+              <span
+                className="p-details__status--deferred"
+                onClick={toggleOption}
+              ></span>
             )}
             {status === "closed" && (
-              <span className="p-details__status--closed" onClick={toggleOption}></span>
+              <span
+                className="p-details__status--closed"
+                onClick={toggleOption}
+              ></span>
             )}
-                  </h4>
-                  {option &&
-                      <ul className="p-details__update">
-                          { !(status === "active") && <li className="p-details__update-menu">Active</li>}
-                         {!(status === "deferred") &&  <li className="p-details__update-menu">Deferred</li>}
-                          {!(status === "closed") && <li className="p-details__update-menu">Closed</li>}
-                      </ul>
-                  }
+          </h4>
+          {option && (
+            <ul className="p-details__update">
+              {!(status === "active") && (
+                <li className="p-details__update-menu">Make project active</li>
+              )}
+              {!(status === "deferred") && (
+                <li className="p-details__update-menu">Defer project</li>
+              )}
+              {!(status === "closed") && (
+                <li className="p-details__update-menu">Close project</li>
+              )}
+            </ul>
+          )}
           {moreInfo && <p className="p-details__more-info">More info</p>}
         </div>
         <div className="p-details__cntr">

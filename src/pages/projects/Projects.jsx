@@ -1,62 +1,126 @@
 import CreateProject from "../../components/create-project/CreateProject";
 import NoProjects from "../../components/noProjects/NoProjects";
 import Success from "../success/Success";
+import axios from "axios";
 import "./Projects.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
-import data from "../../assets/data/data.json";
 import ProjectList from "../../components/project_list/ProjectList";
+import { useNavigate } from "react-router-dom";
 
 const Projects = ({ isActive, handleModal }) => {
-
-
-    const [projects, setProjects] = useState(data.length);
+    const data = [];
+    const [projectsLength, setProjectsLength] = useState(data.length);
     const [sortedprojects, setSortedProjects] = useState(data);
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [listName, setListName] = useState("All Projects");
     const [projectStatus, setProjectStatus] = useState("");
+    const [isErr, setIsErr] = useState(false); 
+    const [errMsg, setErrMsg] = useState(""); 
+    const url = import.meta.env.VITE_SERVER_URL; 
+    const token = sessionStorage.getItem("token"); 
+    const navigate = useNavigate(); 
 
-
+    useEffect(()=>{
+        const fetchProjects = async()=>{
+            if(!token){
+                return navigate("/login");
+            }
+            try{
+                const {data} = await axios.get(`${url}/projects`,{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                const {projects} = data; 
+                setProjectsLength(projects.length); 
+                setSortedProjects(projects);
+                
+            }catch(err){
+                console.log(err); 
+                setIsErr(true);
+                setErrMsg("Internal Server Error."); 
+            }
+        }
+        fetchProjects()
+    }, [url, token, navigate])
+    
     const handleSuccess = () => {
         handleModal(false);
         setIsSuccessful(true);
         setTimeout(() => {
             setIsSuccessful(false);
+            navigate("/projects");
         }, 1000);
     }
 
-    const handleAllProjects = () => {
-        setSortedProjects(data);
-        setListName("All Projects");
-        setProjectStatus("");
+    const handleAllProjects = async() => {
+        try{
+            const {data} = await axios.get(`${url}/projects`,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const { projects } = data; 
+            setSortedProjects(projects);
+            setProjectsLength(projects.length); 
+            setListName("All Projects");
+            setProjectStatus("");
+        }catch(err){
+            console.log(err);
+        }
     }
 
-    const handleCreateProject = obj => {
-        const newArr = [...data];
-        newArr.push(obj);
-        setSortedProjects(newArr);
+    const handleActiveProject = async() => {
+        try{
+            const {data} = await axios.get(`${url}/projects`,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const {projects} = data; 
+            const newArr = projects.filter((project) => project.status === "active");
+            setSortedProjects(newArr); 
+            setListName("Active Projects");
+            setProjectStatus("Active");
+        }catch(err){
+            console.log(err);
+        }
     }
 
-    const handleActiveProject = () => {
-        const newArr = data.filter((project) => project.status === "Active");
-        setSortedProjects(newArr);
-        setListName("Active Projects");
-        setProjectStatus("Active");
+    const handleDeferredProject = async() => {
+        try{
+            const {data} = await axios.get(`${url}/projects`,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const {projects} = data; 
+            const newArr = projects.filter((project) => project.status === "deferred");
+            setSortedProjects(newArr);
+            setListName("Deferred Projects");
+            setProjectStatus("Deferred");
+        }catch(err){
+            console.log(err);
+        }
     }
 
-    const handleDeferredProject = () => {
-        const newArr = data.filter((project) => project.status === "Deferred");
-        setSortedProjects(newArr);
-        setListName("Deferred Projects");
-        setProjectStatus("Deferred");
-    }
-
-    const handleClosedProject = () => {
-        const newArr = data.filter((project) => project.status === "Closed");
-        setSortedProjects(newArr);
-        setListName("Closed Projects");
-        setProjectStatus("Closed");
+    const handleClosedProject = async() => {
+        try{
+            const {data} = await axios.get(`${url}/projects`,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const {projects} = data; 
+            const newArr = projects.filter((project) => project.status === "closed");
+            setSortedProjects(newArr);
+            setListName("Closed Projects");
+            setProjectStatus("Closed");
+        }catch(err){
+            console.log(err);
+        }
     }
 
     const handleSearch = (e) => {
@@ -79,8 +143,8 @@ const Projects = ({ isActive, handleModal }) => {
 
     return (
         <section className="dashboard">
-            {!projects > 0 && <NoProjects handleModal={handleModal} />}
-            {projects > 0 && <section className="dashboard__container">
+            {!projectsLength > 0 && <NoProjects handleModal={handleModal} />}
+            {projectsLength > 0 && <section className="dashboard__container">
                 <div className="dashboard__sidebar">
                     <div className="dashboard__menu-div">
                         <ul className="dashboard__menu">
@@ -113,13 +177,13 @@ const Projects = ({ isActive, handleModal }) => {
                     </div>
                     <div className="dashboard__projects">
                         {sortedprojects.length > 0 ? ( <ProjectList projectList={sortedprojects} />) : (<>Project not found</>)}
-                       
+                        {isErr && <p>{errMsg}</p>}
                     </div>
 
                 </div>
             </section>}
             {isActive && <div className="dashboard__modal">
-                <CreateProject handleModal={handleModal} handleSuccess={handleSuccess} handleCreateProject={handleCreateProject} />
+                <CreateProject handleModal={handleModal} handleSuccess={handleSuccess} handleAllProjects={ handleAllProjects } />
             </div>}
 
             {isSuccessful && <div className="dashboard__modal">

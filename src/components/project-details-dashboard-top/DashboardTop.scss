@@ -1,0 +1,169 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/typography" as *; 
+@use "../../style/partials/variables" as *;
+
+.dashboard-top{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &__sprint{
+        width: 80%;
+        height: 45vh; 
+        overflow-y: hidden;
+        position: relative;
+        &--active{
+            display: flex;
+            justify-content: space-between;
+            margin-block: 1rem;
+        }
+    }
+    &__issue-div{
+        background-color: $bg-gray-3;
+        padding-block: 0.5rem;
+        position: sticky;
+        top: 0;
+        &--bottom{
+            padding-block: 0.5rem;
+            border: 1px solid $bg-gray-1;
+        }
+    }
+    &__issue-header{
+        display: flex;
+        justify-content: space-between;
+        padding: .5rem;
+    }
+    &__title{
+        list-style-type: none;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 700;
+        width: 14.2%;
+        padding-inline: .2rem;
+        &:last-child{
+            width: 10%;
+        }
+        &:nth-child(2){
+            width: 8%;
+        }
+        &:nth-child(3){
+            width: 27.2%;
+        }
+        &:nth-child(4){
+            width: 8%;
+        }
+        &:nth-child(5){
+            width: 18.2%;
+        }
+        &:nth-child(6){
+            width: 18.2%;
+        }
+    }
+    &__item{
+         list-style-type: none;
+         font-family: "LouisGeorgeCafe", sans-serif;
+         font-weight: 400;
+         width: 14.2%;
+         padding-inline: .2rem;
+         height: 100%;
+         &:first-child{
+            border: none;
+        }
+        &:last-child{
+            width: 10%;
+        }
+        &:nth-child(2){
+            width: 8%;
+        }
+        &:nth-child(3){
+            width: 27.2%;
+        }
+        &:nth-child(4){
+            width: 8%;
+        }
+        &:nth-child(5){
+            width: 18.2%;
+        }
+        &:nth-child(6){
+            width: 18.2%;
+        }
+    }
+    &__edit-div{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        display: flex;
+        background-color: $bg-gray-3;
+        border: 1px solid $bg-gray-1;
+        padding: .5rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__edit{
+        cursor: pointer;
+        color: $text-secondary;
+    }
+    &__cancel{
+        cursor: pointer;
+        color: $text-danger;
+        font-size: 1.1rem;
+    }
+    &__desc{
+        width: 20%;
+        height: 45vh; 
+        overflow-y: hidden;
+        border-bottom:1px solid $bg-gray-1;
+    }
+    &__text-div{
+        height: 90%;
+        border: 1px solid $bg-gray-1;
+        overflow-y: scroll;
+        padding: 1rem 0.5rem 2rem 0.5rem;
+    }
+    &__text{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 400;
+    }
+    &__form{
+        height: 100%;
+    }
+    &__text-area{
+        resize: none;
+        height: 85%;
+        width: 100%;
+        margin-bottom: .4rem;
+        font-family: "LouisGeorgeCafe", sans-serif;
+    }
+    &__btn-div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__btn{
+        &--cancel{
+            @include dashboard-btn;
+            border:1px solid $text-danger;
+            color: $text-danger;
+            background-color: #fff;
+        }
+        &--save{
+            @include dashboard-btn;
+            border:1px solid $text-secondary;
+            color: #fff;
+            background-color:$text-secondary;
+        }
+        &--start{
+            @include dashboard-btn;
+            border:1px solid $bg-success;
+            color: $text-success;
+            background-color:$bg-success;
+            font-family: "LouisGeorgeCafe", sans-serif;
+            font-weight: 700;
+        }
+        &--link{
+            @include dashboard-btn;
+            border:none;
+            color: $text-secondary;
+            background-color:none;
+            font-family: "LouisGeorgeCafe", sans-serif;
+            font-weight: 700;
+        }
+    }
+   
+}

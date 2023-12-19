@@ -1,0 +1,9 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.issue-list{
+    height: 100%;
+    padding: 0.5rem 1rem;
+    overflow-y: scroll;
+}

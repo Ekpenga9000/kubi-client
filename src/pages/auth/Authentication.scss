@@ -13,6 +13,7 @@
     align-items: start;
 
     &__container {
+        height: 26.125rem;
         background-color: $bg-color-1;
         background: url("../../assets/images/bg.png") no-repeat;
         background-position: center;
@@ -70,6 +71,7 @@
 
     &__form-div {
         background-color: #fff;
+        height: 100%;
     }
 
     &__form {
@@ -210,5 +212,14 @@
         font-size: 0.75rem;
         margin-top: -0.5rem;
         margin-bottom: 1rem;
+    }
+    &__success{
+        color: $text-success;
+        display: inline-block;
+        font-family: "CaviarDreams", sans-serif;
+        font-weight: 700;
+        font-size: 0.75rem;
+        margin-top: -0.5rem;
+        margin-bottom: 1rem; 
     }
 }

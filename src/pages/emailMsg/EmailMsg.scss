@@ -1,0 +1,35 @@
+@use "../../style/partials/typography" as *;
+@use "../../style/partials/variables" as *;
+
+.email {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  &__container {
+    padding: 1rem;
+    border-radius: 0.625rem;
+    margin-top: 15vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: -0.3125rem 0.3125rem 0.3125rem -0.0625rem rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: -0.3125rem 0.3125rem 0.3125rem -0.0625rem rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: -0.3125rem 0.3125rem 0.3125rem -0.0625rem rgba(0, 0, 0, 0.3);
+  }
+  &__msg {
+    color: $text-primary;
+    font-family: "LouisGeorgeCafe", sans-serif;
+  }
+  &__img-div {
+    height: 5rem;
+    width: 5rem;
+  }
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

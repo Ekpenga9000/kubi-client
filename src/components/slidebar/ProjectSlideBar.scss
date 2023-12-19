@@ -1,0 +1,15 @@
+@use "../../style/partials/mixins" as *; 
+@use "../../style/partials/typography" as *;
+@use "../../style/partials/variables" as *; 
+
+.projectSlider{
+    background-color: #fff;
+    padding: 1rem;
+    &__icon-div{
+        text-align: end;
+        margin-bottom: 1rem;
+    }
+    &__icon{
+        cursor: pointer;
+    }
+}

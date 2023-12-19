@@ -2,30 +2,58 @@ import "./DashboardBottom.scss";
 import { IoAdd } from "react-icons/io5";
 import { LiaCubesSolid } from "react-icons/lia";
 import { MdOutlineNotes, MdOutlinePlaylistAdd } from "react-icons/md";
-import { AiOutlineClose } from "react-icons/ai";
 import { BiTaskX } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IssueList from "../issue-list/IssueList";
+import AddIssueForm from "../addIssueForm/AddIssueForm";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const DashboardBottom = () => {
+  const { projectId } = useParams();
+  const [issues, setIssues] = useState(null);
   const [addIssue, setAddIssue] = useState(false);
-  const [issueLength, setIssueLength] = useState(1);
+  const [issueLength, setIssueLength] = useState(0);
 
+  const url = import.meta.env.VITE_SERVER_URL;
+  const token = sessionStorage.getItem("token");
   const handleAddIssue = () => {
     setAddIssue(!addIssue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const fetchAllIssues = async () => {
+    try {
+      const {data} = await axios.get(`${url}/issues/${projectId}`, {
+        headers: {
+          Authorization: `Bear ${token}`,
+        },
+      });
 
-    const issue = e.target.issue.value;
-    const type = e.target.type.value;
-    const priority = e.target.priority.value;
-    handleAddIssue();
-    alert(issue);
-    alert(type);
-    alert(priority);
-  };
+      setIssueLength(data.length);
+      setIssues(data); 
+      setAddIssue(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+   
+  useEffect(() => {
+    fetchAllIssues() 
+  }, [])
+
+  // const addIssues = async (newIssue) => { 
+  //   try {
+  //     const token = sessionStorage.getItem("token");
+  //     await axios.post(`${url}/issues`, newIssue, {
+  //       headers: {
+  //         Authorization: `Bear ${token}`,
+  //       },
+  //     });
+  //     fetchAllIssues();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   return (
     <section className="dashboard-bottom">
@@ -46,7 +74,7 @@ const DashboardBottom = () => {
             )}
             {issueLength > 0 && (
               <div className="dashboard-bottom__issues-list">
-                <IssueList />
+                <IssueList issues ={issues} />
               </div>
             )}
           </div>
@@ -59,38 +87,7 @@ const DashboardBottom = () => {
             </button>
           )}
           {addIssue && (
-            <div className="dashboard-bottom__form-div">
-              <div
-                className="dashboard-bottom__close-div"
-                onClick={handleAddIssue}
-              >
-                <AiOutlineClose className="dashboard-bottom__close" />
-              </div>
-              <form className="dashboard-bottom__form" onSubmit={handleSubmit}>
-                <div className="dashboard-bottom__input-container">
-                  <input
-                    type="text"
-                    name="issue"
-                    className="dashboard-bottom__input"
-                    placeholder="Start typing to create an issue..."
-                  />
-                  <select name="type" className="dashboard-bottom__select">
-                    <option value="Task">Task</option>
-                    <option value="Bug">Bug</option>
-                    <option value="Epic">Epic</option>
-                                  </select>
-                                  <select name="priority" className="dashboard-bottom__select">
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
-                <button className="dashboard-bottom__btn">
-                  <IoAdd className="dashboard-bottom__icon" />
-                  Create
-                </button>
-              </form>
-            </div>
+            <AddIssueForm handleAddIssue={handleAddIssue} fetchAllIssues={ fetchAllIssues } />
           )}
         </div>
         <div className="dashboard-bottom__notes-div">

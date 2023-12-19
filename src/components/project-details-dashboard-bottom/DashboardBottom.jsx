@@ -41,19 +41,6 @@ const DashboardBottom = () => {
     fetchAllIssues() 
   }, [])
 
-  // const addIssues = async (newIssue) => { 
-  //   try {
-  //     const token = sessionStorage.getItem("token");
-  //     await axios.post(`${url}/issues`, newIssue, {
-  //       headers: {
-  //         Authorization: `Bear ${token}`,
-  //       },
-  //     });
-  //     fetchAllIssues();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
 
   return (
     <section className="dashboard-bottom">

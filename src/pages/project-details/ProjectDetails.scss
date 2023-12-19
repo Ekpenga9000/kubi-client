@@ -11,7 +11,7 @@
     &__slidebar{
         position: absolute;
         background-color: #fff;
-        width: 40vw;
+        width: 35vw;
         height: 90vh;
         z-index: 30;
         transition: 0.4s ease;
@@ -36,15 +36,22 @@
     }
     &__name-div{
         position: relative;
+        margin-bottom:2rem;
     }
     &__name{
         display: flex;
         align-items:center;
         gap: 0.5rem;
-        margin-bottom:2rem;
         font-family: "CaviarDreams", sans-serif;
         font-weight: 700;
         font-size: 0.9rem;
+    }
+    &__number{
+      font-family: "LouisGeorgeCafe", sans-serif;
+      font-weight: 600;
+      color: $bg-gray-1;
+      font-size: 0.8rem;
+      margin-left: 1.35rem;
     }
     &__icon{
         cursor: pointer;
@@ -74,6 +81,7 @@
         transition: 0.4s ease-in-out;
         font-family: "LouisGeorgeCafe", sans-serif;
         font-style: italic;
+        background-color: $bg-gray-3;
     }
     &__cntr{
         display: flex;
@@ -90,6 +98,12 @@
         &--insight{
             @include menu-list($text-secondary, none,rgba($color: $text-secondary, $alpha: 0.2));
             list-style: none;
+        }
+        &--role{
+            @include menu-list($text-emphasis, none, none);
+            list-style: none;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
         }
     }
     &__half{

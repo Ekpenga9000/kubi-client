@@ -5,6 +5,7 @@ import { BiCube } from "react-icons/bi";
 import { CgInsights } from "react-icons/cg";
 import { GrChatOption, GrCubes } from "react-icons/gr";
 import { TbCalendarBolt, TbCalendarShare } from "react-icons/tb";
+import { LuUserCog2 } from "react-icons/lu";
 import axios from "axios";
 import DashboardTop from "../../components/project-details-dashboard-top/DashboardTop";
 import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
@@ -30,7 +31,7 @@ const ProjectDetails = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(data);
+        console.log("Project info",data);
         setProjectData(data);
       } catch (err) {
         console.log(err);
@@ -51,7 +52,7 @@ const ProjectDetails = () => {
     setMoreInfo(false);
   };
 
-  const fetchProjectDetails = () => {
+  const toggleSlider = () => {
     setSlideIn(!slideIn);
     setOption(false);
     setActivateSlide(true);
@@ -61,7 +62,7 @@ const ProjectDetails = () => {
     setOption(!option);
   };
 
-  const { name, description, status } = projectData;
+  const { name, description, status, permission, projectNumber } = projectData;
 
   return (
     <section className="p-details">
@@ -71,7 +72,7 @@ const ProjectDetails = () => {
             slideIn ? "--slideIn" : "--slideOut"
           }`}
         >
-          <ProjectSlideBar fetchProjectDetails={fetchProjectDetails} />
+          <ProjectSlideBar toggleSlider={toggleSlider} />
         </div>
       )}
       <div className="p-details__sidebar">
@@ -81,7 +82,7 @@ const ProjectDetails = () => {
               className="p-details__icon"
               onMouseOver={handleMouseOver}
               onMouseLeave={handleMouseLeave}
-              onClick={fetchProjectDetails}
+              onClick={toggleSlider}
             />
             {name}
             {status === "active" && (
@@ -117,9 +118,14 @@ const ProjectDetails = () => {
             </ul>
           )}
           {moreInfo && <p className="p-details__more-info">More info</p>}
+          <p className="p-details__number">{ projectNumber }</p>
         </div>
+
         <div className="p-details__cntr">
           <ul className="p-details__menu">
+          <li className="p-details__item--role">
+              <LuUserCog2 /> Project Role:  { permission === "admin" ? "Admin" : "Member"}
+            </li>
             <li className="p-details__item--active">
               <TbCalendarBolt />
               Active Sprint

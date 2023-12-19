@@ -1,6 +1,7 @@
 import React from 'react'; 
 import "./ProjectSlideBar.scss";
 import { MdClose } from "react-icons/md";
+import { AiOutlineTeam } from "react-icons/ai";
 /**
  * created_at
 : 
@@ -44,10 +45,10 @@ type
  * 
  */
 
-function ProjectSlideBar({ fetchProjectDetails }) {
+function ProjectSlideBar({ toggleSlider }) {
 
     const handleClose = () => {
-        fetchProjectDetails()
+        toggleSlider();
     }
   return (
       <section className='projectSlider'>
@@ -57,25 +58,25 @@ function ProjectSlideBar({ fetchProjectDetails }) {
                   onClick={handleClose}
               />
           </div>
-          <div>
-              <h4>CPP Project</h4>
-              <p>CT11702059764068</p>
-            <p>admin</p>   
+          <div className='projectSlider__title-div'>
+              <h5 className='projectSlider__intro'>Project / CT11702059764068 </h5>
+              <h4 className='projectSlider__title'>CPP Project</h4>
+              <div className='projectSlider__desc-div'>
+                  <h5 className='projectSlider__desc-title'>Description</h5>
+                  <p className='projectSlider__desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, temporibus autem? Rerum quos at distinctio totam ipsa laborum ducimus doloribus tenetur ex? In voluptatem, possimus voluptatibus et molestiae aliquid maxime.</p>
+              </div>  
+              <div className='projectSlider__bottom'>
+                  <div className='projectSlider__team-div'>
+                      <div>
+                        <AiOutlineTeam />
+                      </div>
+                      <div>
+                          {/* include the team image icon */}
+                      </div>
+                  </div>
+              </div>
           </div>
-          <div>
-              <p>Omogbare Ekpenga</p>
-              <p>Omogbare Ekpenga</p>
-          </div>
-          <div>
-              <p>Software Development project</p>
-          </div>
-          <div>
-              <p>Description</p>
-          </div>
-          <div>
-              <p>2023-12-08T05:00:00.000Z</p>
-              <p>2023-12-08T05:00:00.000Z</p>
-          </div>
+          
     </section>
   )
 }

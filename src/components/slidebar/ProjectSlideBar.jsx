@@ -1,49 +1,12 @@
 import React from 'react'; 
 import "./ProjectSlideBar.scss";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdOutlineEditNote } from "react-icons/md";
 import { AiOutlineTeam } from "react-icons/ai";
-/**
- * created_at
-: 
-"2023-12-08T18:22:44.000Z"
-description
-: 
-"This is to show my wifey"
-endDate
-: 
-"2023-12-15T05:00:00.000Z"
-id
-: 
-6
-lead_id
-: 
-1
-name
-: 
-"CPP Project"
-permission
-: 
-"admin"
-project_creator
-: 
-"Omogbare Ekpenga"
-project_lead
-: 
-"Omogbare Ekpenga"
-project_number
-: 
-"CT11702059764068"
-startDate
-: 
-"2023-12-08T05:00:00.000Z"
-status
-: 
-"active"
-type
-: 
-"Software Development project"
- * 
- */
+import { TbCalendarTime } from "react-icons/tb";
+import { PiSuitcaseSimpleThin } from "react-icons/pi";
+import { LuFileClock } from "react-icons/lu";
+import TeamAvatar from '../teamAvatar/TeamAvatar';
+
 
 function ProjectSlideBar({ toggleSlider }) {
 
@@ -66,14 +29,50 @@ function ProjectSlideBar({ toggleSlider }) {
                   <p className='projectSlider__desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, temporibus autem? Rerum quos at distinctio totam ipsa laborum ducimus doloribus tenetur ex? In voluptatem, possimus voluptatibus et molestiae aliquid maxime.</p>
               </div>  
               <div className='projectSlider__bottom'>
-                  <div className='projectSlider__team-div'>
+                  {/* Team */}
+                  <div className='projectSlider__item-div'>
+                      <div className='projectSlider__item'>
+                          <span><AiOutlineTeam /></span>
+                          <span>Team</span>
+                      </div>
                       <div>
-                        <AiOutlineTeam />
+                          <TeamAvatar/>
+                      </div>
+                  </div>
+                  {/* Timeline */}
+                  <div className='projectSlider__item-div'>
+                      <div className='projectSlider__item'>
+                        <span><TbCalendarTime /></span>
+                        <span>Timeline</span>
                       </div>
                       <div>
                           {/* include the team image icon */}
                       </div>
                   </div>
+                  {/* Project type */}
+                  <div className='projectSlider__item-div'>
+                      <div className='projectSlider__item'>
+                        <span><PiSuitcaseSimpleThin /></span>
+                        <span>Project Type</span>
+                      </div>
+                      <div>
+                          {/* include the team image icon */}
+                      </div>
+                  </div>
+                  {/* Status */}
+                  <div className='projectSlider__item-div'>
+                      <div className='projectSlider__item'>
+                        <span><LuFileClock /></span>
+                        <span>Status</span>
+                      </div>
+                      <div>
+                          {/* include the team image icon */}
+                      </div>
+                  </div>
+              </div>
+
+              <div className='projectSlider__notes-div'>
+                  <h4 className='projectSlider__notes-title'> <MdOutlineEditNote /> Add notes</h4>
               </div>
           </div>
           

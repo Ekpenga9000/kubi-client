@@ -27,7 +27,6 @@
         margin-top: 1rem;
     }
     &__desc-title{
-    
         font-family: "CaviarDreams", sans-serif;
         font-weight: 600;
         color: $bg-gray-1;
@@ -36,5 +35,33 @@
         margin-top: 0.5rem;
         font-family: "LouisGeorgeCafe", sans-serif;
         font-weight: 400;
+        font-size: 0.9rem;
+    }
+    &__item-div{
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    &__item{
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        color: $bg-gray-1;
+        font-weight: 600;
+    }
+    &__bottom{
+        margin-top: 2rem;
+    }
+    &__notes-div{
+        margin-top: 2rem;
+    }
+    &__notes-title{
+        display: flex;
+        align-items: center;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        gap: 0.2rem;
+        cursor: pointer;
     }
 }

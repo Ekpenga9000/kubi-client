@@ -64,4 +64,22 @@
         gap: 0.2rem;
         cursor: pointer;
     }
+    &__deets{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 600;
+    }
+    &__status{
+        &--active{
+            @include pill($text-success, $bg-success);
+            font-family: "LouisGeorgeCafe", sans-serif;
+        }
+        &--deferred{
+            @include pill($text-warning, $bg-warning);
+            font-family: "LouisGeorgeCafe", sans-serif;
+        }
+        &--closed{
+            @include pill($bg-gray-1, $bg-gray-3);
+            font-family: "LouisGeorgeCafe", sans-serif;
+        }
+    }
 }

@@ -13,6 +13,7 @@ function ProjectSlideBar({ toggleSlider }) {
     const handleClose = () => {
         toggleSlider();
     }
+
   return (
       <section className='projectSlider'>
           <div className='projectSlider__icon-div'>
@@ -45,9 +46,7 @@ function ProjectSlideBar({ toggleSlider }) {
                         <span><TbCalendarTime /></span>
                         <span>Timeline</span>
                       </div>
-                      <div>
-                          {/* include the team image icon */}
-                      </div>
+                     <p className='projectSlider__deets'>Jun 15, 2022  - Dec 15, 2023</p>
                   </div>
                   {/* Project type */}
                   <div className='projectSlider__item-div'>
@@ -56,7 +55,7 @@ function ProjectSlideBar({ toggleSlider }) {
                         <span>Project Type</span>
                       </div>
                       <div>
-                          {/* include the team image icon */}
+                         <p className='projectSlider__deets'>Software development project</p>
                       </div>
                   </div>
                   {/* Status */}
@@ -66,7 +65,9 @@ function ProjectSlideBar({ toggleSlider }) {
                         <span>Status</span>
                       </div>
                       <div>
-                          {/* include the team image icon */}
+                          <span className='projectSlider__status--active'>Active</span>
+                          <span className='projectSlider__status--deferred'>Deferred</span>
+                          <span className='projectSlider__status--closed'>Closed</span>
                       </div>
                   </div>
               </div>

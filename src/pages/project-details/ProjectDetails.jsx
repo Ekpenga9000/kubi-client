@@ -31,7 +31,6 @@ const ProjectDetails = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("Project info",data);
         setProjectData(data);
       } catch (err) {
         console.log(err);

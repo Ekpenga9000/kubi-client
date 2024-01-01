@@ -1,4 +1,5 @@
-import React from 'react'; 
+import React, { useEffect, useState } from 'react'; 
+import {Link} from "react-router-dom";
 import "./ProjectSlideBar.scss";
 import { MdClose, MdOutlineEditNote } from "react-icons/md";
 import { AiOutlineTeam } from "react-icons/ai";
@@ -6,14 +7,52 @@ import { TbCalendarTime } from "react-icons/tb";
 import { PiSuitcaseSimpleThin } from "react-icons/pi";
 import { LuFileClock } from "react-icons/lu";
 import TeamAvatar from '../teamAvatar/TeamAvatar';
-
+import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 function ProjectSlideBar({ toggleSlider }) {
-
+    const [details, setDetails] = useState(null); 
     const handleClose = () => {
         toggleSlider();
     }
+    const url = import.meta.env.VITE_SERVER_URL;
+    const token = sessionStorage.getItem("token"); 
+    const { projectId } = useParams(); 
 
+
+    useEffect(() => {
+        const fetchProjectDetails = async () => {
+            try {
+                const { data } = await axios.get(`${url}/projects/details/${projectId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                setDetails(data);
+                console.log("The Data", data);
+            } catch (error) {
+               console.log(error) 
+            }
+        }
+
+        fetchProjectDetails();
+    }, [projectId, token, url])
+
+    if (!details) {
+       return <>Loading...</>
+    }
+
+    const formatDateToCustomFormat = (date) => {
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+        return formattedDate;
+      }
+    
+    const {
+        created_at, description, startDate, endDate,
+        project_id, name, status, team_id, team_name, type,
+        project_lead, project_creator, project_number, lead_id
+    } = details;
   return (
       <section className='projectSlider'>
           <div className='projectSlider__icon-div'>
@@ -23,11 +62,11 @@ function ProjectSlideBar({ toggleSlider }) {
               />
           </div>
           <div className='projectSlider__title-div'>
-              <h5 className='projectSlider__intro'>Project / CT11702059764068 </h5>
-              <h4 className='projectSlider__title'>CPP Project</h4>
+              <h5 className='projectSlider__intro'>Project / {project_number}</h5>
+              <h4 className='projectSlider__title'>{ name }</h4>
               <div className='projectSlider__desc-div'>
                   <h5 className='projectSlider__desc-title'>Description</h5>
-                  <p className='projectSlider__desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, temporibus autem? Rerum quos at distinctio totam ipsa laborum ducimus doloribus tenetur ex? In voluptatem, possimus voluptatibus et molestiae aliquid maxime.</p>
+                  <p className='projectSlider__desc'>{ description }</p>
               </div>  
               <div className='projectSlider__bottom'>
                   {/* Team */}
@@ -37,7 +76,11 @@ function ProjectSlideBar({ toggleSlider }) {
                           <span>Team</span>
                       </div>
                       <div>
-                          <TeamAvatar/>
+                          <Link to={`/teams/${team_id}`}>
+                          { team_name }
+                          </Link>
+                          
+                          {/* <TeamAvatar/> */}
                       </div>
                   </div>
                   {/* Timeline */}
@@ -46,7 +89,7 @@ function ProjectSlideBar({ toggleSlider }) {
                         <span><TbCalendarTime /></span>
                         <span>Timeline</span>
                       </div>
-                     <p className='projectSlider__deets'>Jun 15, 2022  - Dec 15, 2023</p>
+                      <p className='projectSlider__deets'>{formatDateToCustomFormat(new Date(startDate))}  - { formatDateToCustomFormat(new Date(endDate)) }</p>
                   </div>
                   {/* Project type */}
                   <div className='projectSlider__item-div'>
@@ -55,7 +98,7 @@ function ProjectSlideBar({ toggleSlider }) {
                         <span>Project Type</span>
                       </div>
                       <div>
-                         <p className='projectSlider__deets'>Software development project</p>
+                         <p className='projectSlider__deets'>{type}</p>
                       </div>
                   </div>
                   {/* Status */}
@@ -65,9 +108,9 @@ function ProjectSlideBar({ toggleSlider }) {
                         <span>Status</span>
                       </div>
                       <div>
-                          <span className='projectSlider__status--active'>Active</span>
-                          <span className='projectSlider__status--deferred'>Deferred</span>
-                          <span className='projectSlider__status--closed'>Closed</span>
+                          {status === "active" && <span className='projectSlider__status--active'>Active</span>}
+                          {status === "deferred" && <span className='projectSlider__status--deferred'>Deferred</span>}
+                          {status === "closed" && <span className='projectSlider__status--closed'>Closed</span>}
                       </div>
                   </div>
               </div>

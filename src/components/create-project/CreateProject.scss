@@ -2,90 +2,112 @@
 @use "../../style/partials/typography" as *;
 @use "../../style/partials/variables" as *;
 
-.createProj{
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    height: 100%;
-    &__form{
-        background-color: #fff;
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
-        border-radius: 0.625rem;
-        width: 33.3%;
-        min-height: 37rem;
-        border: 1px solid $bg-gray-2;
-    }
-    &__label{
-        display: block;
-        margin-bottom:1rem;
-        font-family: "LouisGeorgeCafe", sans-serif;
-        font-weight: 700;
-    }
-    &__cntr{
-        margin-bottom:1rem;
-    }
-    &__input{
-        padding: 0.5rem 1rem;
-        border: 0.0625rem solid $bg-gray-1;   
-        width: 100%;
-        border-radius: 0.3125rem;
-        font-family: "LouisGeorgeCafe", sans-serif;
-        &:focus{
-            border:1px solid $bg-color-1;
-            outline:1px solid $bg-color-1;
-        }
-    }
-    &__err{
-        color: $text-danger;
-        font-family: "LouisGeorgeCafe", sans-serif;
-        font-weight: 400;
+.createProj {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  height: 100%;
+  &__form {
+    background-color: #fff;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    border-radius: 0.625rem;
+    width: 33.3%;
+    min-height: 37rem;
+    border: 1px solid $bg-gray-2;
+  }
+  &__label {
+    display: block;
+    margin-bottom: 1rem;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    &--key {
         font-size: 0.8rem;
+      font-family: "LouisGeorgeCafe", sans-serif;
+      margin-right: 0.5rem;
     }
-    &__desc{
-        padding: 1rem;
-        border: 0.0625rem solid $bg-gray-1;   
-        width: 100%;
-        height: 10rem;
-        resize: none;
-        border-radius: 0.3125rem;
-        font-family: "LouisGeorgeCafe", sans-serif;
-        &:focus{
-            border:1px solid $bg-color-1;
-            outline:1px solid $bg-color-1;
-        }
+  }
+  &__cntr {
+    margin-bottom: 1rem;
+  }
+  &__input {
+    padding: 0.5rem 1rem;
+    border: 0.0625rem solid $bg-gray-1;
+    width: 100%;
+    border-radius: 0.3125rem;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    &:focus {
+      border: 1px solid $bg-color-1;
+      outline: 1px solid $bg-color-1;
     }
-    &__date-cntr{
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
+
+    &--key {
+      padding: 0.5rem 1rem;
+      border: 0.0625rem solid $bg-gray-1;
+      border-radius: 0.3125rem;
+      font-family: "LouisGeorgeCafe", sans-serif;
+      outline:none;
+      // &:focus {
+      //   border: 1px solid $bg-color-1;
+      //   outline: 1px solid $bg-color-1;
+      // }
     }
-    &__date{
-        @include date-mixin($bg-gray-1);
-        &--error{
-            @include date-mixin($text-danger);
-        }
+  }
+  &__err {
+    color: $text-danger;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+  }
+  &__desc {
+    padding: 1rem;
+    border: 0.0625rem solid $bg-gray-1;
+    width: 100%;
+    height: 7rem;
+    resize: none;
+    border-radius: 0.3125rem;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    &:focus {
+      border: 1px solid $bg-color-1;
+      outline: 1px solid $bg-color-1;
     }
-    &__btn-group{
-        padding-block: 1rem;
-        display: flex;
-        justify-content: space-between;
+  }
+  &__date-cntr {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  &__date {
+    @include date-mixin($bg-gray-1);
+    &--error {
+      @include date-mixin($text-danger);
     }
-    &__btn{
-        &--create{
-            @include menu-list(#fff, $bg-color-2, $bg-color-1);
-            border: 0.0625rem solid $bg-color-1;
-        }
-        &--cancel{
-            @include menu-list($text-danger, rgba($color: $text-danger, $alpha: 0.2), #fff);
-            border: 0.0625rem solid $text-danger;
-        }
+  }
+  &__btn-group {
+    padding-block: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__btn {
+    &--create {
+      @include menu-list(#fff, $bg-color-2, $bg-color-1);
+      border: 0.0625rem solid $bg-color-1;
     }
-    &__x-div{
-        display: flex;
-        margin-bottom:1rem;
-        justify-content: end;
+    &--cancel {
+      @include menu-list(
+        $text-danger,
+        rgba($color: $text-danger, $alpha: 0.2),
+        #fff
+      );
+      border: 0.0625rem solid $text-danger;
     }
-    &__x{
-        cursor: pointer;
-    }
+  }
+  &__x-div {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: end;
+  }
+  &__x {
+    cursor: pointer;
+  }
 }

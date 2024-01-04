@@ -10,6 +10,7 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   const [startDateErr, setStartDateErr] = useState(false);
   const [endDateErr, setEndDateErr] = useState(false);
   const [formErr, setFormErr] = useState(false);
+  const [projectKey, setProjectKey] = useState("")
   const url = import.meta.env.VITE_SERVER_URL;
   const token = sessionStorage.getItem("token"); 
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const name = e.target.name.value;
+    const project_number = e.target.key.value; 
     const description = e.target.description.value;
     const start_date = e.target.startdate.value;
     const end_date = e.target.enddate.value;
@@ -63,11 +65,12 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
 
     if (
       !name.trim() ||
+      !project_number.trim() ||
       !description.trim() ||
       !type.trim() ||
       !start_date ||
       !end_date ||
-      !status
+      !status 
     ) {
       setFormErr(true);
       return;
@@ -80,6 +83,7 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
       start_date,
       end_date,
       status,
+      project_number
     };
 
     try{ 
@@ -97,6 +101,22 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
     }
   };
 
+  const handleProjectKey = (e) => { 
+    //take the first letter of each word in the name and join them together in uppercase
+    // We are going to debounce the input for a better performance. 
+    setTimeout(() => {
+      const name = e.target.value;
+      if (name.trim() !== "") {
+        const nameArray = name.split(" ");
+        const firstLetters = nameArray.map((word) => word[0].toUpperCase());
+        const key = firstLetters.join("");
+        setProjectKey(key);
+      } else {
+        setProjectKey("");
+      }
+    }, 500); 
+  }
+
   return (
     <div className="createProj">
       <form onSubmit={handleSubmit} className="createProj__form">
@@ -113,6 +133,22 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
             id="name"
             className="createProj__input"
             placeholder="Name of your project..."
+            onChange={handleProjectKey}
+          />
+        </div>
+
+        <div className="createProj__cntr">
+          <label htmlFor="name" className="createProj__label--key">
+            Key
+          </label>
+          <input
+            type="text"
+            name="key"
+            id="key"
+            value={projectKey}
+            readOnly={true}
+            className="createProj__input--key"
+            placeholder="Unique project key..."
           />
         </div>
 

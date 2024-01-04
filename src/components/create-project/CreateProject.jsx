@@ -181,12 +181,12 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
             </select>
           </div>
         </div>
-        {startDateErr && <p>You can't start your project before today. </p>}
+        {startDateErr && <p className="createProj__err">You can't start your project before today. </p>}
         {endDateErr && (
-          <p>Estimated end date is at least 7 days after Start date. </p>
+          <p className="createProj__err">Estimated end date is at least 7 days after Start date. </p>
         )}
         {formErr && (
-          <p>Please ensure that the forms are being appropiately filled. </p>
+          <p className="createProj__err">Please ensure that the forms are being appropiately filled. </p>
         )}
 
         <div className="createProj__btn-group">

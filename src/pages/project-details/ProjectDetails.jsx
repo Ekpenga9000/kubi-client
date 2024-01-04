@@ -125,6 +125,10 @@ const ProjectDetails = () => {
           <li className="p-details__item--role">
               <LuUserCog2 /> Project Role:  { permission === "admin" ? "Admin" : "Member"}
             </li>
+            <li className="p-details__item--insight">
+              <GrCubes />
+              Backlogs
+            </li>
             <li className="p-details__item--active">
               <TbCalendarBolt />
               Active Sprint
@@ -145,10 +149,6 @@ const ProjectDetails = () => {
               Sprints
             </li>
             <li className="p-details__item">
-              <GrCubes />
-              Backlogs
-            </li>
-            <li className="p-details__item--insight">
               <CgInsights />
               Insights
             </li>

@@ -70,14 +70,14 @@ const DashboardBottom = () => {
               className="dashboard-bottom__btn--create"
               onClick={handleAddIssue}
             >
-              <IoAdd /> Add Issue
+              <IoAdd /> Create Issue
             </button>
           )}
           {addIssue && (
             <AddIssueForm handleAddIssue={handleAddIssue} fetchAllIssues={ fetchAllIssues } />
           )}
         </div>
-        <div className="dashboard-bottom__notes-div">
+        {/* <div className="dashboard-bottom__notes-div">
           <div className="dashboard-bottom__note-title-div">
             <h4 className="dashboard-bottom__note-title">
               <MdOutlineNotes />
@@ -86,7 +86,7 @@ const DashboardBottom = () => {
             <MdOutlinePlaylistAdd className="dashboard-bottom__note-icon" />
           </div>
           <div className="dashboard-bottom__note-list"></div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

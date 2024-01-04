@@ -67,7 +67,7 @@ const DashboardTop = ({ description }) => {
                     </ul>
                 </div>
             </div>
-            <div className="dashboard-top__desc">
+            {/* <div className="dashboard-top__desc">
                 <div className="dashboard-top__edit-div">
                     <h3 className="dashboard-top__title">Description</h3>
                     {!isClicked && <FiEdit className="dashboard-top__edit" onClick={handleClick} />}
@@ -85,7 +85,7 @@ const DashboardTop = ({ description }) => {
                         </div>
                     </form>}
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -46,14 +46,15 @@ function ProjectSlideBar({ toggleSlider }) {
         const options = { day: 'numeric', month: 'short', year: 'numeric' };
         const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
         return formattedDate;
-      }
+    }
     
     const {
         created_at, description, startDate, endDate,
         project_id, name, status, team_id, team_name, type,
         project_lead, project_creator, project_number, lead_id
     } = details;
-  return (
+    
+    return (
       <section className='projectSlider'>
           <div className='projectSlider__icon-div'>
               <MdClose
@@ -62,7 +63,7 @@ function ProjectSlideBar({ toggleSlider }) {
               />
           </div>
           <div className='projectSlider__title-div'>
-              <h5 className='projectSlider__intro'>Project / {project_number}</h5>
+              <h5 className='projectSlider__intro'>Project / { project_number }</h5>
               <h4 className='projectSlider__title'>{ name }</h4>
               <div className='projectSlider__desc-div'>
                   <h5 className='projectSlider__desc-title'>Description</h5>

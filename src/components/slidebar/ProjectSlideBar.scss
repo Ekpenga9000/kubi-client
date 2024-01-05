@@ -5,6 +5,11 @@
 .projectSlider{
     background-color: #fff;
     padding: 1rem;
+    &__first-section{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     &__icon-div{
         text-align: end;
         margin-bottom: 1rem;
@@ -81,5 +86,9 @@
             @include pill($bg-gray-1, $bg-gray-3);
             font-family: "LouisGeorgeCafe", sans-serif;
         }
+    }
+    &__team{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-weight: 600;
     }
 }

@@ -45,6 +45,11 @@
         font-family: "CaviarDreams", sans-serif;
         font-weight: 700;
         font-size: 0.9rem;
+    } 
+    &__key-div{
+        display: flex;
+        align-items: center;
+        gap:0.5rem;
     }
     &__number{
       font-family: "LouisGeorgeCafe", sans-serif;
@@ -76,8 +81,9 @@
     }
     &__more-info{
         position: absolute;
+        padding: 0.2rem 0.5rem; 
         font-size: 0.7rem;
-        top: 1.2rem;
+        top: -0.5rem;
         transition: 0.4s ease-in-out;
         font-family: "LouisGeorgeCafe", sans-serif;
         font-style: italic;

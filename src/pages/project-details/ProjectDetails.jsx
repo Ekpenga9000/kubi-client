@@ -5,6 +5,7 @@ import { BiCube } from "react-icons/bi";
 import { CgInsights } from "react-icons/cg";
 import { GrChatOption, GrCubes } from "react-icons/gr";
 import { TbCalendarBolt, TbCalendarShare } from "react-icons/tb";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { LuUserCog2 } from "react-icons/lu";
 import axios from "axios";
 import DashboardTop from "../../components/project-details-dashboard-top/DashboardTop";
@@ -84,24 +85,10 @@ const ProjectDetails = () => {
               onClick={toggleSlider}
             />
             {name}
-            {status === "active" && (
-              <span
-                className="p-details__status--active"
-                onClick={toggleOption}
-              ></span>
-            )}
-            {status === "deferred" && (
-              <span
-                className="p-details__status--deferred"
-                onClick={toggleOption}
-              ></span>
-            )}
-            {status === "closed" && (
-              <span
-                className="p-details__status--closed"
-                onClick={toggleOption}
-              ></span>
-            )}
+            
+            {!option && <IoIosArrowDown onClick={toggleOption} className="p-details__icon"/> }
+            {option && <IoIosArrowUp onClick={toggleOption} className="p-details__icon"/> }
+            
           </h4>
           {option && (
             <ul className="p-details__update">
@@ -116,8 +103,28 @@ const ProjectDetails = () => {
               )}
             </ul>
           )}
-          {moreInfo && <p className="p-details__more-info">More info</p>}
-          <p className="p-details__number">{ projectNumber }</p>
+          {/* {moreInfo && <p className="p-details__more-info">More info</p>} */}
+          <div className="p-details__key-div">
+            <p className="p-details__number">{ projectNumber }</p>
+            {status === "active" && (
+              <div
+                className="p-details__status--active"
+                onClick={toggleOption}
+              ></div>
+            )}
+            {status === "deferred" && (
+              <div
+                className="p-details__status--deferred"
+                onClick={toggleOption}
+              ></div>
+            )}
+            {status === "closed" && (
+              <div
+                className="p-details__status--closed"
+                onClick={toggleOption}
+              ></div>
+            )}
+          </div>
         </div>
 
         <div className="p-details__cntr">

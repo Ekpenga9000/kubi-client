@@ -9,9 +9,9 @@ import { TbTrashOff,TbTrash } from "react-icons/tb";
 
 function Project({ project }) {
 
-    if(!project){
-        return <>Loading...</>
-    }
+    // if(!project){
+    //     return <>Loading...</>
+    // }
     const { id, name, project_number, type, project_lead, lead_id, status, permission } = project;
 
     const capitalize = str =>{

@@ -102,8 +102,6 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   };
 
   const handleProjectKey = (e) => { 
-    //take the first letter of each word in the name and join them together in uppercase
-    // We are going to debounce the input for a better performance. 
     setTimeout(() => {
       const name = e.target.value;
       if (name.trim() !== "") {

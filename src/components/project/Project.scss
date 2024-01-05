@@ -36,6 +36,7 @@
     &__delete{
         color: $text-danger;
         font-size: 1.2rem;
+        cursor: pointer;
     }
     &__status{
        &--active{

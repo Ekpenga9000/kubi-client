@@ -1,0 +1,39 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/variables" as *;
+@use "../../style/partials/typography" as *;
+
+.delete-m{
+    background-color: #fff;
+    border: 0.0625rem solid $bg-gray-2;
+    padding: 1rem 2rem 2rem 2rem;
+    border-radius: 0.3125rem;
+    &__icon-div{
+        display: flex;
+        justify-content: end;
+        margin-block-end: 1rem;
+    }
+    &__icon{
+        cursor: pointer;
+    }
+    &__title{
+        font-family:"CaviarDreams", sans-serif;
+        margin-block-end: 1rem;
+    }
+    &__text{
+        font-family: "LouisGeorgeCafe", sans-serif;
+        margin-block-end: 2rem;
+    }
+    &__btn-div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__btn{
+        &--cancel{
+            @include modal-btn($text-emphasis, $bg-gray-3, none);
+        }
+        &--delete{
+            @include modal-btn($text-danger, #fff, 0.0625rem solid $text-danger);
+        }
+    }
+}

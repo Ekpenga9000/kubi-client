@@ -9,6 +9,10 @@ import { TbTrashOff,TbTrash } from "react-icons/tb";
 
 function Project({ project }) {
 
+    //We are creating a modal to delete to warn and then we would delete the project. 
+    // The first thing we are going to do is to create issues for the project and then we are going to delete them. 
+
+
     // if(!project){
     //     return <>Loading...</>
     // }

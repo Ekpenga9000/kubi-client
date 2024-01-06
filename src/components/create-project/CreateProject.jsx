@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import "./CreateProject.scss";
 import { GoIssueClosed } from "react-icons/go";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import gsap from "gsap";
 
 function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   const [startDateErr, setStartDateErr] = useState(false);
@@ -14,6 +15,20 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   const url = import.meta.env.VITE_SERVER_URL;
   const token = sessionStorage.getItem("token"); 
   const navigate = useNavigate();
+
+  const createModal = useRef();
+  const comp = useRef();
+
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.from(createModal.current, {
+        opacity: 0, 
+        duration: 0.3,
+        ease:"power1.in"
+      })
+    }, comp); 
+    return ()=> ctx.revert(); 
+  }, [])
 
   if(!token){
     return navigate("/login");
@@ -116,7 +131,8 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
   }
 
   return (
-    <div className="createProj">
+    <section ref={comp}>
+    <div className="createProj" ref={createModal}>
       <form onSubmit={handleSubmit} className="createProj__form">
         <div className="createProj__x-div">
           <AiOutlineClose className="createProj__x" onClick={handleClick} />
@@ -242,6 +258,7 @@ function CreateProject({ handleModal, handleSuccess, handleAllProjects }) {
         </div>
       </form>
     </div>
+    </section>
   );
 }
 

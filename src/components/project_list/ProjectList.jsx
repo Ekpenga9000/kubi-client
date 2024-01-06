@@ -1,8 +1,23 @@
+import { useLayoutEffect, useRef, useState } from "react";
 import DeleteProjectModal from "../deleteProjectModal/DeleteProjectModal";
 import Project from "../project/Project";
 import "./ProjectList.scss";
 
+
 function ProjectList({ projectList }) {
+  const [isDeleteModal, setIsDeleteModal] = useState(false); 
+  const [selectedProject, setSelectedProject] = useState({}); 
+  
+
+  const activateDeleteModal = (id, name) => {
+    setIsDeleteModal(true); 
+    setSelectedProject({ id, name });
+  }
+
+  const deactivateDeleteModal = () => {
+    setIsDeleteModal(false); 
+  }
+
   return (
     <div className="projectList">
       <div className="projectList__title-div">
@@ -25,11 +40,11 @@ function ProjectList({ projectList }) {
       </div>
       {projectList &&
         projectList.map((project) => {
-          return <Project project={project} key={project.id} />;
+          return <Project project={project} key={project.id} activateDeleteModal={activateDeleteModal} />;
         })}
-      <div className="projectList__modal"> 
-          < DeleteProjectModal/>
-      </div>
+      {isDeleteModal && <div className="projectList__modal"> 
+        <DeleteProjectModal selectedProject={selectedProject} deactivateDeleteModal={deactivateDeleteModal} />
+      </div>}
     </div>
   );
 }

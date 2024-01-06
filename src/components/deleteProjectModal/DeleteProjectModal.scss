@@ -3,10 +3,12 @@
 @use "../../style/partials/typography" as *;
 
 .delete-m{
-    background-color: #fff;
-    border: 0.0625rem solid $bg-gray-2;
-    padding: 1rem 2rem 2rem 2rem;
-    border-radius: 0.3125rem;
+    &__container{
+        background-color: #fff;
+        border: 0.0625rem solid $bg-gray-2;
+        padding: 1rem 2rem 2rem 2rem;
+        border-radius: 0.3125rem;
+    }
     &__icon-div{
         display: flex;
         justify-content: end;

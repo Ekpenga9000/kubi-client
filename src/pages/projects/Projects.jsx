@@ -69,7 +69,7 @@ const Projects = ({ isActive, handleModal }) => {
 
   const filterProjectStatus = async (status) => {
     try {
-      const { data } = await axios.get(`${url}/projects/${status}`, {
+      const { data } = await axios.get(`${url}/projects/status/${status}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

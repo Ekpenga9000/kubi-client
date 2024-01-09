@@ -47,6 +47,16 @@ function DeleteProjectModal({ selectedProject, deactivateDeleteModal, handleDele
 
   const handleArchive = async () => {
     try {
+      const url = import.meta.env.VITE_SERVER_URL;
+      const token = sessionStorage.getItem("token"); 
+      await axios.patch(`${url}/projects/`, {
+        id, 
+        archived: "true"
+      } ,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       handleArchivedProjects();
     } catch (err) {
       console.log(err); 

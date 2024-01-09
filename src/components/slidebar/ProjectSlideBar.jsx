@@ -31,7 +31,6 @@ function ProjectSlideBar({ toggleSlider }) {
           }
         );
         setDetails(data);
-        console.log("The Data", data);
       } catch (error) {
         console.log(error);
       }

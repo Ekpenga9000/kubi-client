@@ -2,21 +2,51 @@ import { useLayoutEffect, useRef, useState } from "react";
 import DeleteProjectModal from "../deleteProjectModal/DeleteProjectModal";
 import Project from "../project/Project";
 import "./ProjectList.scss";
+import deleted from "../../assets/images/deleted.gif";
+import archived from "../../assets/images/archived.gif";
+import SuccessModal from "../successModal/SuccessModal";
 
-
-function ProjectList({ projectList }) {
-  const [isDeleteModal, setIsDeleteModal] = useState(false); 
-  const [selectedProject, setSelectedProject] = useState({}); 
-  
+function ProjectList({ projectList, fetchProjects }) {
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isSuccessModal, setSuccessModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState({});
+  const [successModalMsg, setSuccessModalMsg] = useState("");
+  const [gif, setGif] = useState("");
 
   const activateDeleteModal = (id, name) => {
-    setIsDeleteModal(true); 
+    setIsDeleteModal(true);
     setSelectedProject({ id, name });
-  }
+  };
 
   const deactivateDeleteModal = () => {
-    setIsDeleteModal(false); 
-  }
+    setIsDeleteModal(false);
+  };
+
+  const closeSuccessModal = () => {
+    setTimeout(() => {
+      setSuccessModal(false);
+    }, 2000);
+  };
+
+  const handleDeletedProjects = () => {
+    setSuccessModalMsg("Project has been deleted successfully 🗑️.");
+    setGif(deleted);
+    deactivateDeleteModal();
+    setSuccessModal(true);
+    fetchProjects();
+    closeSuccessModal();
+  };
+
+  const handleArchivedProjects = () => {
+    setSuccessModalMsg("Project has been archived successfully 📂.");
+    setGif(archived);
+    deactivateDeleteModal();
+    setSuccessModal(true);
+    fetchProjects();
+    closeSuccessModal();
+    fetchProjects();
+    closeSuccessModal();
+  };
 
   return (
     <div className="projectList">
@@ -40,11 +70,29 @@ function ProjectList({ projectList }) {
       </div>
       {projectList &&
         projectList.map((project) => {
-          return <Project project={project} key={project.id} activateDeleteModal={activateDeleteModal} />;
+          return (
+            <Project
+              project={project}
+              key={project.id}
+              activateDeleteModal={activateDeleteModal}
+            />
+          );
         })}
-      {isDeleteModal && <div className="projectList__modal"> 
-        <DeleteProjectModal selectedProject={selectedProject} deactivateDeleteModal={deactivateDeleteModal} />
-      </div>}
+      {isDeleteModal && (
+        <div className="projectList__modal">
+          <DeleteProjectModal
+            selectedProject={selectedProject}
+            deactivateDeleteModal={deactivateDeleteModal}
+            handleDeletedProjects={handleDeletedProjects}
+            handleArchivedProjects={handleArchivedProjects}
+          />
+        </div>
+      )}
+      {isSuccessModal && (
+        <div className="projectList__modal">
+          <SuccessModal msg={successModalMsg} gif={gif} />
+        </div>
+      )}
     </div>
   );
 }

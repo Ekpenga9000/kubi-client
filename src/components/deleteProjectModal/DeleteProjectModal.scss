@@ -37,5 +37,8 @@
         &--delete{
             @include modal-btn($text-danger, #fff, 0.0625rem solid $text-danger);
         }
+        &--archive{
+            @include modal-btn($text-secondary, #fff, 0.0625rem solid $text-secondary);
+        }
     }
 }

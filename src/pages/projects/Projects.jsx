@@ -1,6 +1,7 @@
 import CreateProject from "../../components/create-project/CreateProject";
 import NoProjects from "../../components/noProjects/NoProjects";
-import Success from "../success/Success";
+import SuccessModal from "../../components/successModal/SuccessModal";
+import successGif from "../../assets/images/success.gif";
 import axios from "axios";
 import "./Projects.scss";
 import { useEffect, useState } from "react";
@@ -22,29 +23,29 @@ const Projects = ({ isActive, handleModal }) => {
     const token = sessionStorage.getItem("token"); 
     const navigate = useNavigate(); 
 
-    useEffect(()=>{
-        const fetchProjects = async()=>{
-            if(!token){
-                return navigate("/login");
-            }
-            try{
-                const {data} = await axios.get(`${url}/projects`,{
-                    headers:{
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                const {projects} = data; 
-                setProjectsLength(projects.length); 
-                setSortedProjects(projects);
-                
-            }catch(err){
-                console.log(err); 
-                setIsErr(true);
-                setErrMsg("Internal Server Error."); 
-            }
+    const fetchProjects = async()=>{
+        if(!token){
+            return navigate("/login");
         }
-        fetchProjects()
-    }, [url, token, navigate])
+        try{
+            const {data} = await axios.get(`${url}/projects`,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const {projects} = data; 
+            setProjectsLength(projects.length); 
+            setSortedProjects(projects);
+            
+        }catch(err){
+            console.log(err); 
+            setIsErr(true);
+            setErrMsg("Internal Server Error."); 
+        }
+    }
+    useEffect(()=>{
+        fetchProjects();
+    }, [])
     
     const handleSuccess = () => {
         handleModal(false);
@@ -176,7 +177,7 @@ const Projects = ({ isActive, handleModal }) => {
                         </div>
                     </div>
                     <div className="dashboard__projects">
-                        {sortedprojects.length > 0 ? ( <ProjectList projectList={sortedprojects} />) : (<>Project not found</>)}
+                        {sortedprojects.length > 0 ? (<ProjectList projectList={sortedprojects} fetchProjects={ fetchProjects } />) : (<>Project not found</>)}
                         {isErr && <p>{errMsg}</p>}
                     </div>
 
@@ -187,7 +188,7 @@ const Projects = ({ isActive, handleModal }) => {
             </div>}
 
             {isSuccessful && <div className="dashboard__modal">
-                <Success msg={"New project created! 👍"} />
+                <SuccessModal msg={"New project created! 👍"} gif={ successGif } />
             </div>}
 
         </section>

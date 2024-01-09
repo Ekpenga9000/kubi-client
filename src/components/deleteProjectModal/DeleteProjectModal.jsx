@@ -1,11 +1,12 @@
 import "./DeleteProjectModal.scss";
 import { useLayoutEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import { IoIosCloseCircleOutline, IoIosArchive } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import gsap from "gsap";
+import axios from "axios"; 
 
-function DeleteProjectModal({ selectedProject, deactivateDeleteModal }) {
+function DeleteProjectModal({ selectedProject, deactivateDeleteModal, handleDeletedProjects, handleArchivedProjects }) {
   const theModal = useRef();
   const comp = useRef();
 
@@ -28,9 +29,29 @@ function DeleteProjectModal({ selectedProject, deactivateDeleteModal }) {
     deactivateDeleteModal();
   };
 
-  const handleDelete = () => {
-    alert("This project has been deleted");
+  const handleDelete = async() => {
+    try {
+      const url = import.meta.env.VITE_SERVER_URL;
+      const token = sessionStorage.getItem("token"); 
+      await axios.delete(`${url}/projects/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    
+      handleDeletedProjects();
+    } catch (err) {
+      console.log("The error", err);
+    }
   };
+
+  const handleArchive = async () => {
+    try {
+      handleArchivedProjects();
+    } catch (err) {
+      console.log(err); 
+    }
+  }
 
   return (
     <section className="delete-m" ref={comp}>
@@ -44,6 +65,11 @@ function DeleteProjectModal({ selectedProject, deactivateDeleteModal }) {
           <button className="delete-m__btn--cancel" onClick={handleCancel}>
             <IoIosCloseCircleOutline /> Cancel
           </button>
+
+          <button className="delete-m__btn--archive" onClick={handleArchive}>
+            <IoIosArchive /> Archive
+          </button>
+
           <button className="delete-m__btn--delete" onClick={handleDelete}>
             <MdDeleteOutline />
             Delete

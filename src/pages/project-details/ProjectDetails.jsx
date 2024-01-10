@@ -3,10 +3,13 @@ import { useParams } from "react-router-dom";
 import { BsInfoCircle } from "react-icons/bs";
 import { BiCube } from "react-icons/bi";
 import { CgInsights } from "react-icons/cg";
-import { GrChatOption, GrCubes } from "react-icons/gr";
+import { GrChatOption } from "react-icons/gr";
 import { TbCalendarBolt, TbCalendarShare } from "react-icons/tb";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { LuUserCog2 } from "react-icons/lu";
+import { IoIosBookmark } from "react-icons/io";
+import { FaBug, FaCheck, FaBolt, FaCubes } from "react-icons/fa";
+import { TbSubtask } from "react-icons/tb";
 import axios from "axios";
 import DashboardTop from "../../components/project-details-dashboard-top/DashboardTop";
 import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
@@ -133,7 +136,7 @@ const ProjectDetails = () => {
               <LuUserCog2 /> Project Role:  { permission === "admin" ? "Admin" : "Member"}
             </li>
             <li className="p-details__item--insight">
-              <GrCubes />
+              <FaCubes />
               Backlogs
             </li>
             <li className="p-details__item--active">
@@ -159,6 +162,26 @@ const ProjectDetails = () => {
               <CgInsights />
               Insights
             </li>
+          </ul>
+
+          <h3 className="p-details__name">Legend</h3>
+
+          <ul className="p-details__menu">
+            <li className="p-details__item"><div className="issue__span--epic">
+                <FaBolt />
+              </div>Epic</li>
+            <li className="p-details__item"> <div className="issue__span--story">
+                <IoIosBookmark />
+              </div>Story</li>
+            <li className="p-details__item"><div className="issue__span--task">
+                <FaCheck />
+              </div>Task</li>
+            <li className="p-details__item"><div className="issue__span--bug">
+                <FaBug />
+              </div> Bug</li>
+            <li className="p-details__item"><div className="issue__span--story">
+            <TbSubtask />
+              </div>Sub-task</li>
           </ul>
         </div>
       </div>

@@ -54,6 +54,7 @@ function AddIssueForm({ handleAddIssue, fetchAllIssues }) {
           <select name="type" className="add-issue__select">
             <option value="Task">Task</option>
             <option value="Bug">Bug</option>
+            <option value="Story">Story</option>
             <option value="Epic">Epic</option>
           </select>
           <select name="priority" className="add-issue__select">

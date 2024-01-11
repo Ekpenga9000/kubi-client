@@ -8,13 +8,8 @@ import ProjectDetails from "./pages/project-details/ProjectDetails";
 import UserDetails from "./pages/user-details/UserDetails";
 import EmailMsg from "./pages/emailMsg/EmailMsg";
 import Registration from "./components/registration/Registration";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend"; 
 
 function App() {
   const [isActive, setIsActive] = useState(false);
@@ -29,7 +24,7 @@ function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <DndProvider backend={HTML5Backend}>
       <BrowserRouter>
         {!isLoginPage && <NavBar handleModal={handleModal} />}
         <Routes>
@@ -61,7 +56,7 @@ function App() {
           <Route path="email-info" element={<EmailMsg />} />
         </Routes>
       </BrowserRouter>
-    </QueryClientProvider>
+    </DndProvider>
   );
 }
 

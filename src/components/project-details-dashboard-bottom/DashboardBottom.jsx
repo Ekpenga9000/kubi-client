@@ -1,6 +1,7 @@
 import "./DashboardBottom.scss";
 import { IoAdd } from "react-icons/io5";
 import { LiaCubesSolid } from "react-icons/lia";
+import { LuCalendarPlus } from "react-icons/lu";
 import { MdOutlineNotes, MdOutlinePlaylistAdd } from "react-icons/md";
 import { BiTaskX } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -23,33 +24,35 @@ const DashboardBottom = () => {
 
   const fetchAllIssues = async () => {
     try {
-      const {data} = await axios.get(`${url}/issues/${projectId}`, {
+      const { data } = await axios.get(`${url}/issues/${projectId}`, {
         headers: {
           Authorization: `Bear ${token}`,
         },
       });
 
       setIssueLength(data.length);
-      setIssues(data); 
+      setIssues(data);
       setAddIssue(false);
     } catch (err) {
       console.log(err);
     }
-  }
-   
-  useEffect(() => {
-    fetchAllIssues() 
-  }, [])
+  };
 
+  useEffect(() => {
+    fetchAllIssues();
+  }, []);
 
   return (
     <section className="dashboard-bottom">
       <div className="dashboard-bottom__container">
         <div className="dashboard-bottom__left">
-          <h3 className="dashboard-bottom__title">
-            <LiaCubesSolid />
-            Backlogs
-          </h3>
+          <div className="dashboard-bottom__title-div">
+            <h3 className="dashboard-bottom__title">
+              <LiaCubesSolid />
+              Backlogs
+            </h3>
+            <button className="dashboard-bottom__btn--create"><LuCalendarPlus /> Create Sprint</button>
+          </div>
           <div className="dashboard-bottom__issues">
             {issueLength === 0 && (
               <div className="dashboard-bottom__empty">
@@ -61,7 +64,7 @@ const DashboardBottom = () => {
             )}
             {issueLength > 0 && (
               <div className="dashboard-bottom__issues-list">
-                <IssueList issues ={issues} />
+                <IssueList issues={issues} />
               </div>
             )}
           </div>
@@ -74,19 +77,12 @@ const DashboardBottom = () => {
             </button>
           )}
           {addIssue && (
-            <AddIssueForm handleAddIssue={handleAddIssue} fetchAllIssues={ fetchAllIssues } />
+            <AddIssueForm
+              handleAddIssue={handleAddIssue}
+              fetchAllIssues={fetchAllIssues}
+            />
           )}
         </div>
-        {/* <div className="dashboard-bottom__notes-div">
-          <div className="dashboard-bottom__note-title-div">
-            <h4 className="dashboard-bottom__note-title">
-              <MdOutlineNotes />
-              Notes
-            </h4>
-            <MdOutlinePlaylistAdd className="dashboard-bottom__note-icon" />
-          </div>
-          <div className="dashboard-bottom__note-list"></div>
-        </div> */}
       </div>
     </section>
   );

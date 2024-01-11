@@ -5,7 +5,7 @@ import { FaLongArrowAltUp } from "react-icons/fa";
 
 function Issue({ ticketNumber, summary, type, priority, assignee }) {
   return (
-    <section className="issue">
+    <section className="issue" draggable>
       <div className="issue__menu">
         <div className="issue__div">
           {type === "Story" && (

@@ -54,7 +54,7 @@
     background-color: #fff;
     padding: 0.5rem 0.5rem;
     border: 0.0625rem solid $bg-gray-3;
-    cursor: pointer;
+    cursor: move;
     &:hover{
         background-color: rgba($color: $text-secondary, $alpha: 0.1);
     }

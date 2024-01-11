@@ -22,6 +22,7 @@ const ProjectDetails = () => {
   const [slideIn, setSlideIn] = useState(false);
   const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
+  const [hasSprint, setHasSprint] = useState(false);
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
@@ -186,9 +187,9 @@ const ProjectDetails = () => {
         </div>
       </div>
       <div className="p-details__dashboard">
-        <div className="p-details__half">
+        {hasSprint && <div className="p-details__half">
           <DashboardTop description={description} />
-        </div>
+        </div>}
         <div className="p-details__half">
           <DashboardBottom />
         </div>

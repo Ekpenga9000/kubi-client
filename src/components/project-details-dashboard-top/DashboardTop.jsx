@@ -15,6 +15,7 @@ const DashboardTop = ({ description }) => {
     const [isClicked, setClicked] = useState(false);
     const [descValue, setDescValue] = useState(description);
     const [formDescValue, setFormDescValue] = useState(description);
+    const [hasSprint, setHasSprint] = useState(false);
 
     const handleClick = () => {
         setClicked(!isClicked);
@@ -44,7 +45,7 @@ const DashboardTop = ({ description }) => {
                     <button className="dashboard-top__btn--start"> <FaRegCirclePlay /> Start Sprint
                     </button>
                 </div>
-                <div className="dashboard-top__issue-div">
+                { hasSprint &&<> <div className="dashboard-top__issue-div">
                     <ul className="dashboard-top__issue-header">
                         <li className="dashboard-top__title">Issue number</li>
                         <li className="dashboard-top__title">Type</li>
@@ -65,7 +66,7 @@ const DashboardTop = ({ description }) => {
                         <li className="dashboard-top__item">Israel Dalemwa</li>
                         <li className="dashboard-top__item">Action</li>
                     </ul>
-                </div>
+                </div> </>}
             </div>
             {/* <div className="dashboard-top__desc">
                 <div className="dashboard-top__edit-div">

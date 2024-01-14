@@ -30,6 +30,10 @@
     &--options{
         @include modal-btn($text-emphasis, $bg-gray-2, none); 
     }
+    &--disabled{
+        @include modal-btn($bg-gray-2, $bg-gray-3, none); 
+        cursor: not-allowed;
+    }
    }
    &__issues-div{
     padding-inline: 0.5rem;

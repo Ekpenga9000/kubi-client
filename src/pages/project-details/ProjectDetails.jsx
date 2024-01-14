@@ -23,7 +23,7 @@ const ProjectDetails = () => {
   const [slideIn, setSlideIn] = useState(false);
   const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
-  const [hasSprint, setHasSprint] = useState(true);
+  const [createSprint, setCreatSprint] = useState(false);
   const [editSprintModal, setEditSprintModal] = useState(false); 
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
@@ -50,6 +50,9 @@ const ProjectDetails = () => {
     return <>Loading...</>;
   }
 
+  const handleCreateSprint = (bool) => {
+    setCreatSprint(bool);
+  }
   const handleEditSprintModal = () => {
     setEditSprintModal(!editSprintModal);
   }
@@ -72,7 +75,7 @@ const ProjectDetails = () => {
     setOption(!option);
   };
 
-  const { name, description, status, permission, projectNumber } = projectData;
+  const { name, status, permission, projectNumber } = projectData;
 
   return (
     <section className="p-details">
@@ -193,11 +196,11 @@ const ProjectDetails = () => {
         </div>
       </div>
       <div className="p-details__dashboard">
-        {hasSprint && <div className="p-details__half--top">
-          <DashboardTop description={description} />
+        {createSprint && <div className="p-details__half--top">
+          <DashboardTop />
         </div>}
         <div className="p-details__half--bottom">
-          <DashboardBottom />
+          <DashboardBottom handleCreateSprint={ handleCreateSprint } />
         </div>
        {editSprintModal && <div className="p-details__modal">
           <EditSprintModal handleEditSprintModal={ handleEditSprintModal } />

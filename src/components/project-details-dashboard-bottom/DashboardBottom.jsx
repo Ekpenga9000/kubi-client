@@ -10,7 +10,7 @@ import AddIssueForm from "../addIssueForm/AddIssueForm";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const DashboardBottom = () => {
+const DashboardBottom = ({ handleCreateSprint }) => {
   const { projectId } = useParams();
   const [issues, setIssues] = useState(null);
   const [addIssue, setAddIssue] = useState(false);
@@ -42,16 +42,26 @@ const DashboardBottom = () => {
     fetchAllIssues();
   }, []);
 
+  const createSprint = () => {
+    handleCreateSprint(true);
+  }
+
   return (
     <section className="dashboard-bottom">
       <div className="dashboard-bottom__container">
         <div className="dashboard-bottom__left">
-          <div className="dashboard-bottom__title-div">
-            <h3 className="dashboard-bottom__title">
-              <LiaCubesSolid />
-              Backlogs
-            </h3>
-            <button className="dashboard-bottom__btn--create"><LuCalendarPlus /> Create Sprint</button>
+          <div className="dashboard-bottom__title-container">
+            <div className="dashboard-bottom__title-div">
+              <h3 className="dashboard-bottom__title">
+                <LiaCubesSolid />
+                Backlogs
+              </h3>
+              <p className="dashboard-bottom__issues-count">{issueLength} issues</p>
+            </div>
+            <div className="dashboard-bottom__title-div">
+            <p className="dashboard-bottom__estimate">Estimate 0</p>
+            <button className="dashboard-bottom__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>
+            </div>
           </div>
           <div className="dashboard-bottom__issues">
             {issueLength === 0 && (

@@ -12,12 +12,24 @@
   &__left {
     width: 100%;
   }
-  &__title-div{
+  &__title-container{
     padding: 0.2rem 0.5rem;
     margin-bottom: 0.7rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  &__title-div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  &__issues-count{
+    font-family: "LouisGeorgeCafe", sans-serif;
+    color: $bg-gray-1;
+  }
+  &__estimate{
+    font-family: "LouisGeorgeCafe", sans-serif;
   }
   &__title {
     font-family: "LouisGeorgeCafe", sans-serif;

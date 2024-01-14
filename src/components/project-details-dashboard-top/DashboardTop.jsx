@@ -22,9 +22,14 @@ const DashboardTop = () => {
           <p className="dashboard-top__issues-title">0 issues</p>
         </div>
         <div className="dashboard-top__title-div">
-          <button className="dashboard-top__btn--start">
+          {hasIssues && <button className="dashboard-top__btn--start">
             <IoIosPlay /> Start sprint
-          </button>
+          </button> }
+          
+          {!hasIssues && <button className="dashboard-top__btn--disabled">
+            <IoIosPlay /> Start sprint
+          </button>}        
+
           <button className="dashboard-top__btn--options">
             <SlOptions />
           </button>

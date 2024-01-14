@@ -1,94 +1,60 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./DashboardTop.scss";
+import { SlOptions } from "react-icons/sl";
+import { IoIosPlay } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
 import { MdOutlineCancel } from "react-icons/md";
 import { FiSave } from "react-icons/fi";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { CiViewBoard } from "react-icons/ci";
+import IssueList from "../issue-list/IssueList";
+import plan from "../../assets/images/plan.png";
 
+const DashboardTop = () => {
+  const [hasIssues, setHasIssues] = useState(false);
 
-
-
-
-const DashboardTop = ({ description }) => {
-    const [isClicked, setClicked] = useState(false);
-    const [descValue, setDescValue] = useState(description);
-    const [formDescValue, setFormDescValue] = useState(description);
-    const [hasSprint, setHasSprint] = useState(false);
-
-    const handleClick = () => {
-        setClicked(!isClicked);
-    }
-
-    const handleDescChange = e => {
-        setFormDescValue(e.target.value.trim());
-    }
-
-    const handleFormCancel = e => {
-        e.preventDefault();
-        const str = descValue;
-        setFormDescValue(str);
-        setClicked(!isClicked);
-    }
-
-    const handleSave = () => {
-        const newWord = formDescValue;
-        setDescValue(newWord);
-        setClicked(false);
-    }
-    return (
-        <div className="dashboard-top">
-            <div className="dashboard-top__sprint">
-                <div className="dashboard-top__sprint--active">
-                    <Link className="dashboard-top__btn--link"><CiViewBoard /> View All Sprints</Link>
-                    <button className="dashboard-top__btn--start"> <FaRegCirclePlay /> Start Sprint
-                    </button>
-                </div>
-                { hasSprint &&<> <div className="dashboard-top__issue-div">
-                    <ul className="dashboard-top__issue-header">
-                        <li className="dashboard-top__title">Issue number</li>
-                        <li className="dashboard-top__title">Type</li>
-                        <li className="dashboard-top__title">Title</li>
-                        <li className="dashboard-top__title">Story</li>
-                        <li className="dashboard-top__title">Creator</li>
-                        <li className="dashboard-top__title">Assignee</li>
-                        <li className="dashboard-top__title">Action</li>
-                    </ul>
-                </div>
-                <div className="dashboard-top__issue-div--bottom">
-                    <ul className="dashboard-top__issue-header">
-                        <li className="dashboard-top__item">Issue number</li>
-                        <li className="dashboard-top__item">Story</li>
-                        <li className="dashboard-top__item">Title</li>
-                        <li className="dashboard-top__item">8</li>
-                        <li className="dashboard-top__item">Leslie Addamms</li>
-                        <li className="dashboard-top__item">Israel Dalemwa</li>
-                        <li className="dashboard-top__item">Action</li>
-                    </ul>
-                </div> </>}
-            </div>
-            {/* <div className="dashboard-top__desc">
-                <div className="dashboard-top__edit-div">
-                    <h3 className="dashboard-top__title">Description</h3>
-                    {!isClicked && <FiEdit className="dashboard-top__edit" onClick={handleClick} />}
-                    {isClicked && <MdOutlineCancel className="dashboard-top__cancel" onClick={handleClick} />}
-                </div>
-                <div className="dashboard-top__text-div">
-                    {!isClicked && <p className="dashboard-top__text">
-                        {descValue}
-                    </p>}
-                    {isClicked && <form className="dashboard-top__form">
-                        <textarea name="description" value={formDescValue} onChange={handleDescChange} className="dashboard-top__text-area"></textarea>
-                        <div className="dashboard-top__btn-div">
-                            <button onClick={handleFormCancel} className="dashboard-top__btn--cancel"><MdOutlineCancel />Cancel</button>
-                            <button onClick={handleSave} className="dashboard-top__btn--save"><FiSave />Save</button>
-                        </div>
-                    </form>}
-                </div>
-            </div> */}
+  return (
+    <sector className="dashboard-top">
+      <div className="dashboard-top__title-container">
+        <div className="dashboard-top__title-div">
+          <h4 className="dashboard-top__sprint-title">SP Sprint 1</h4>
+          <p className="dashboard-top__issues-title">0 issues</p>
         </div>
-    )
-}
+        <div className="dashboard-top__title-div">
+          <button className="dashboard-top__btn--start">
+            <IoIosPlay /> Start sprint
+          </button>
+          <button className="dashboard-top__btn--options">
+            <SlOptions />
+          </button>
+        </div>
+      </div>
+      <div className="dashboard-top__issues-div">
+        {hasIssues && <IssueList />}
+        {!hasIssues && (
+          <div className="dashboard-top__no-issues-container">
+            <div className="dashboard-top__no-issues">
+              <div className="dashboard-top__img-div">
+                <img src={plan} alt="Man and woman planning a project in front of a planning board." className="dashboard-top__img" />
+              </div>
+              <div className="dashboard-top__msg">
+                <h5>Planning your sprint</h5>
+                <p className="dashboard-top__p">
+                  Agree as a team on what to work needs to be completed and
+                  assign these issue to the sprint.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+          </div>
+          <div className="dashboard-top__estimate-div">
+            <h4 className="dashboard-top__estimate">Estimate</h4>
+            <span>0</span>  
+          </div>
+    </sector>
+  );
+};
 
-export default DashboardTop; 
+export default DashboardTop;

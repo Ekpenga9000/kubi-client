@@ -23,8 +23,8 @@ const ProjectDetails = () => {
   const [slideIn, setSlideIn] = useState(false);
   const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
-  const [hasSprint, setHasSprint] = useState(false);
-  const [editSprintModal, setEditSprintModal] = useState(true); 
+  const [hasSprint, setHasSprint] = useState(true);
+  const [editSprintModal, setEditSprintModal] = useState(false); 
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
@@ -193,10 +193,10 @@ const ProjectDetails = () => {
         </div>
       </div>
       <div className="p-details__dashboard">
-        {hasSprint && <div className="p-details__half">
+        {hasSprint && <div className="p-details__half--top">
           <DashboardTop description={description} />
         </div>}
-        <div className="p-details__half">
+        <div className="p-details__half--bottom">
           <DashboardBottom />
         </div>
        {editSprintModal && <div className="p-details__modal">

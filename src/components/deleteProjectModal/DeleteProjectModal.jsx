@@ -13,8 +13,7 @@ function DeleteProjectModal({ selectedProject, deactivateDeleteModal, handleDele
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       gsap.from(theModal.current, {
-        scaleX: 0,
-        scaleY: 0,
+        scale: 0,
         duration: 0.4,
         opacity: 0,
         ease: "power1.in",

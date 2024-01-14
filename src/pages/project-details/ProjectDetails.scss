@@ -133,6 +133,24 @@
             }
         }
     }
+    &__issues-type{
+        font-family: "CaviarDreams", sans-serif;
+        margin-bottom: -1.5rem;
+    }
+    &__dashboard{
+        position: relative;
+    }
+    &__modal{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-block-end:15%;
+        background-color: rgba($color: $bg-gray-3, $alpha: 0.5);
+    }
 }
 
 @keyframes slideIn {

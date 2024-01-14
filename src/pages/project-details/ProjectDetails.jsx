@@ -15,6 +15,7 @@ import DashboardTop from "../../components/project-details-dashboard-top/Dashboa
 import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
 import { useEffect, useState } from "react";
 import ProjectSlideBar from "../../components/slidebar/ProjectSlideBar";
+import EditSprintModal from "../../components/editSprintModal/EditSprintModal";
 
 const ProjectDetails = () => {
   const [projectData, setProjectData] = useState(null);
@@ -23,6 +24,7 @@ const ProjectDetails = () => {
   const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
   const [hasSprint, setHasSprint] = useState(false);
+  const [editSprintModal, setEditSprintModal] = useState(true); 
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
@@ -46,6 +48,10 @@ const ProjectDetails = () => {
 
   if (!projectData) {
     return <>Loading...</>;
+  }
+
+  const handleEditSprintModal = () => {
+    setEditSprintModal(!editSprintModal);
   }
 
   const handleMouseOver = () => {
@@ -165,9 +171,9 @@ const ProjectDetails = () => {
             </li>
           </ul>
 
-          <h3 className="p-details__name">Legend</h3>
+          <h3 className="p-details__issues-type">Issue Types</h3>
 
-          <ul className="p-details__menu">
+          <ul className="p-details__issues-menu">
             <li className="p-details__item"><div className="issue__span--epic">
                 <FaBolt />
               </div>Epic</li>
@@ -193,6 +199,9 @@ const ProjectDetails = () => {
         <div className="p-details__half">
           <DashboardBottom />
         </div>
+       {editSprintModal && <div className="p-details__modal">
+          <EditSprintModal handleEditSprintModal={ handleEditSprintModal } />
+        </div> }
       </div>
     </section>
   );

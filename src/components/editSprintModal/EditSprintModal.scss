@@ -1,0 +1,68 @@
+@use "../../style/partials/mixins" as *; 
+@use "../../style/partials/variables" as *; 
+@use "../../style/partials/typography" as *; 
+
+.edit-sprint{
+    background-color: #fff;
+    border: 0.0625rem solid $bg-gray-3;
+    padding: 1rem;
+    &__header{
+        font-family: "CaviarDreams", sans-serif;
+        margin-bottom: 1rem;
+    }
+    &__div{
+        margin-bottom: 1rem;
+    }
+    &__label{
+        display: block;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    &__input{
+        padding: 0.3rem;
+        width: 15rem;
+        border: 0.0625rem solid $bg-gray-2;
+        border-radius: 0.1875rem;
+        background-color: $bg-gray-3;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        cursor: pointer;
+        &:focus{
+            border: 0.0625rem solid transparent;
+            outline: 0.0625rem solid $text-secondary;
+            background-color: #fff;
+        }
+    }
+    &__textarea{
+        max-width: 25rem;
+        min-width: 25rem;
+        min-height: 8rem;
+        max-height: 15rem;
+        border: 0.0625rem solid $bg-gray-2;
+        padding:0.3rem;
+        border-radius: 0.1875rem;
+        background-color: $bg-gray-3;
+        font-family: "LouisGeorgeCafe", sans-serif;
+        &:focus{
+            border: 0.0625rem solid transparent;
+            outline: 0.0625rem solid $text-secondary;
+            background-color: #fff;
+        }
+    }
+    &__btn-div{
+        margin-top: 1.5rem;
+        gap: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+    &__btn{
+        &--cancel{
+            @include modal-btn($text-danger, #fff, 0.0625rem solid $text-danger);
+        }
+        &--update{
+            @include modal-btn($text-primary, $bg-gray-3, 0.0625rem solid $text-primary);
+        }
+    }
+}

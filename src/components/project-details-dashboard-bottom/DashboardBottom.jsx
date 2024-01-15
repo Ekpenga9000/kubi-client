@@ -42,7 +42,7 @@ const DashboardBottom = ({ handleCreateSprint }) => {
     fetchAllIssues();
   }, []);
 
-  const createSprint = () => {
+  const createSprint = async() => {
     handleCreateSprint(true);
   }
 

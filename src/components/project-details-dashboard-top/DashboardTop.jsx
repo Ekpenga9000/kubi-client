@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./DashboardTop.scss";
 import { SlOptions } from "react-icons/sl";
@@ -8,20 +8,46 @@ import { MdOutlineCancel } from "react-icons/md";
 import { FiSave } from "react-icons/fi";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { CiViewBoard } from "react-icons/ci";
+import { IoCloseOutline } from "react-icons/io5";
 import IssueList from "../issue-list/IssueList";
 import plan from "../../assets/images/plan.png";
+import gsap from "gsap";
 
-const DashboardTop = () => {
-  const [hasIssues, setHasIssues] = useState(false);
+const DashboardTop = ({handleEditSprintModal}) => {
+    const [hasIssues, setHasIssues] = useState(false);
+    const [isOption, setIsOption] = useState(false);
+    const option = useRef(); 
+    const comp = useRef(); 
+
+    useLayoutEffect(() => {
+        let ctx = gsap.context(() => { 
+            gsap.from(option.current, {
+                duration: 0.4, 
+                scale: 0, 
+                opacity: 0, 
+                ease:"power1.in"
+            })
+        }, comp); 
+        return () => ctx.revert(); 
+    }, [])
+
+    const toggleOptions = () => {
+        setIsOption(!isOption);
+    }
+
+    const editSprint = () => {
+        handleEditSprintModal();
+        toggleOptions();
+    }
 
   return (
-    <sector className="dashboard-top">
+    <section className="dashboard-top">
       <div className="dashboard-top__title-container">
         <div className="dashboard-top__title-div">
           <h4 className="dashboard-top__sprint-title">SP Sprint 1</h4>
           <p className="dashboard-top__issues-title">0 issues</p>
         </div>
-        <div className="dashboard-top__title-div">
+        <div className="dashboard-top__title-div--bottom" ref={comp}>
           {hasIssues && <button className="dashboard-top__btn--start">
             <IoIosPlay /> Start sprint
           </button> }
@@ -30,9 +56,14 @@ const DashboardTop = () => {
             <IoIosPlay /> Start sprint
           </button>}        
 
-          <button className="dashboard-top__btn--options">
-            <SlOptions />
-          </button>
+          <button className="dashboard-top__btn--options" onClick={toggleOptions}>
+            {isOption ? <IoCloseOutline /> : <SlOptions />}
+                  </button>
+                 
+                  {isOption && <ul className="dashboard-top__options-menu" ref={option}>
+                      <li className="dashboard-top__options-item" onClick={editSprint}>Edit sprint</li>
+                      <li className="dashboard-top__options-item">Delete sprint</li>
+                  </ul>}
         </div>
       </div>
       <div className="dashboard-top__issues-div">
@@ -58,7 +89,7 @@ const DashboardTop = () => {
             <h4 className="dashboard-top__estimate">Estimate</h4>
             <span>0</span>  
           </div>
-    </sector>
+    </section>
   );
 };
 

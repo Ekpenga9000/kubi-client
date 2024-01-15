@@ -197,7 +197,7 @@ const ProjectDetails = () => {
       </div>
       <div className="p-details__dashboard">
         {createSprint && <div className="p-details__half--top">
-          <DashboardTop />
+          <DashboardTop handleEditSprintModal={ handleEditSprintModal } />
         </div>}
         <div className="p-details__half--bottom">
           <DashboardBottom handleCreateSprint={ handleCreateSprint } />

@@ -9,12 +9,14 @@ import IssueList from "../issue-list/IssueList";
 import AddIssueForm from "../addIssueForm/AddIssueForm";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import NoIssue from "../noIssue/NoIssue";
 
 const DashboardBottom = ({ handleCreateSprint }) => {
   const { projectId } = useParams();
   const [issues, setIssues] = useState(null);
   const [addIssue, setAddIssue] = useState(false);
   const [issueLength, setIssueLength] = useState(0);
+  const [activateCreateBtn, setActivateCreateBtn] = useState(false); 
 
   const url = import.meta.env.VITE_SERVER_URL;
   const token = sessionStorage.getItem("token");
@@ -26,7 +28,7 @@ const DashboardBottom = ({ handleCreateSprint }) => {
     try {
       const { data } = await axios.get(`${url}/issues/${projectId}`, {
         headers: {
-          Authorization: `Bear ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -42,8 +44,20 @@ const DashboardBottom = ({ handleCreateSprint }) => {
     fetchAllIssues();
   }, []);
 
-  const createSprint = async() => {
-    handleCreateSprint(true);
+  const createSprint = async () => {
+    try {
+      const { data } = await axios.post(`${url}/sprint/${projectId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      
+      console.log("The sprint", data);
+      handleCreateSprint(true);
+      setActivateCreateBtn(true); 
+    } catch (err) {
+      console.log(err); 
+    }
   }
 
   return (
@@ -56,20 +70,18 @@ const DashboardBottom = ({ handleCreateSprint }) => {
                 <LiaCubesSolid />
                 Backlogs
               </h3>
-              <p className="dashboard-bottom__issues-count">{issueLength} issues</p>
+              <p className="dashboard-bottom__issues-count">{issueLength} {issueLength === 1 ? "issue" : "issues"}</p>
             </div>
             <div className="dashboard-bottom__title-div">
             <p className="dashboard-bottom__estimate">Estimate 0</p>
-            <button className="dashboard-bottom__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>
+              {(issueLength > 0 && !activateCreateBtn)&& <button className="dashboard-bottom__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>}
+              {(issueLength === 0 || activateCreateBtn) && <button className="dashboard-bottom__btn--disabled"><LuCalendarPlus /> Create Sprint</button>}
             </div>
           </div>
           <div className="dashboard-bottom__issues">
             {issueLength === 0 && (
               <div className="dashboard-bottom__empty">
-                <h4>You have no issues created for this project</h4>
-                <h3>
-                  <BiTaskX />
-                </h3>
+                <NoIssue/>
               </div>
             )}
             {issueLength > 0 && (

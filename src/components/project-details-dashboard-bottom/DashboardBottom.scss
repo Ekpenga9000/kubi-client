@@ -56,6 +56,11 @@
       font-family: "LouisGeorgeCafe", sans-serif;
       margin-left: 1rem;
     }
+    &--disabled{
+      @include modal-btn($bg-gray-1, $bg-gray-3, none);
+      margin-left: 1rem;
+      cursor: not-allowed;
+    }
   }
   &__empty {
     font-family: "LouisGeorgeCafe", sans-serif;

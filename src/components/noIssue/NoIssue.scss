@@ -1,0 +1,28 @@
+@use "../../style/partials/mixins" as *; 
+@use "../../style/partials/typography" as *; 
+@use "../../style/partials/variables" as *; 
+
+.noissue{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__img-div{
+        height: 7rem;
+        width: 10rem;
+    }
+    &__img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    &__header{
+        margin-bottom: 1rem;
+    }
+    &__msg{
+        font-size: 0.8rem;
+        margin-left: 0.7rem;
+        color: $bg-gray-1;
+        margin-block: 0.2rem;
+    }
+}

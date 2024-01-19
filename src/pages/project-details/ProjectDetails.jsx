@@ -23,8 +23,8 @@ const ProjectDetails = () => {
   const [slideIn, setSlideIn] = useState(false);
   const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
-  const [createSprint, setCreatSprint] = useState(false);
   const [editSprintModal, setEditSprintModal] = useState(false); 
+  const [sprintName, setSprintName] = useState(null);
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
@@ -50,8 +50,17 @@ const ProjectDetails = () => {
     return <>Loading...</>;
   }
 
-  const handleCreateSprint = (bool) => {
-    setCreatSprint(bool);
+  const handleCreateSprint = async (id) => {
+    try {
+      const { data } = await axios.get(`${url}/sprints/${projectId}/sprint/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setSprintName(data.name);
+    } catch (err) {
+      console.log(err);
+    }
   }
   const handleEditSprintModal = () => {
     setEditSprintModal(!editSprintModal);
@@ -196,9 +205,9 @@ const ProjectDetails = () => {
         </div>
       </div>
       <div className="p-details__dashboard">
-        {createSprint && <div className="p-details__half--top">
-          <DashboardTop handleEditSprintModal={ handleEditSprintModal } />
-        </div>}
+        <div className="p-details__half--top">
+          <DashboardTop handleEditSprintModal={handleEditSprintModal}/>
+        </div>
         <div className="p-details__half--bottom">
           <DashboardBottom handleCreateSprint={ handleCreateSprint } />
         </div>

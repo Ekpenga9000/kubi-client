@@ -2,8 +2,6 @@ import "./DashboardBottom.scss";
 import { IoAdd } from "react-icons/io5";
 import { LiaCubesSolid } from "react-icons/lia";
 import { LuCalendarPlus } from "react-icons/lu";
-import { MdOutlineNotes, MdOutlinePlaylistAdd } from "react-icons/md";
-import { BiTaskX } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import IssueList from "../issue-list/IssueList";
 import AddIssueForm from "../addIssueForm/AddIssueForm";
@@ -46,14 +44,13 @@ const DashboardBottom = ({ handleCreateSprint }) => {
 
   const createSprint = async () => {
     try {
-      const { data } = await axios.post(`${url}/sprint/${projectId}`, {}, {
+        await axios.post(`${url}/sprints/${projectId}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
       
-      console.log("The sprint", data);
-      handleCreateSprint(true);
+      // handleCreateSprint(data.sprintId);
       setActivateCreateBtn(true); 
     } catch (err) {
       console.log(err); 

@@ -9,7 +9,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import NoIssue from "../noIssue/NoIssue";
 
-const DashboardBottom = ({ handleCreateSprint }) => {
+const DashboardBottom = () => {
   const { projectId } = useParams();
   const [issues, setIssues] = useState(null);
   const [addIssue, setAddIssue] = useState(false);
@@ -38,25 +38,12 @@ const DashboardBottom = ({ handleCreateSprint }) => {
     }
   };
 
+
   useEffect(() => {
     fetchAllIssues();
   }, []);
 
-  const createSprint = async () => {
-    try {
-        await axios.post(`${url}/sprints/${projectId}`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      
-      // handleCreateSprint(data.sprintId);
-      setActivateCreateBtn(true); 
-    } catch (err) {
-      console.log(err); 
-    }
-  }
-
+  
   return (
     <section className="dashboard-bottom">
       <div className="dashboard-bottom__container">
@@ -71,8 +58,8 @@ const DashboardBottom = ({ handleCreateSprint }) => {
             </div>
             <div className="dashboard-bottom__title-div">
             <p className="dashboard-bottom__estimate">Estimate 0</p>
-              {(issueLength > 0 && !activateCreateBtn)&& <button className="dashboard-bottom__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>}
-              {(issueLength === 0 || activateCreateBtn) && <button className="dashboard-bottom__btn--disabled"><LuCalendarPlus /> Create Sprint</button>}
+              {/* {(issueLength > 0 && !activateCreateBtn)&& <button className="dashboard-bottom__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>}
+              {(issueLength === 0 || activateCreateBtn) && <button className="dashboard-bottom__btn--disabled"><LuCalendarPlus /> Create Sprint</button>} */}
             </div>
           </div>
           <div className="dashboard-bottom__issues">

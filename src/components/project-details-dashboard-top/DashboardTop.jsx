@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { LuCalendarPlus } from "react-icons/lu";
 import "./DashboardTop.scss";
 import { SlOptions } from "react-icons/sl";
 import { IoIosPlay } from "react-icons/io";
@@ -21,27 +21,41 @@ const DashboardTop = ({ handleEditSprintModal }) => {
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
 
-  useEffect(() => {
-    const fetchLastestSprint = async () => {
-      try {
-        const { data: sprint } = await axios.get(`${url}/sprints/${projectId}/latest`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-
-        if (!sprint.name) {
-          setNoSprint(true); 
-          setIsLoading(false);
-        } else {
-          setName(sprint.name);
-          setIsLoading(false); 
+  const fetchLastestSprint = async () => {
+    try {
+      const { data: sprint } = await axios.get(`${url}/sprints/${projectId}/latest`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      } catch (err) {
-        console.log(err);
-      }
-    }
+      });
 
+      if (!sprint.name) {
+        setNoSprint(true); 
+        setIsLoading(false);
+      } else {
+        setName(sprint.name);
+        setIsLoading(false); 
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const createSprint = async () => {
+    try {
+        await axios.post(`${url}/sprints/${projectId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+        })
+      setNoSprint(false);
+      fetchLastestSprint(); 
+    } catch (err) {
+      console.log(err); 
+    }
+  }
+
+  useEffect(() => {
     fetchLastestSprint();
   }, [projectId, url, token]);
   
@@ -61,7 +75,10 @@ const DashboardTop = ({ handleEditSprintModal }) => {
   return (
   <>
       {isLoading && <section>Loading...</section>}
-      {noSprint && <section>No Sprints for this project</section>}
+      {noSprint && <section className="dashboard-top__no-sprint">
+        <h5 className="dashboard-top__sprint-title--muted">No sprints to display for this project</h5>
+        <button className="dashboard-top__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>
+      </section>}
       {name && <section className="dashboard-top">
         <div className="dashboard-top__title-container">
           <div className="dashboard-top__title-div">
@@ -76,6 +93,7 @@ const DashboardTop = ({ handleEditSprintModal }) => {
             {!hasIssues && <button className="dashboard-top__btn--disabled">
               <IoIosPlay /> Start sprint
             </button>}
+
 
             <button className="dashboard-top__btn--options" onClick={toggleOptions}>
               {isOption ? <IoCloseOutline /> : <SlOptions />}

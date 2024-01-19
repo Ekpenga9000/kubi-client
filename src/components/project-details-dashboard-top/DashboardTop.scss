@@ -3,6 +3,7 @@
 @use "../../style/partials/variables" as *;
 
 .dashboard-top{
+    height: 40vh;
     &__title-container{
     margin-top: 1rem;
     padding-inline: 0.5rem;
@@ -36,10 +37,21 @@
         background-color: $bg-gray-2;
      }
    }
-   &__sprint-title{
-    font-family: "LouisGeorgeCafe", sans-serif;
-    font-size: 0.9rem;
+   &__no-sprint{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
    }
+   &__sprint-title{
+       font-family: "LouisGeorgeCafe", sans-serif;
+       font-size: 0.9rem;
+       &--muted{
+           @extend .dashboard-top__sprint-title; 
+           color: $bg-gray-1;    
+       }
+    }
+    
    &__issues-title{
     font-family: "LouisGeorgeCafe", sans-serif;
     color: $bg-gray-1;
@@ -54,6 +66,9 @@
     &--disabled{
         @include modal-btn($bg-gray-2, $bg-gray-3, none); 
         cursor: not-allowed;
+    }
+    &--create{
+        @include modal-btn(#fff, $bg-color-1, 1px solid $bg-color-1);
     }
    }
    &__issues-div{

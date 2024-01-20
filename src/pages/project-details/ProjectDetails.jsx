@@ -16,6 +16,7 @@ import DashboardBottom from "../../components/project-details-dashboard-bottom/D
 import { useEffect, useState } from "react";
 import ProjectSlideBar from "../../components/slidebar/ProjectSlideBar";
 import EditSprintModal from "../../components/editSprintModal/EditSprintModal";
+import DeleteSprintModal from "../../components/deleteSprintModal/DeleteSprintModal";
 
 const ProjectDetails = () => {
   const [projectData, setProjectData] = useState(null);
@@ -23,8 +24,6 @@ const ProjectDetails = () => {
   const [slideIn, setSlideIn] = useState(false);
   const [activateSlide, setActivateSlide] = useState(false);
   const [option, setOption] = useState(false);
-  const [editSprintModal, setEditSprintModal] = useState(false); 
-  const [sprintName, setSprintName] = useState(null);
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
@@ -62,10 +61,7 @@ const ProjectDetails = () => {
       console.log(err);
     }
   }
-  const handleEditSprintModal = () => {
-    setEditSprintModal(!editSprintModal);
-  }
-
+ 
   const handleMouseOver = () => {
     setMoreInfo(true);
   };
@@ -206,14 +202,11 @@ const ProjectDetails = () => {
       </div>
       <div className="p-details__dashboard">
         <div className="p-details__half--top">
-          <DashboardTop handleEditSprintModal={handleEditSprintModal}/>
+          <DashboardTop/>
         </div>
         <div className="p-details__half--bottom">
           <DashboardBottom handleCreateSprint={ handleCreateSprint } />
         </div>
-       {editSprintModal && <div className="p-details__modal">
-          <EditSprintModal handleEditSprintModal={ handleEditSprintModal } />
-        </div> }
       </div>
     </section>
   );

@@ -30,7 +30,12 @@
    }
    &__options-item{
      list-style-type: none;
-     padding: 0.5rem;
+     display:flex;
+     align-items: center;
+     gap: 0.3rem;
+     font-size: 0.85rem;
+     font-weight: 600;
+     padding: 0.5rem 0.7rem;
      cursor: pointer;
      font-family: "LouisGeorgeCafe", sans-serif;
      &:hover{

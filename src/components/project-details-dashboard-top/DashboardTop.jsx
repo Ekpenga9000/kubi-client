@@ -1,26 +1,40 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { LuCalendarPlus } from "react-icons/lu";
 import "./DashboardTop.scss";
 import { SlOptions } from "react-icons/sl";
 import { IoIosPlay } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
+import { FiEdit3 } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
 import IssueList from "../issue-list/IssueList";
 import plan from "../../assets/images/plan.png";
+import gsap from "gsap";
+import DeleteSprintModal from "../deleteSprintModal/DeleteSprintModal";
+import EditSprintModal from "../editSprintModal/EditSprintModal";
 
-// this component would be signalled by the other component. 
 
-const DashboardTop = ({ handleEditSprintModal }) => {
+const DashboardTop = () => {
   const [hasIssues, setHasIssues] = useState(false);
   const [isOption, setIsOption] = useState(false);
   const [isLoading, setIsLoading] = useState(true); 
   const [noSprint, setNoSprint] = useState(false);
+  const [noSprintMsg, setNoSprintMsg] = useState("No sprints to display for this project")
   const [name, setName] = useState("");
+  const [sprintNumber, setSprintNumber] = useState(null); 
+  const [editSprintModal, setEditSprintModal] = useState(false); 
+  const [deleteSprintModal, setDeleteSprintModal] = useState(false);
+  const navigate = useNavigate();
+  const option = useRef();
+  const comp = useRef();  
   const { projectId } = useParams();
   const token = sessionStorage.getItem("token");
   const url = import.meta.env.VITE_SERVER_URL;
 
+  if (!token) {
+    return navigate("/login");
+  }
   const fetchLastestSprint = async () => {
     try {
       const { data: sprint } = await axios.get(`${url}/sprints/${projectId}/latest`, {
@@ -33,6 +47,7 @@ const DashboardTop = ({ handleEditSprintModal }) => {
         setNoSprint(true); 
         setIsLoading(false);
       } else {
+        setSprintNumber(sprint.id);
         setName(sprint.name);
         setIsLoading(false); 
       }
@@ -55,15 +70,33 @@ const DashboardTop = ({ handleEditSprintModal }) => {
     }
   }
 
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => { 
+      gsap.from(option.current, {
+        duration: 0.4, 
+        opacity: 0,
+        ease:"power1.in"
+      })
+    }, comp);
+    return ctx.revert();
+  },[])
+
   useEffect(() => {
     fetchLastestSprint();
   }, [projectId, url, token]);
   
-  console.log("Firing!!!");
-  
 
   const toggleOptions = () => {
     setIsOption(!isOption);
+  }
+
+  const toggleDeleteSprintModal = () => {
+    setDeleteSprintModal(!deleteSprintModal);
+    setIsOption(false);
+  }
+
+  const handleEditSprintModal = () => {
+    setEditSprintModal(!editSprintModal);
   }
 
   const editSprint = () => {
@@ -76,11 +109,11 @@ const DashboardTop = ({ handleEditSprintModal }) => {
   <>
       {isLoading && <section>Loading...</section>}
       {noSprint && <section className="dashboard-top__no-sprint">
-        <h5 className="dashboard-top__sprint-title--muted">No sprints to display for this project</h5>
+        <h5 className="dashboard-top__sprint-title--muted">{ noSprintMsg }</h5>
         <button className="dashboard-top__btn--create" onClick={createSprint}><LuCalendarPlus /> Create Sprint</button>
       </section>}
       {name && <section className="dashboard-top">
-        <div className="dashboard-top__title-container">
+        <div className="dashboard-top__title-container" ref={comp}>
           <div className="dashboard-top__title-div">
             <h4 className="dashboard-top__sprint-title">{name}</h4>
             <p className="dashboard-top__issues-title">0 issues</p>
@@ -100,8 +133,8 @@ const DashboardTop = ({ handleEditSprintModal }) => {
             </button>
                  
             {isOption && <ul className="dashboard-top__options-menu" ref={option}>
-              <li className="dashboard-top__options-item" onClick={editSprint}>Edit sprint</li>
-              <li className="dashboard-top__options-item">Delete sprint</li>
+              <li className="dashboard-top__options-item" onClick={editSprint}> <FiEdit3 /> Edit sprint</li>
+              <li className="dashboard-top__options-item" onClick={toggleDeleteSprintModal}><MdDeleteOutline />Delete sprint</li>
             </ul>}
           </div>
         </div>
@@ -129,7 +162,24 @@ const DashboardTop = ({ handleEditSprintModal }) => {
           <span>0</span>
         </div>
       </section>}
-  </>
+      {editSprintModal && <div className="p-details__modal">
+        <EditSprintModal
+          handleEditSprintModal={handleEditSprintModal}
+          name={name}
+          sprintNumber={sprintNumber}
+        />
+        </div>}
+      {deleteSprintModal && <div className="p-details__modal">
+        <DeleteSprintModal
+          name={name}
+          sprintNumber={sprintNumber}
+          toggleDeleteSprintModal={toggleDeleteSprintModal}
+          fetchLastestSprint={fetchLastestSprint}
+          setNoSprintMsg={setNoSprintMsg}
+          setName={setName}
+        />
+      </div>}
+  </> 
   );
 };
 

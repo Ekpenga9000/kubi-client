@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./EditSprintModal.scss";
 import { useLayoutEffect, useRef } from "react";
 import { GrUpdate } from "react-icons/gr";
 import { MdOutlineCancel } from "react-icons/md";
 import gsap from "gsap";
 
-function EditSprintModal({ handleEditSprintModal }) {
+function EditSprintModal({ handleEditSprintModal, name, sprintNumber }) {
+  const [sprintTitle, setSprintTitle] = useState(name);
   const modal = useRef();
   const comp = useRef();
   const handleSubmit = (e) => {
@@ -29,7 +30,7 @@ function EditSprintModal({ handleEditSprintModal }) {
     <section ref={comp}>
       <div className="edit-sprint" ref={modal}>
         <form className="edit-sprint__form" onSubmit={handleSubmit}>
-          <h3 className="edit-sprint__header">Edit sprint: CS Sprint 1</h3>
+          <h3 className="edit-sprint__header">Edit sprint: {name}</h3>
           <div className="edit-sprint__div">
             <label htmlFor="sprint_name" className="edit-sprint__label">
               Sprint name:
@@ -38,6 +39,8 @@ function EditSprintModal({ handleEditSprintModal }) {
               type="text"
               id="sprint_name"
               className="edit-sprint__input"
+              value={sprintTitle}
+              onChange={(e) => setSprintTitle(e.target.value)}
             />
           </div>
           <div className="edit-sprint__div">

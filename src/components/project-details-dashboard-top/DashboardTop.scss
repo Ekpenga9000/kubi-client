@@ -1,85 +1,85 @@
 @use "../../style/partials/mixins" as *;
-@use "../../style/partials/typography" as *; 
+@use "../../style/partials/typography" as *;
 @use "../../style/partials/variables" as *;
 
-.dashboard-top{
-    height: 40vh;
-    &__title-container{
+.dashboard-top {
+  height: 40vh;
+  &__title-container {
     margin-top: 1rem;
-    padding-inline: 0.5rem;
+    padding: 0.2rem 1.3rem 0.2rem 0.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-   }
-   &__title-div{
+  }
+  &__title-div {
     display: flex;
-    align-items:center;
+    align-items: center;
     gap: 1rem;
-    &--bottom{
-        @extend .dashboard-top__title-div;
-        position: relative;
+    &--bottom {
+      @extend .dashboard-top__title-div;
+      position: relative;
     }
-   }
-   &__options-menu{
-        position: absolute;
-        border: 0.0625rem solid $bg-gray-1;
-        top: 0;
-        left: 0.5rem;
-        background-color: #fff;
-        border-radius: 0.1875rem;
-   }
-   &__options-item{
-     list-style-type: none;
-     display:flex;
-     align-items: center;
-     gap: 0.3rem;
-     font-size: 0.85rem;
-     font-weight: 600;
-     padding: 0.5rem 0.7rem;
-     cursor: pointer;
-     font-family: "LouisGeorgeCafe", sans-serif;
-     &:hover{
-        background-color: $bg-gray-2;
-     }
-   }
-   &__no-sprint{
+  }
+  &__options-menu {
+    position: absolute;
+    border: 0.0625rem solid $bg-gray-1;
+    top: 0;
+    left: 0.5rem;
+    background-color: #fff;
+    border-radius: 0.1875rem;
+  }
+  &__options-item {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    font-family: "LouisGeorgeCafe", sans-serif;
+    &:hover {
+      background-color: $bg-gray-2;
+    }
+  }
+  &__no-sprint {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
-   }
-   &__sprint-title{
-       font-family: "LouisGeorgeCafe", sans-serif;
-       font-size: 0.9rem;
-       &--muted{
-           @extend .dashboard-top__sprint-title; 
-           color: $bg-gray-1;    
-       }
+    padding: 0.5rem 1.3rem 0.5rem 0.5rem;
+  }
+  &__sprint-title {
+    font-family: "LouisGeorgeCafe", sans-serif;
+    font-size: 0.9rem;
+    &--muted {
+      @extend .dashboard-top__sprint-title;
+      color: $bg-gray-1;
     }
-    
-   &__issues-title{
+  }
+
+  &__issues-title {
     font-family: "LouisGeorgeCafe", sans-serif;
     color: $bg-gray-1;
-   }
-   &__btn{
-    &--start{
-        @include modal-btn($text-success, $bg-success, none); 
+  }
+  &__btn {
+    &--start {
+      @include modal-btn($text-success, $bg-success, none);
     }
-    &--options{
-        @include modal-btn($text-emphasis, $bg-gray-2, none); 
+    &--options {
+      @include modal-btn($text-emphasis, $bg-gray-2, none);
     }
-    &--disabled{
-        @include modal-btn($bg-gray-2, $bg-gray-3, none); 
-        cursor: not-allowed;
+    &--disabled {
+      @include modal-btn($bg-gray-2, $bg-gray-3, none);
+      cursor: not-allowed;
     }
-    &--create{
-        @include modal-btn(#fff, $bg-color-1, 1px solid $bg-color-1);
+    &--create {
+      @include modal-btn(#fff, $bg-color-1, 1px solid $bg-color-1);
     }
-   }
-   &__issues-div{
+  }
+  &__issues-div {
     padding-inline: 0.5rem;
-   }
-   &__no-issues-container{
+  }
+  &__no-issues-container {
     border: 0.0625rem dashed $bg-gray-1;
     border-radius: 0.3125rem;
     margin-top: 2rem;
@@ -87,34 +87,35 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-   }
-   &__no-issues{
+    width: 99%;
+  }
+  &__no-issues {
     display: flex;
     align-items: center;
     gap: 2rem;
-   }
-   &__img-div{
+  }
+  &__img-div {
     height: 7rem;
     width: 10rem;
-   }
-   &__img{
+  }
+  &__img {
     height: 100%;
     width: 100%;
     object-fit: cover;
-   }
-   &__msg{
+  }
+  &__msg {
     font-family: "LouisGeorgeCafe", sans-serif;
-   }
-   &__p{
+  }
+  &__p {
     width: 65%;
-    margin-top: 0.5rem;
-   }
-   &__estimate-div{
-    padding-inline: 0.5rem;
+    margin-block: 0.5rem;
+  }
+  &__estimate-div {
+    padding: 0.2rem 1.3rem 0.2rem 0.5rem;
     margin-top: 1rem;
     display: flex;
     justify-content: end;
     font-family: "LouisGeorgeCafe", sans-serif;
     gap: 0.5rem;
-   }
+  }
 }

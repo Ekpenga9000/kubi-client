@@ -4,6 +4,7 @@
 
 .project{
     width: 100%;
+    touch-action: none;
     &__row{
         padding: 0.2rem 0.5rem;
         font-family: "LouisGeorgeCafe", sans-serif;

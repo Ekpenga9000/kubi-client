@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import NoIssue from "../noIssue/NoIssue";
 import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { draggableGetItemPos } from "../../utils/draggable/Draggable";
 // import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 const DashboardBottom = () => {
@@ -46,7 +47,6 @@ const DashboardBottom = () => {
     fetchAllIssues();
   }, []);
 
-  const getIssuePos = id => issues.findIndex(issue => issue.id === id);
 
   const handleDragEnd = e => {
     const { active, over } = e;
@@ -54,8 +54,8 @@ const DashboardBottom = () => {
     if (active.id === over.id) return;
 
     setIssues(issues => {
-      const originalPos = getIssuePos(active.id);
-      const newPos = getIssuePos(over.id);
+      const originalPos = draggableGetItemPos(active.id, issues);
+      const newPos = draggableGetItemPos(over.id, issues);
 
       return arrayMove(issues, originalPos, newPos);
     })

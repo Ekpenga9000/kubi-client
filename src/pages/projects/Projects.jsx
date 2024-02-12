@@ -9,6 +9,9 @@ import { BsInfoCircle } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 import ProjectList from "../../components/project_list/ProjectList";
 import { useNavigate } from "react-router-dom";
+import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors } from "@dnd-kit/core";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { draggableGetItemPos } from "../../utils/draggable/Draggable";
 
 const Projects = ({ isActive, handleModal }) => {
   const data = [];
@@ -47,6 +50,27 @@ const Projects = ({ isActive, handleModal }) => {
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const handleDragEnd = e => {
+    const { active, over } = e;
+    
+    if (active.id === over.id) return;
+
+    setSortedProjects(sortedprojects => {
+      const originalPos = draggableGetItemPos(active.id, sortedprojects);
+      const newPos = draggableGetItemPos(over.id, sortedprojects);
+
+      return arrayMove(sortedprojects, originalPos, newPos);
+    })
+  };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
 
   const handleSuccess = () => {
     handleModal(false);
@@ -212,6 +236,7 @@ const Projects = ({ isActive, handleModal }) => {
               </div>
             </div>
             <div className="dashboard__projects">
+            <DndContext onDragEnd={handleDragEnd} sensors={sensors} collisionDetection={closestCorners}>
               {sortedprojects.length > 0 ? (
                 <ProjectList
                   projectList={sortedprojects}
@@ -220,7 +245,8 @@ const Projects = ({ isActive, handleModal }) => {
               ) : (
                 <>Project not found</>
               )}
-              {isErr && <p>{errMsg}</p>}
+                {isErr && <p>{errMsg}</p>}
+                </DndContext>
             </div>
           </div>
         </section>

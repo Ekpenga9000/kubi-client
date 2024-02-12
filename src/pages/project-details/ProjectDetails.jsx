@@ -15,8 +15,10 @@ import DashboardTop from "../../components/project-details-dashboard-top/Dashboa
 import DashboardBottom from "../../components/project-details-dashboard-bottom/DashboardBottom";
 import { useEffect, useState } from "react";
 import ProjectSlideBar from "../../components/slidebar/ProjectSlideBar";
+// import { DndContext, closestCorners } from "@dnd-kit/core";
 import EditSprintModal from "../../components/editSprintModal/EditSprintModal";
 import DeleteSprintModal from "../../components/deleteSprintModal/DeleteSprintModal";
+import { SortableContext } from "@dnd-kit/sortable";
 
 const ProjectDetails = () => {
   const [projectData, setProjectData] = useState(null);
@@ -51,17 +53,20 @@ const ProjectDetails = () => {
 
   const handleCreateSprint = async (id) => {
     try {
-      const { data } = await axios.get(`${url}/sprints/${projectId}/sprint/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axios.get(
+        `${url}/sprints/${projectId}/sprint/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setSprintName(data.name);
     } catch (err) {
       console.log(err);
     }
-  }
- 
+  };
+
   const handleMouseOver = () => {
     setMoreInfo(true);
   };
@@ -84,130 +89,162 @@ const ProjectDetails = () => {
 
   return (
     <section className="p-details">
-      {activateSlide && (
-        <div
-          className={`p-details__slidebar${
-            slideIn ? "--slideIn" : "--slideOut"
-          }`}
-        >
-          <ProjectSlideBar toggleSlider={toggleSlider} />
-        </div>
-      )}
-      <div className="p-details__sidebar">
-        <div className="p-details__name-div">
-          <h4 className="p-details__name">
-            <BsInfoCircle
-              className="p-details__icon"
-              onMouseOver={handleMouseOver}
-              onMouseLeave={handleMouseLeave}
-              onClick={toggleSlider}
-            />
-            {name}
-            
-            {!option && <IoIosArrowDown onClick={toggleOption} className="p-details__icon"/> }
-            {option && <IoIosArrowUp onClick={toggleOption} className="p-details__icon"/> }
-            
-          </h4>
-          {option && (
-            <ul className="p-details__update">
-              {!(status === "active") && (
-                <li className="p-details__update-menu">Make project active</li>
+      {/* <DndContext collisionDetection={closestCorners}> */}
+        {activateSlide && (
+          <div
+            className={`p-details__slidebar${
+              slideIn ? "--slideIn" : "--slideOut"
+            }`}
+          >
+            <ProjectSlideBar toggleSlider={toggleSlider} />
+          </div>
+        )}
+        <div className="p-details__sidebar">
+          <div className="p-details__name-div">
+            <h4 className="p-details__name">
+              <BsInfoCircle
+                className="p-details__icon"
+                onMouseOver={handleMouseOver}
+                onMouseLeave={handleMouseLeave}
+                onClick={toggleSlider}
+              />
+              {name}
+
+              {!option && (
+                <IoIosArrowDown
+                  onClick={toggleOption}
+                  className="p-details__icon"
+                />
               )}
-              {!(status === "deferred") && (
-                <li className="p-details__update-menu">Defer project</li>
+              {option && (
+                <IoIosArrowUp
+                  onClick={toggleOption}
+                  className="p-details__icon"
+                />
               )}
-              {!(status === "closed") && (
-                <li className="p-details__update-menu">Close project</li>
+            </h4>
+            {option && (
+              <ul className="p-details__update">
+                {!(status === "active") && (
+                  <li className="p-details__update-menu">
+                    Make project active
+                  </li>
+                )}
+                {!(status === "deferred") && (
+                  <li className="p-details__update-menu">Defer project</li>
+                )}
+                {!(status === "closed") && (
+                  <li className="p-details__update-menu">Close project</li>
+                )}
+              </ul>
+            )}
+            {/* {moreInfo && <p className="p-details__more-info">More info</p>} */}
+            <div className="p-details__key-div">
+              <p className="p-details__number">{projectNumber}</p>
+              {status === "active" && (
+                <div
+                  className="p-details__status--active"
+                  onClick={toggleOption}
+                ></div>
               )}
+              {status === "deferred" && (
+                <div
+                  className="p-details__status--deferred"
+                  onClick={toggleOption}
+                ></div>
+              )}
+              {status === "closed" && (
+                <div
+                  className="p-details__status--closed"
+                  onClick={toggleOption}
+                ></div>
+              )}
+            </div>
+          </div>
+
+          <div className="p-details__cntr">
+            <ul className="p-details__menu">
+              <li className="p-details__item--role">
+                <LuUserCog2 /> Project Role:{" "}
+                {permission === "admin" ? "Admin" : "Member"}
+              </li>
+              <li className="p-details__item--insight">
+                <FaCubes />
+                Backlogs
+              </li>
+              <li className="p-details__item--active">
+                <TbCalendarBolt />
+                Active Sprint
+              </li>
+              <li className="p-details__item">
+                <BiCube />
+                Issues
+              </li>
+              <li className="p-details__item">
+                <GrChatOption />
+                Converstions
+              </li>
             </ul>
-          )}
-          {/* {moreInfo && <p className="p-details__more-info">More info</p>} */}
-          <div className="p-details__key-div">
-            <p className="p-details__number">{ projectNumber }</p>
-            {status === "active" && (
-              <div
-                className="p-details__status--active"
-                onClick={toggleOption}
-              ></div>
-            )}
-            {status === "deferred" && (
-              <div
-                className="p-details__status--deferred"
-                onClick={toggleOption}
-              ></div>
-            )}
-            {status === "closed" && (
-              <div
-                className="p-details__status--closed"
-                onClick={toggleOption}
-              ></div>
-            )}
+
+            <ul className="p-details__menu">
+              <li className="p-details__item">
+                <TbCalendarShare />
+                Sprints
+              </li>
+              <li className="p-details__item">
+                <CgInsights />
+                Insights
+              </li>
+            </ul>
+
+            <h3 className="p-details__issues-type">Issue Types</h3>
+
+            <ul className="p-details__issues-menu">
+              <li className="p-details__item">
+                <div className="issue__span--epic">
+                  <FaBolt />
+                </div>
+                Epic
+              </li>
+              <li className="p-details__item">
+                {" "}
+                <div className="issue__span--story">
+                  <IoIosBookmark />
+                </div>
+                Story
+              </li>
+              <li className="p-details__item">
+                <div className="issue__span--task">
+                  <FaCheck />
+                </div>
+                Task
+              </li>
+              <li className="p-details__item">
+                <div className="issue__span--bug">
+                  <FaBug />
+                </div>{" "}
+                Bug
+              </li>
+              <li className="p-details__item">
+                <div className="issue__span--story">
+                  <TbSubtask />
+                </div>
+                Sub-task
+              </li>
+            </ul>
           </div>
         </div>
-
-        <div className="p-details__cntr">
-          <ul className="p-details__menu">
-          <li className="p-details__item--role">
-              <LuUserCog2 /> Project Role:  { permission === "admin" ? "Admin" : "Member"}
-            </li>
-            <li className="p-details__item--insight">
-              <FaCubes />
-              Backlogs
-            </li>
-            <li className="p-details__item--active">
-              <TbCalendarBolt />
-              Active Sprint
-            </li>
-            <li className="p-details__item">
-              <BiCube />
-              Issues
-            </li>
-            <li className="p-details__item">
-              <GrChatOption />
-              Converstions
-            </li>
-          </ul>
-
-          <ul className="p-details__menu">
-            <li className="p-details__item">
-              <TbCalendarShare />
-              Sprints
-            </li>
-            <li className="p-details__item">
-              <CgInsights />
-              Insights
-            </li>
-          </ul>
-
-          <h3 className="p-details__issues-type">Issue Types</h3>
-
-          <ul className="p-details__issues-menu">
-            <li className="p-details__item"><div className="issue__span--epic">
-                <FaBolt />
-              </div>Epic</li>
-            <li className="p-details__item"> <div className="issue__span--story">
-                <IoIosBookmark />
-              </div>Story</li>
-            <li className="p-details__item"><div className="issue__span--task">
-                <FaCheck />
-              </div>Task</li>
-            <li className="p-details__item"><div className="issue__span--bug">
-                <FaBug />
-              </div> Bug</li>
-            <li className="p-details__item"><div className="issue__span--story">
-            <TbSubtask />
-              </div>Sub-task</li>
-          </ul>
+        <div className="p-details__dashboard">
+          {/* <SortableContext> */}
+            <div className="p-details__half--top">
+              <DashboardTop />
+            </div>
+            <div className="p-details__half--bottom">
+              <DashboardBottom handleCreateSprint={handleCreateSprint} />
+            </div>
+          {/* </SortableContext> */}
         </div>
-      </div>
-      <div className="p-details__dashboard">
-        <div className="p-details__half--top">
-          <DashboardTop/>
-        </div>
-        <div className="p-details__half--bottom">
-          <DashboardBottom handleCreateSprint={ handleCreateSprint } />
-        </div>
-      </div>
+      {/* </DndContext> */}
     </section>
   );
 };

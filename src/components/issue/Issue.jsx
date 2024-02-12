@@ -2,10 +2,18 @@ import "./Issue.scss";
 import { IoIosBookmark } from "react-icons/io";
 import { FaBug, FaCheck, FaBolt } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-function Issue({ ticketNumber, summary, type, priority, assignee }) {
+function Issue({ id, ticketNumber, summary, type, priority, assignee }) {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id }); 
+  
+  const style = {
+    transition, 
+    transform: CSS.Transform.toString(transform),
+  };
   return (
-    <section className="issue" draggable>
+    <section ref={setNodeRef} {...attributes} {...listeners} style={ style } className="issue">
       <div className="issue__menu">
         <div className="issue__div">
           {type === "Story" && (

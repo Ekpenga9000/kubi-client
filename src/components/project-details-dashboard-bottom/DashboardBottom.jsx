@@ -8,6 +8,9 @@ import AddIssueForm from "../addIssueForm/AddIssueForm";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import NoIssue from "../noIssue/NoIssue";
+import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors } from "@dnd-kit/core";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+// import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 const DashboardBottom = () => {
   const { projectId } = useParams();
@@ -43,9 +46,33 @@ const DashboardBottom = () => {
     fetchAllIssues();
   }, []);
 
+  const getIssuePos = id => issues.findIndex(issue => issue.id === id);
+
+  const handleDragEnd = e => {
+    const { active, over } = e;
+    
+    if (active.id === over.id) return;
+
+    setIssues(issues => {
+      const originalPos = getIssuePos(active.id);
+      const newPos = getIssuePos(over.id);
+
+      return arrayMove(issues, originalPos, newPos);
+    })
+  };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
   
   return (
     <section className="dashboard-bottom">
+      <DndContext onDragEnd={handleDragEnd} sensors={sensors} collisionDetection={closestCorners}>
+
       <div className="dashboard-bottom__container">
         <div className="dashboard-bottom__left">
           <div className="dashboard-bottom__title-container">
@@ -76,20 +103,21 @@ const DashboardBottom = () => {
           </div>
           {!addIssue && (
             <button
-              className="dashboard-bottom__btn--create"
-              onClick={handleAddIssue}
+            className="dashboard-bottom__btn--create"
+            onClick={handleAddIssue}
             >
               <IoAdd /> Create Issue
             </button>
           )}
           {addIssue && (
             <AddIssueForm
-              handleAddIssue={handleAddIssue}
-              fetchAllIssues={fetchAllIssues}
+            handleAddIssue={handleAddIssue}
+            fetchAllIssues={fetchAllIssues}
             />
-          )}
+            )}
         </div>
       </div>
+           </DndContext>
     </section>
   );
 };

@@ -3,6 +3,7 @@
 @use "../../style/partials/typography" as *;
 
 .issue {
+  touch-action: none;
   &__topic-div {
     display: flex;
     align-items: center;

@@ -4,8 +4,8 @@ import { AiFillFolderOpen, AiFillFolder } from "react-icons/ai";
 import { LuFolderEdit } from "react-icons/lu";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import { TbTrashOff, TbTrash } from "react-icons/tb";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+// import { useSortable } from "@dnd-kit/sortable";
+// import { CSS } from "@dnd-kit/utilities";
 
 const Project = ({project, activateDeleteModal }) => {
   
@@ -20,14 +20,15 @@ const Project = ({project, activateDeleteModal }) => {
     permission,
   } = project;
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id }); 
+  // const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id }); 
   
-  const style = {
-    transition, 
-    transform: CSS.Transform.toString(transform),
-  };
+  // const style = {
+  //   transition, 
+  //   transform: CSS.Transform.toString(transform),
+  // };
 
   const handleDeleteModal = () => {
+    console.log("I am clicked");
     activateDeleteModal(id, name);
   };
   const capitalize = (str) => {
@@ -35,7 +36,8 @@ const Project = ({project, activateDeleteModal }) => {
   };
 
   return (
-    <div className="project" ref={setNodeRef} {...attributes} {...listeners} style={ style }>
+    // <div className="project" ref={setNodeRef} {...attributes} {...listeners} style={ style }>
+    <div className="project">
       <div className="project__row">
         <div className="project__cell">
           <Link to={`/projects/${id}`} className="project__title">
@@ -63,7 +65,9 @@ const Project = ({project, activateDeleteModal }) => {
             <Link to={`/projects/edit/${id}`} className="project__link">
               <LuFolderEdit />
             </Link>
-            <TbTrash className="project__delete" onClick={handleDeleteModal} />
+            <div onClick={handleDeleteModal} >
+            <TbTrash className="project__delete" />
+            </div>
           </div>
         )}
         {permission !== "admin" && (

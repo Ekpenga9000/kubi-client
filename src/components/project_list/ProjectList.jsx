@@ -5,10 +5,10 @@ import "./ProjectList.scss";
 import deleted from "../../assets/images/deleted.gif";
 import archived from "../../assets/images/archived.gif";
 import SuccessModal from "../successModal/SuccessModal";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+// import {
+//   SortableContext,
+//   verticalListSortingStrategy,
+// } from "@dnd-kit/sortable";
 
 
 function ProjectList({ projectList, fetchProjects }) {
@@ -19,6 +19,7 @@ function ProjectList({ projectList, fetchProjects }) {
   const [gif, setGif] = useState("");
 
   const activateDeleteModal = (id, name) => {
+    console.log("Firing!");
     setIsDeleteModal(true);
     setSelectedProject({ id, name });
   };
@@ -73,7 +74,7 @@ function ProjectList({ projectList, fetchProjects }) {
         </div>
         <h3 className="projectList__title">Actions</h3>
       </div>
-      <SortableContext items={projectList} strategy={verticalListSortingStrategy}>
+      {/* <SortableContext items={projectList} strategy={verticalListSortingStrategy}> */}
       {projectList &&
         projectList.map((project) => {
           return (
@@ -84,7 +85,7 @@ function ProjectList({ projectList, fetchProjects }) {
             />
           );
         })}
-      </SortableContext>
+      {/* </SortableContext> */}
       {isDeleteModal && (
         <div className="projectList__modal">
           <DeleteProjectModal

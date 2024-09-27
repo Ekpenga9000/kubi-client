@@ -89,27 +89,6 @@
     padding: 2rem;
     width: 99%;
   }
-  &__no-issues {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  &__img-div {
-    height: 7rem;
-    width: 10rem;
-  }
-  &__img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-  &__msg {
-    font-family: "LouisGeorgeCafe", sans-serif;
-  }
-  &__p {
-    width: 65%;
-    margin-block: 0.5rem;
-  }
   &__estimate-div {
     padding: 0.2rem 1.3rem 0.2rem 0.5rem;
     margin-top: 1rem;

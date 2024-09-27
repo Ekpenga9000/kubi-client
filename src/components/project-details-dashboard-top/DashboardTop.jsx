@@ -8,12 +8,12 @@ import { IoIosPlay } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
-import { IoAddSharp } from "react-icons/io5";
 import IssueList from "../issue-list/IssueList";
-import plan from "../../assets/images/plan.png";
 import gsap from "gsap";
 import DeleteSprintModal from "../deleteSprintModal/DeleteSprintModal";
 import EditSprintModal from "../editSprintModal/EditSprintModal";
+import NoSprintTask from "../noSprintTask/NoSprintTask";
+import AddSprintIssue from "../addSprintIssue/AddSprintIssue";
 
 const DashboardTop = () => {
   const [hasIssues, setHasIssues] = useState(false);
@@ -27,6 +27,7 @@ const DashboardTop = () => {
   const [sprintNumber, setSprintNumber] = useState(null);
   const [editSprintModal, setEditSprintModal] = useState(false);
   const [deleteSprintModal, setDeleteSprintModal] = useState(false);
+  const [addSprintIssuesModal, setAddSprintIssuesModal] = useState(false); 
   const navigate = useNavigate();
   const option = useRef();
   const comp = useRef();
@@ -107,6 +108,10 @@ const DashboardTop = () => {
     setEditSprintModal(!editSprintModal);
   };
 
+  const toggleAddSprintModal = () => {
+    setAddSprintIssuesModal(!addSprintIssuesModal);
+  }
+
   const editSprint = () => {
     handleEditSprintModal();
     toggleOptions();
@@ -174,23 +179,7 @@ const DashboardTop = () => {
             {hasIssues && <IssueList />}
             {!hasIssues && (
               <div className="dashboard-top__no-issues-container">
-                <div className="dashboard-top__no-issues">
-                  <div className="dashboard-top__img-div">
-                    <img
-                      src={plan}
-                      alt="Man and woman planning a project in front of a planning board."
-                      className="dashboard-top__img"
-                    />
-                  </div>
-                  <div className="dashboard-top__msg">
-                    <h5>Planning your sprint</h5>
-                    <p className="dashboard-top__p">
-                      Agree as a team on what to work needs to be completed and
-                      assign these issue to the sprint.
-                    </p>
-                    <button className="dashboard-top__btn--create"> <IoAddSharp /> Add Issue</button>
-                  </div>
-                </div>
+                <NoSprintTask toggleAddSprintModal={ toggleAddSprintModal } />
               </div>
             )}
           </div>
@@ -220,6 +209,11 @@ const DashboardTop = () => {
             setName={setName}
           />
         </div>
+      )}
+      {addSprintIssuesModal && (
+        <div className="p-details__modal">
+          <AddSprintIssue toggleAddSprintModal={ toggleAddSprintModal } />
+      </div>
       )}
     </>
   );

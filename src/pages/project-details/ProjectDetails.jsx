@@ -16,9 +16,9 @@ import DashboardBottom from "../../components/project-details-dashboard-bottom/D
 import { useEffect, useState } from "react";
 import ProjectSlideBar from "../../components/slidebar/ProjectSlideBar";
 // import { DndContext, closestCorners } from "@dnd-kit/core";
-import EditSprintModal from "../../components/editSprintModal/EditSprintModal";
-import DeleteSprintModal from "../../components/deleteSprintModal/DeleteSprintModal";
-import { SortableContext } from "@dnd-kit/sortable";
+// import EditSprintModal from "../../components/editSprintModal/EditSprintModal";
+// import DeleteSprintModal from "../../components/deleteSprintModal/DeleteSprintModal";
+// import { SortableContext } from "@dnd-kit/sortable";
 
 const ProjectDetails = () => {
   const [projectData, setProjectData] = useState(null);
@@ -89,7 +89,6 @@ const ProjectDetails = () => {
 
   return (
     <section className="p-details">
-      {/* <DndContext collisionDetection={closestCorners}> */}
         {activateSlide && (
           <div
             className={`p-details__slidebar${
@@ -235,16 +234,13 @@ const ProjectDetails = () => {
           </div>
         </div>
         <div className="p-details__dashboard">
-          {/* <SortableContext> */}
             <div className="p-details__half--top">
               <DashboardTop />
             </div>
             <div className="p-details__half--bottom">
               <DashboardBottom handleCreateSprint={handleCreateSprint} />
             </div>
-          {/* </SortableContext> */}
         </div>
-      {/* </DndContext> */}
     </section>
   );
 };

@@ -1,0 +1,28 @@
+@use "../../style/partials/mixins" as *;
+@use "../../style/partials/typography" as *;
+@use "../../style/partials/variables" as *;
+
+.no-sprint-task {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  &__img-div {
+    height: 7rem;
+    width: 10rem;
+  }
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  &__msg {
+    font-family: "LouisGeorgeCafe", sans-serif;
+  }
+  &__p {
+    width: 65%;
+    margin-block: 0.5rem;
+  }
+  &__btn {
+    @include modal-btn(#fff, $bg-color-1, 1px solid $bg-color-1);
+  }
+}
